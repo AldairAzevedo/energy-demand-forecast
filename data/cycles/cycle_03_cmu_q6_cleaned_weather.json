@@ -1,0 +1,45 @@
+{
+  "cycle_id": 3,
+  "title": "Limpeza de Sensores Meteorológicos: Sentinelas e Deduplicação",
+  "original_records_count": 41125,
+  "cleaned_records_count": 41120,
+  "sentinels_detected": {
+    "Temperatura (°F)": 18,
+    "Ponto de Orvalho (°F)": 18,
+    "Umidade Relativa (%)": 18,
+    "Pressão Atmosférica (inHg)": 20,
+    "Velocidade do Vento (mph)": 26
+  },
+  "features_summary": {
+    "Temperatura (°F)": {
+      "min": -8.0,
+      "max": 95.0,
+      "mean": 50.892250729571984,
+      "std": 19.23114759650727
+    },
+    "Ponto de Orvalho (°F)": {
+      "min": -14.8,
+      "max": 75.9,
+      "mean": 40.08549854085604,
+      "std": 18.086906433808092
+    },
+    "Umidade Relativa (%)": {
+      "min": 12.0,
+      "max": 100.0,
+      "mean": 69.53048394941634,
+      "std": 18.215458541047965
+    },
+    "Pressão Atmosférica (inHg)": {
+      "min": 29.06,
+      "max": 299.67,
+      "mean": 30.04374197470817,
+      "std": 2.384132389294712
+    },
+    "Velocidade do Vento (mph)": {
+      "min": 0.0,
+      "max": 42.6,
+      "mean": 7.282104815175098,
+      "std": 5.241105480268012
+    }
+  }
+}

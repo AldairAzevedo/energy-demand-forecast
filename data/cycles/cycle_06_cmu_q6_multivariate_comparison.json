@@ -1,0 +1,33 @@
+{
+  "cycle_id": 6,
+  "title": "Benchmarking Univariado vs. Multivariado: Validação de Feature Engineering",
+  "univariate_model": {
+    "name": "Polinomial (Grau 5) - Apenas Temperatura Máxima",
+    "features_count": 1,
+    "metrics": {
+      "mse": 24901.3591,
+      "rmse": 157.8016,
+      "mae": 120.3413,
+      "r2": 0.7147,
+      "runtime_ms": 0.23
+    }
+  },
+  "multivariate_model": {
+    "name": "Multivariado Completo (T_max^5 + Orvalho + Umidade + Pressão + Vento)",
+    "features_count": 5,
+    "metrics": {
+      "mse": 22726.4156,
+      "rmse": 150.7528,
+      "mae": 117.9261,
+      "r2": 0.7396,
+      "runtime_ms": 0.07
+    }
+  },
+  "comparison": {
+    "mse_univariate": 24901.3591,
+    "mse_multivariate": 22726.4156,
+    "mse_reduction_percentage": 8.73,
+    "r2_univariate": 0.7147,
+    "r2_multivariate": 0.7396
+  }
+}

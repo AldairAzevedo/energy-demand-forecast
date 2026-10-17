@@ -1,0 +1,7325 @@
+{
+  "cycle_id": 1,
+  "title": "Dados Brutos: Temperatura Máxima e Pico de Demanda (CMU Q5)",
+  "sample_size": 1460,
+  "units": {
+    "temperature": "°F",
+    "demand": "GW"
+  },
+  "summary_stats": {
+    "temperature": {
+      "min": 6.1,
+      "max": 95.0,
+      "mean": 60.26719695342466,
+      "std": 19.68032157082079
+    },
+    "demand": {
+      "min": 1.372961,
+      "max": 3.011643,
+      "mean": 1.9172906753424659,
+      "std": 0.2955001661603039
+    }
+  },
+  "records": [
+    {
+      "day": 1,
+      "temperature": 39.765,
+      "demand": 1.889696
+    },
+    {
+      "day": 2,
+      "temperature": 26.1,
+      "demand": 2.109081
+    },
+    {
+      "day": 3,
+      "temperature": 19.790244,
+      "demand": 2.125197
+    },
+    {
+      "day": 4,
+      "temperature": 35.1,
+      "demand": 2.004978
+    },
+    {
+      "day": 5,
+      "temperature": 41.165,
+      "demand": 1.868841
+    },
+    {
+      "day": 6,
+      "temperature": 56.065,
+      "demand": 1.763079
+    },
+    {
+      "day": 7,
+      "temperature": 65.7,
+      "demand": 1.855971
+    },
+    {
+      "day": 8,
+      "temperature": 69.1,
+      "demand": 1.837946
+    },
+    {
+      "day": 9,
+      "temperature": 64.48,
+      "demand": 1.870926
+    },
+    {
+      "day": 10,
+      "temperature": 48.6,
+      "demand": 1.886667
+    },
+    {
+      "day": 11,
+      "temperature": 53.238462,
+      "demand": 1.865548
+    },
+    {
+      "day": 12,
+      "temperature": 44.1,
+      "demand": 1.69704
+    },
+    {
+      "day": 13,
+      "temperature": 40.835,
+      "demand": 1.763399
+    },
+    {
+      "day": 14,
+      "temperature": 36.0,
+      "demand": 1.963437
+    },
+    {
+      "day": 15,
+      "temperature": 26.865,
+      "demand": 2.057225
+    },
+    {
+      "day": 16,
+      "temperature": 31.835,
+      "demand": 1.981453
+    },
+    {
+      "day": 17,
+      "temperature": 37.135,
+      "demand": 1.970574
+    },
+    {
+      "day": 18,
+      "temperature": 39.06,
+      "demand": 1.925767
+    },
+    {
+      "day": 19,
+      "temperature": 28.7875,
+      "demand": 1.879958
+    },
+    {
+      "day": 20,
+      "temperature": 12.9,
+      "demand": 2.017768
+    },
+    {
+      "day": 21,
+      "temperature": 24.1,
+      "demand": 2.106198
+    },
+    {
+      "day": 22,
+      "temperature": 35.865,
+      "demand": 2.061324
+    },
+    {
+      "day": 23,
+      "temperature": 27.0,
+      "demand": 2.096081
+    },
+    {
+      "day": 24,
+      "temperature": 24.963265,
+      "demand": 2.122893
+    },
+    {
+      "day": 25,
+      "temperature": 21.9,
+      "demand": 2.069646
+    },
+    {
+      "day": 26,
+      "temperature": 28.9,
+      "demand": 1.837712
+    },
+    {
+      "day": 27,
+      "temperature": 32.0,
+      "demand": 1.847155
+    },
+    {
+      "day": 28,
+      "temperature": 41.935,
+      "demand": 1.949043
+    },
+    {
+      "day": 29,
+      "temperature": 50.6325,
+      "demand": 1.915953
+    },
+    {
+      "day": 30,
+      "temperature": 51.1,
+      "demand": 2.03748
+    },
+    {
+      "day": 31,
+      "temperature": 35.141667,
+      "demand": 2.006245
+    },
+    {
+      "day": 32,
+      "temperature": 37.327273,
+      "demand": 1.963301
+    },
+    {
+      "day": 33,
+      "temperature": 33.865,
+      "demand": 1.791648
+    },
+    {
+      "day": 34,
+      "temperature": 41.935,
+      "demand": 1.793761
+    },
+    {
+      "day": 35,
+      "temperature": 56.2,
+      "demand": 1.929672
+    },
+    {
+      "day": 36,
+      "temperature": 60.253659,
+      "demand": 1.86256
+    },
+    {
+      "day": 37,
+      "temperature": 60.509434,
+      "demand": 1.812515
+    },
+    {
+      "day": 38,
+      "temperature": 39.9,
+      "demand": 1.965007
+    },
+    {
+      "day": 39,
+      "temperature": 37.0,
+      "demand": 1.913956
+    },
+    {
+      "day": 40,
+      "temperature": 46.0,
+      "demand": 1.731088
+    },
+    {
+      "day": 41,
+      "temperature": 38.7,
+      "demand": 2.00428
+    },
+    {
+      "day": 42,
+      "temperature": 17.1,
+      "demand": 2.110486
+    },
+    {
+      "day": 43,
+      "temperature": 34.0,
+      "demand": 2.086212
+    },
+    {
+      "day": 44,
+      "temperature": 33.761111,
+      "demand": 2.063041
+    },
+    {
+      "day": 45,
+      "temperature": 32.77,
+      "demand": 1.998461
+    },
+    {
+      "day": 46,
+      "temperature": 36.0,
+      "demand": 1.990454
+    },
+    {
+      "day": 47,
+      "temperature": 36.85,
+      "demand": 1.787833
+    },
+    {
+      "day": 48,
+      "temperature": 59.165,
+      "demand": 1.757482
+    },
+    {
+      "day": 49,
+      "temperature": 59.335,
+      "demand": 1.860126
+    },
+    {
+      "day": 50,
+      "temperature": 25.0,
+      "demand": 2.060833
+    },
+    {
+      "day": 51,
+      "temperature": 21.178947,
+      "demand": 2.104313
+    },
+    {
+      "day": 52,
+      "temperature": 25.935,
+      "demand": 2.060315
+    },
+    {
+      "day": 53,
+      "temperature": 31.253571,
+      "demand": 1.953535
+    },
+    {
+      "day": 54,
+      "temperature": 30.765,
+      "demand": 1.771979
+    },
+    {
+      "day": 55,
+      "temperature": 35.7,
+      "demand": 1.783918
+    },
+    {
+      "day": 56,
+      "temperature": 32.0,
+      "demand": 1.934626
+    },
+    {
+      "day": 57,
+      "temperature": 35.928,
+      "demand": 2.003328
+    },
+    {
+      "day": 58,
+      "temperature": 27.713636,
+      "demand": 2.097792
+    },
+    {
+      "day": 59,
+      "temperature": 21.9,
+      "demand": 2.072859
+    },
+    {
+      "day": 60,
+      "temperature": 37.685714,
+      "demand": 2.026224
+    },
+    {
+      "day": 61,
+      "temperature": 34.935,
+      "demand": 1.747774
+    },
+    {
+      "day": 62,
+      "temperature": 39.765,
+      "demand": 1.709321
+    },
+    {
+      "day": 63,
+      "temperature": 67.7,
+      "demand": 1.722015
+    },
+    {
+      "day": 64,
+      "temperature": 49.535,
+      "demand": 1.861677
+    },
+    {
+      "day": 65,
+      "temperature": 39.765,
+      "demand": 1.925572
+    },
+    {
+      "day": 66,
+      "temperature": 46.0,
+      "demand": 1.878412
+    },
+    {
+      "day": 67,
+      "temperature": 35.1,
+      "demand": 1.910018
+    },
+    {
+      "day": 68,
+      "temperature": 32.0,
+      "demand": 1.854648
+    },
+    {
+      "day": 69,
+      "temperature": 30.0,
+      "demand": 1.804877
+    },
+    {
+      "day": 70,
+      "temperature": 40.835,
+      "demand": 1.929088
+    },
+    {
+      "day": 71,
+      "temperature": 42.7,
+      "demand": 1.859129
+    },
+    {
+      "day": 72,
+      "temperature": 42.1,
+      "demand": 1.921589
+    },
+    {
+      "day": 73,
+      "temperature": 61.8,
+      "demand": 1.859229
+    },
+    {
+      "day": 74,
+      "temperature": 46.765,
+      "demand": 1.78704
+    },
+    {
+      "day": 75,
+      "temperature": 45.85,
+      "demand": 1.689206
+    },
+    {
+      "day": 76,
+      "temperature": 36.85,
+      "demand": 1.753423
+    },
+    {
+      "day": 77,
+      "temperature": 44.865,
+      "demand": 1.860893
+    },
+    {
+      "day": 78,
+      "temperature": 46.9,
+      "demand": 1.839696
+    },
+    {
+      "day": 79,
+      "temperature": 56.367568,
+      "demand": 1.809955
+    },
+    {
+      "day": 80,
+      "temperature": 40.535,
+      "demand": 1.813582
+    },
+    {
+      "day": 81,
+      "temperature": 42.1,
+      "demand": 1.742591
+    },
+    {
+      "day": 82,
+      "temperature": 39.765,
+      "demand": 1.659394
+    },
+    {
+      "day": 83,
+      "temperature": 41.0,
+      "demand": 1.618798
+    },
+    {
+      "day": 84,
+      "temperature": 39.765,
+      "demand": 1.805249
+    },
+    {
+      "day": 85,
+      "temperature": 48.765,
+      "demand": 1.843853
+    },
+    {
+      "day": 86,
+      "temperature": 56.835,
+      "demand": 1.744323
+    },
+    {
+      "day": 87,
+      "temperature": 45.0,
+      "demand": 1.783796
+    },
+    {
+      "day": 88,
+      "temperature": 40.904142,
+      "demand": 1.825017
+    },
+    {
+      "day": 89,
+      "temperature": 43.935,
+      "demand": 1.649933
+    },
+    {
+      "day": 90,
+      "temperature": 50.935,
+      "demand": 1.586341
+    },
+    {
+      "day": 91,
+      "temperature": 64.0,
+      "demand": 1.767117
+    },
+    {
+      "day": 92,
+      "temperature": 66.465,
+      "demand": 1.682358
+    },
+    {
+      "day": 93,
+      "temperature": 46.0,
+      "demand": 1.703775
+    },
+    {
+      "day": 94,
+      "temperature": 55.0,
+      "demand": 1.750106
+    },
+    {
+      "day": 95,
+      "temperature": 62.1,
+      "demand": 1.741933
+    },
+    {
+      "day": 96,
+      "temperature": 53.865,
+      "demand": 1.511697
+    },
+    {
+      "day": 97,
+      "temperature": 61.935,
+      "demand": 1.5697
+    },
+    {
+      "day": 98,
+      "temperature": 68.0,
+      "demand": 1.660608
+    },
+    {
+      "day": 99,
+      "temperature": 72.85,
+      "demand": 1.717295
+    },
+    {
+      "day": 100,
+      "temperature": 68.935,
+      "demand": 1.740014
+    },
+    {
+      "day": 101,
+      "temperature": 66.9,
+      "demand": 1.70891
+    },
+    {
+      "day": 102,
+      "temperature": 68.0,
+      "demand": 1.793429
+    },
+    {
+      "day": 103,
+      "temperature": 63.85,
+      "demand": 1.49683
+    },
+    {
+      "day": 104,
+      "temperature": 45.0,
+      "demand": 1.571416
+    },
+    {
+      "day": 105,
+      "temperature": 48.9,
+      "demand": 1.730234
+    },
+    {
+      "day": 106,
+      "temperature": 55.765,
+      "demand": 1.700145
+    },
+    {
+      "day": 107,
+      "temperature": 66.9,
+      "demand": 1.724127
+    },
+    {
+      "day": 108,
+      "temperature": 74.835,
+      "demand": 1.726428
+    },
+    {
+      "day": 109,
+      "temperature": 78.865,
+      "demand": 1.766716
+    },
+    {
+      "day": 110,
+      "temperature": 77.47,
+      "demand": 1.563437
+    },
+    {
+      "day": 111,
+      "temperature": 63.85,
+      "demand": 1.520099
+    },
+    {
+      "day": 112,
+      "temperature": 66.9,
+      "demand": 1.728448
+    },
+    {
+      "day": 113,
+      "temperature": 70.8,
+      "demand": 1.729376
+    },
+    {
+      "day": 114,
+      "temperature": 74.2,
+      "demand": 1.807895
+    },
+    {
+      "day": 115,
+      "temperature": 73.0,
+      "demand": 1.764172
+    },
+    {
+      "day": 116,
+      "temperature": 78.865,
+      "demand": 1.846308
+    },
+    {
+      "day": 117,
+      "temperature": 75.9,
+      "demand": 1.678537
+    },
+    {
+      "day": 118,
+      "temperature": 68.935,
+      "demand": 1.524297
+    },
+    {
+      "day": 119,
+      "temperature": 57.03,
+      "demand": 1.741674
+    },
+    {
+      "day": 120,
+      "temperature": 51.97,
+      "demand": 1.678331
+    },
+    {
+      "day": 121,
+      "temperature": 55.765,
+      "demand": 1.724513
+    },
+    {
+      "day": 122,
+      "temperature": 75.0,
+      "demand": 1.724088
+    },
+    {
+      "day": 123,
+      "temperature": 78.1,
+      "demand": 1.704548
+    },
+    {
+      "day": 124,
+      "temperature": 68.185,
+      "demand": 1.471183
+    },
+    {
+      "day": 125,
+      "temperature": 61.935,
+      "demand": 1.441052
+    },
+    {
+      "day": 126,
+      "temperature": 69.1,
+      "demand": 1.661265
+    },
+    {
+      "day": 127,
+      "temperature": 72.85,
+      "demand": 1.754272
+    },
+    {
+      "day": 128,
+      "temperature": 77.935,
+      "demand": 1.864163
+    },
+    {
+      "day": 129,
+      "temperature": 60.8,
+      "demand": 1.798892
+    },
+    {
+      "day": 130,
+      "temperature": 65.55,
+      "demand": 1.764212
+    },
+    {
+      "day": 131,
+      "temperature": 64.9,
+      "demand": 1.540173
+    },
+    {
+      "day": 132,
+      "temperature": 55.704,
+      "demand": 1.504793
+    },
+    {
+      "day": 133,
+      "temperature": 49.182857,
+      "demand": 1.677506
+    },
+    {
+      "day": 134,
+      "temperature": 69.1,
+      "demand": 1.796472
+    },
+    {
+      "day": 135,
+      "temperature": 62.4,
+      "demand": 1.758168
+    },
+    {
+      "day": 136,
+      "temperature": 65.7,
+      "demand": 1.765615
+    },
+    {
+      "day": 137,
+      "temperature": 57.0,
+      "demand": 1.72128
+    },
+    {
+      "day": 138,
+      "temperature": 63.25,
+      "demand": 1.519569
+    },
+    {
+      "day": 139,
+      "temperature": 62.1,
+      "demand": 1.506881
+    },
+    {
+      "day": 140,
+      "temperature": 57.9,
+      "demand": 1.7105
+    },
+    {
+      "day": 141,
+      "temperature": 59.0,
+      "demand": 1.686319
+    },
+    {
+      "day": 142,
+      "temperature": 56.835,
+      "demand": 1.697651
+    },
+    {
+      "day": 143,
+      "temperature": 56.7,
+      "demand": 1.716551
+    },
+    {
+      "day": 144,
+      "temperature": 63.85,
+      "demand": 1.673935
+    },
+    {
+      "day": 145,
+      "temperature": 68.0,
+      "demand": 1.420067
+    },
+    {
+      "day": 146,
+      "temperature": 73.765,
+      "demand": 1.421297
+    },
+    {
+      "day": 147,
+      "temperature": 79.935,
+      "demand": 1.545502
+    },
+    {
+      "day": 148,
+      "temperature": 74.52,
+      "demand": 1.884832
+    },
+    {
+      "day": 149,
+      "temperature": 66.765,
+      "demand": 1.753277
+    },
+    {
+      "day": 150,
+      "temperature": 73.765,
+      "demand": 1.840335
+    },
+    {
+      "day": 151,
+      "temperature": 80.1,
+      "demand": 1.871775
+    },
+    {
+      "day": 152,
+      "temperature": 80.471429,
+      "demand": 1.786711
+    },
+    {
+      "day": 153,
+      "temperature": 77.0,
+      "demand": 1.639285
+    },
+    {
+      "day": 154,
+      "temperature": 76.7,
+      "demand": 1.871491
+    },
+    {
+      "day": 155,
+      "temperature": 72.715,
+      "demand": 1.922598
+    },
+    {
+      "day": 156,
+      "temperature": 71.55,
+      "demand": 1.967292
+    },
+    {
+      "day": 157,
+      "temperature": 86.0,
+      "demand": 2.433337
+    },
+    {
+      "day": 158,
+      "temperature": 90.0,
+      "demand": 2.699773
+    },
+    {
+      "day": 159,
+      "temperature": 87.7,
+      "demand": 2.503123
+    },
+    {
+      "day": 160,
+      "temperature": 90.0,
+      "demand": 2.57628
+    },
+    {
+      "day": 161,
+      "temperature": 89.94,
+      "demand": 2.821666
+    },
+    {
+      "day": 162,
+      "temperature": 80.865,
+      "demand": 2.590507
+    },
+    {
+      "day": 163,
+      "temperature": 82.0,
+      "demand": 2.418821
+    },
+    {
+      "day": 164,
+      "temperature": 88.935,
+      "demand": 2.648958
+    },
+    {
+      "day": 165,
+      "temperature": 85.7675,
+      "demand": 2.572716
+    },
+    {
+      "day": 166,
+      "temperature": 72.55,
+      "demand": 1.940273
+    },
+    {
+      "day": 167,
+      "temperature": 80.1,
+      "demand": 2.021524
+    },
+    {
+      "day": 168,
+      "temperature": 77.254,
+      "demand": 2.176929
+    },
+    {
+      "day": 169,
+      "temperature": 64.9,
+      "demand": 1.810788
+    },
+    {
+      "day": 170,
+      "temperature": 63.85,
+      "demand": 1.819927
+    },
+    {
+      "day": 171,
+      "temperature": 67.421429,
+      "demand": 1.776883
+    },
+    {
+      "day": 172,
+      "temperature": 76.835,
+      "demand": 1.89493
+    },
+    {
+      "day": 173,
+      "temperature": 81.0,
+      "demand": 1.891017
+    },
+    {
+      "day": 174,
+      "temperature": 78.1,
+      "demand": 1.899697
+    },
+    {
+      "day": 175,
+      "temperature": 75.0,
+      "demand": 2.023687
+    },
+    {
+      "day": 176,
+      "temperature": 77.0,
+      "demand": 2.019124
+    },
+    {
+      "day": 177,
+      "temperature": 79.935,
+      "demand": 2.160346
+    },
+    {
+      "day": 178,
+      "temperature": 83.835,
+      "demand": 2.501416
+    },
+    {
+      "day": 179,
+      "temperature": 81.85,
+      "demand": 2.273391
+    },
+    {
+      "day": 180,
+      "temperature": 79.313043,
+      "demand": 2.119327
+    },
+    {
+      "day": 181,
+      "temperature": 75.815,
+      "demand": 1.814265
+    },
+    {
+      "day": 182,
+      "temperature": 69.666667,
+      "demand": 1.975091
+    },
+    {
+      "day": 183,
+      "temperature": 75.0,
+      "demand": 1.97034
+    },
+    {
+      "day": 184,
+      "temperature": 79.8,
+      "demand": 2.122451
+    },
+    {
+      "day": 185,
+      "temperature": 73.315,
+      "demand": 1.982408
+    },
+    {
+      "day": 186,
+      "temperature": 70.0,
+      "demand": 1.627476
+    },
+    {
+      "day": 187,
+      "temperature": 80.865,
+      "demand": 1.918315
+    },
+    {
+      "day": 188,
+      "temperature": 81.85,
+      "demand": 2.049786
+    },
+    {
+      "day": 189,
+      "temperature": 80.235,
+      "demand": 2.427225
+    },
+    {
+      "day": 190,
+      "temperature": 85.623256,
+      "demand": 2.640829
+    },
+    {
+      "day": 191,
+      "temperature": 81.85,
+      "demand": 2.350872
+    },
+    {
+      "day": 192,
+      "temperature": 79.0,
+      "demand": 2.321339
+    },
+    {
+      "day": 193,
+      "temperature": 82.0,
+      "demand": 2.359109
+    },
+    {
+      "day": 194,
+      "temperature": 86.0,
+      "demand": 2.397999
+    },
+    {
+      "day": 195,
+      "temperature": 77.935,
+      "demand": 2.105936
+    },
+    {
+      "day": 196,
+      "temperature": 78.865,
+      "demand": 2.27877
+    },
+    {
+      "day": 197,
+      "temperature": 82.0,
+      "demand": 2.369138
+    },
+    {
+      "day": 198,
+      "temperature": 84.9,
+      "demand": 2.603374
+    },
+    {
+      "day": 199,
+      "temperature": 86.935,
+      "demand": 2.708131
+    },
+    {
+      "day": 200,
+      "temperature": 87.1,
+      "demand": 2.700585
+    },
+    {
+      "day": 201,
+      "temperature": 86.935,
+      "demand": 2.466715
+    },
+    {
+      "day": 202,
+      "temperature": 85.23,
+      "demand": 2.396881
+    },
+    {
+      "day": 203,
+      "temperature": 85.835,
+      "demand": 2.619325
+    },
+    {
+      "day": 204,
+      "temperature": 81.0,
+      "demand": 2.492597
+    },
+    {
+      "day": 205,
+      "temperature": 77.935,
+      "demand": 2.260392
+    },
+    {
+      "day": 206,
+      "temperature": 77.935,
+      "demand": 2.148857
+    },
+    {
+      "day": 207,
+      "temperature": 81.0,
+      "demand": 2.306871
+    },
+    {
+      "day": 208,
+      "temperature": 82.0,
+      "demand": 2.230735
+    },
+    {
+      "day": 209,
+      "temperature": 81.0,
+      "demand": 2.136654
+    },
+    {
+      "day": 210,
+      "temperature": 82.0,
+      "demand": 2.468678
+    },
+    {
+      "day": 211,
+      "temperature": 84.9,
+      "demand": 2.55666
+    },
+    {
+      "day": 212,
+      "temperature": 80.1,
+      "demand": 2.431432
+    },
+    {
+      "day": 213,
+      "temperature": 84.0,
+      "demand": 2.628424
+    },
+    {
+      "day": 214,
+      "temperature": 84.0,
+      "demand": 2.593506
+    },
+    {
+      "day": 215,
+      "temperature": 82.0,
+      "demand": 2.25467
+    },
+    {
+      "day": 216,
+      "temperature": 80.865,
+      "demand": 2.058282
+    },
+    {
+      "day": 217,
+      "temperature": 82.0,
+      "demand": 2.416457
+    },
+    {
+      "day": 218,
+      "temperature": 79.935,
+      "demand": 2.413208
+    },
+    {
+      "day": 219,
+      "temperature": 83.835,
+      "demand": 2.516509
+    },
+    {
+      "day": 220,
+      "temperature": 79.0,
+      "demand": 2.358661
+    },
+    {
+      "day": 221,
+      "temperature": 76.835,
+      "demand": 2.038784
+    },
+    {
+      "day": 222,
+      "temperature": 78.1,
+      "demand": 1.802634
+    },
+    {
+      "day": 223,
+      "temperature": 72.715,
+      "demand": 1.693832
+    },
+    {
+      "day": 224,
+      "temperature": 72.85,
+      "demand": 1.861569
+    },
+    {
+      "day": 225,
+      "temperature": 77.935,
+      "demand": 1.978829
+    },
+    {
+      "day": 226,
+      "temperature": 78.1,
+      "demand": 2.079724
+    },
+    {
+      "day": 227,
+      "temperature": 74.7,
+      "demand": 1.964707
+    },
+    {
+      "day": 228,
+      "temperature": 75.9,
+      "demand": 1.988909
+    },
+    {
+      "day": 229,
+      "temperature": 76.835,
+      "demand": 1.769973
+    },
+    {
+      "day": 230,
+      "temperature": 80.1,
+      "demand": 1.873983
+    },
+    {
+      "day": 231,
+      "temperature": 82.0,
+      "demand": 2.259071
+    },
+    {
+      "day": 232,
+      "temperature": 79.0,
+      "demand": 2.324388
+    },
+    {
+      "day": 233,
+      "temperature": 80.1,
+      "demand": 2.222616
+    },
+    {
+      "day": 234,
+      "temperature": 86.0,
+      "demand": 2.45333
+    },
+    {
+      "day": 235,
+      "temperature": 85.835,
+      "demand": 2.495247
+    },
+    {
+      "day": 236,
+      "temperature": 84.765,
+      "demand": 2.294719
+    },
+    {
+      "day": 237,
+      "temperature": 87.865,
+      "demand": 2.36209
+    },
+    {
+      "day": 238,
+      "temperature": 78.1,
+      "demand": 2.321308
+    },
+    {
+      "day": 239,
+      "temperature": 78.365,
+      "demand": 2.134374
+    },
+    {
+      "day": 240,
+      "temperature": 70.8,
+      "demand": 1.929391
+    },
+    {
+      "day": 241,
+      "temperature": 68.635,
+      "demand": 1.854101
+    },
+    {
+      "day": 242,
+      "temperature": 79.0,
+      "demand": 2.163745
+    },
+    {
+      "day": 243,
+      "temperature": 82.9,
+      "demand": 2.126282
+    },
+    {
+      "day": 244,
+      "temperature": 82.0,
+      "demand": 1.960336
+    },
+    {
+      "day": 245,
+      "temperature": 83.835,
+      "demand": 2.105923
+    },
+    {
+      "day": 246,
+      "temperature": 85.835,
+      "demand": 2.4765
+    },
+    {
+      "day": 247,
+      "temperature": 87.7,
+      "demand": 2.559027
+    },
+    {
+      "day": 248,
+      "temperature": 86.0,
+      "demand": 2.584645
+    },
+    {
+      "day": 249,
+      "temperature": 86.0,
+      "demand": 2.590904
+    },
+    {
+      "day": 250,
+      "temperature": 73.95,
+      "demand": 2.030484
+    },
+    {
+      "day": 251,
+      "temperature": 74.55,
+      "demand": 1.738691
+    },
+    {
+      "day": 252,
+      "temperature": 79.0,
+      "demand": 2.143491
+    },
+    {
+      "day": 253,
+      "temperature": 65.7,
+      "demand": 1.897851
+    },
+    {
+      "day": 254,
+      "temperature": 71.1,
+      "demand": 1.873039
+    },
+    {
+      "day": 255,
+      "temperature": 79.935,
+      "demand": 2.011738
+    },
+    {
+      "day": 256,
+      "temperature": 71.6,
+      "demand": 2.004766
+    },
+    {
+      "day": 257,
+      "temperature": 77.935,
+      "demand": 1.968963
+    },
+    {
+      "day": 258,
+      "temperature": 86.935,
+      "demand": 2.312167
+    },
+    {
+      "day": 259,
+      "temperature": 71.565,
+      "demand": 1.764154
+    },
+    {
+      "day": 260,
+      "temperature": 68.0,
+      "demand": 1.778417
+    },
+    {
+      "day": 261,
+      "temperature": 73.0,
+      "demand": 1.861378
+    },
+    {
+      "day": 262,
+      "temperature": 72.715,
+      "demand": 1.886465
+    },
+    {
+      "day": 263,
+      "temperature": 73.765,
+      "demand": 1.859666
+    },
+    {
+      "day": 264,
+      "temperature": 76.7,
+      "demand": 1.745143
+    },
+    {
+      "day": 265,
+      "temperature": 79.935,
+      "demand": 1.816623
+    },
+    {
+      "day": 266,
+      "temperature": 70.0,
+      "demand": 1.824927
+    },
+    {
+      "day": 267,
+      "temperature": 73.9,
+      "demand": 1.939991
+    },
+    {
+      "day": 268,
+      "temperature": 76.7,
+      "demand": 1.944632
+    },
+    {
+      "day": 269,
+      "temperature": 70.935,
+      "demand": 1.842292
+    },
+    {
+      "day": 270,
+      "temperature": 68.0,
+      "demand": 1.785536
+    },
+    {
+      "day": 271,
+      "temperature": 74.7,
+      "demand": 1.705087
+    },
+    {
+      "day": 272,
+      "temperature": 72.715,
+      "demand": 1.691353
+    },
+    {
+      "day": 273,
+      "temperature": 70.0,
+      "demand": 1.888427
+    },
+    {
+      "day": 274,
+      "temperature": 67.7,
+      "demand": 1.766729
+    },
+    {
+      "day": 275,
+      "temperature": 59.0,
+      "demand": 1.645732
+    },
+    {
+      "day": 276,
+      "temperature": 53.865,
+      "demand": 1.683437
+    },
+    {
+      "day": 277,
+      "temperature": 56.835,
+      "demand": 1.65289
+    },
+    {
+      "day": 278,
+      "temperature": 60.1,
+      "demand": 1.464239
+    },
+    {
+      "day": 279,
+      "temperature": 63.0,
+      "demand": 1.494151
+    },
+    {
+      "day": 280,
+      "temperature": 62.1,
+      "demand": 1.644592
+    },
+    {
+      "day": 281,
+      "temperature": 65.835,
+      "demand": 1.647908
+    },
+    {
+      "day": 282,
+      "temperature": 63.0,
+      "demand": 1.680168
+    },
+    {
+      "day": 283,
+      "temperature": 68.935,
+      "demand": 1.68251
+    },
+    {
+      "day": 284,
+      "temperature": 71.1,
+      "demand": 1.671582
+    },
+    {
+      "day": 285,
+      "temperature": 75.0,
+      "demand": 1.505126
+    },
+    {
+      "day": 286,
+      "temperature": 80.7,
+      "demand": 1.581277
+    },
+    {
+      "day": 287,
+      "temperature": 77.77,
+      "demand": 1.714904
+    },
+    {
+      "day": 288,
+      "temperature": 73.765,
+      "demand": 1.770026
+    },
+    {
+      "day": 289,
+      "temperature": 72.715,
+      "demand": 1.800208
+    },
+    {
+      "day": 290,
+      "temperature": 69.218868,
+      "demand": 1.698912
+    },
+    {
+      "day": 291,
+      "temperature": 51.695,
+      "demand": 1.647823
+    },
+    {
+      "day": 292,
+      "temperature": 52.935,
+      "demand": 1.478906
+    },
+    {
+      "day": 293,
+      "temperature": 55.9,
+      "demand": 1.51859
+    },
+    {
+      "day": 294,
+      "temperature": 62.1,
+      "demand": 1.693696
+    },
+    {
+      "day": 295,
+      "temperature": 53.865,
+      "demand": 1.732285
+    },
+    {
+      "day": 296,
+      "temperature": 51.1,
+      "demand": 1.710158
+    },
+    {
+      "day": 297,
+      "temperature": 56.7,
+      "demand": 1.707388
+    },
+    {
+      "day": 298,
+      "temperature": 58.835,
+      "demand": 1.701862
+    },
+    {
+      "day": 299,
+      "temperature": 53.865,
+      "demand": 1.586391
+    },
+    {
+      "day": 300,
+      "temperature": 60.865,
+      "demand": 1.569489
+    },
+    {
+      "day": 301,
+      "temperature": 47.55,
+      "demand": 1.75716
+    },
+    {
+      "day": 302,
+      "temperature": 44.775,
+      "demand": 1.785056
+    },
+    {
+      "day": 303,
+      "temperature": 37.765,
+      "demand": 1.823647
+    },
+    {
+      "day": 304,
+      "temperature": 50.0,
+      "demand": 1.774152
+    },
+    {
+      "day": 305,
+      "temperature": 64.0,
+      "demand": 1.736699
+    },
+    {
+      "day": 306,
+      "temperature": 65.7,
+      "demand": 1.56126
+    },
+    {
+      "day": 307,
+      "temperature": 59.0,
+      "demand": 1.596355
+    },
+    {
+      "day": 308,
+      "temperature": 68.0,
+      "demand": 1.803388
+    },
+    {
+      "day": 309,
+      "temperature": 68.0,
+      "demand": 1.762268
+    },
+    {
+      "day": 310,
+      "temperature": 68.77,
+      "demand": 1.821319
+    },
+    {
+      "day": 311,
+      "temperature": 71.1,
+      "demand": 1.830438
+    },
+    {
+      "day": 312,
+      "temperature": 71.42,
+      "demand": 1.777012
+    },
+    {
+      "day": 313,
+      "temperature": 49.535,
+      "demand": 1.629081
+    },
+    {
+      "day": 314,
+      "temperature": 41.935,
+      "demand": 1.666348
+    },
+    {
+      "day": 315,
+      "temperature": 36.0,
+      "demand": 1.907938
+    },
+    {
+      "day": 316,
+      "temperature": 41.0,
+      "demand": 1.843696
+    },
+    {
+      "day": 317,
+      "temperature": 52.0,
+      "demand": 1.814676
+    },
+    {
+      "day": 318,
+      "temperature": 57.0,
+      "demand": 1.81716
+    },
+    {
+      "day": 319,
+      "temperature": 65.7,
+      "demand": 1.76169
+    },
+    {
+      "day": 320,
+      "temperature": 54.525,
+      "demand": 1.650059
+    },
+    {
+      "day": 321,
+      "temperature": 37.138462,
+      "demand": 1.727821
+    },
+    {
+      "day": 322,
+      "temperature": 35.933333,
+      "demand": 1.899271
+    },
+    {
+      "day": 323,
+      "temperature": 31.7,
+      "demand": 1.96086
+    },
+    {
+      "day": 324,
+      "temperature": 28.9,
+      "demand": 1.959898
+    },
+    {
+      "day": 325,
+      "temperature": 35.865,
+      "demand": 2.002722
+    },
+    {
+      "day": 326,
+      "temperature": 28.765,
+      "demand": 1.999635
+    },
+    {
+      "day": 327,
+      "temperature": 28.0,
+      "demand": 1.877102
+    },
+    {
+      "day": 328,
+      "temperature": 37.765,
+      "demand": 1.798292
+    },
+    {
+      "day": 329,
+      "temperature": 44.1,
+      "demand": 1.960055
+    },
+    {
+      "day": 330,
+      "temperature": 36.0,
+      "demand": 1.975072
+    },
+    {
+      "day": 331,
+      "temperature": 34.0,
+      "demand": 1.852216
+    },
+    {
+      "day": 332,
+      "temperature": 39.9,
+      "demand": 1.524659
+    },
+    {
+      "day": 333,
+      "temperature": 37.9,
+      "demand": 1.722363
+    },
+    {
+      "day": 334,
+      "temperature": 39.9,
+      "demand": 1.727331
+    },
+    {
+      "day": 335,
+      "temperature": 39.9,
+      "demand": 1.771724
+    },
+    {
+      "day": 336,
+      "temperature": 38.835,
+      "demand": 1.890167
+    },
+    {
+      "day": 337,
+      "temperature": 31.835,
+      "demand": 1.993471
+    },
+    {
+      "day": 338,
+      "temperature": 48.0,
+      "demand": 1.934016
+    },
+    {
+      "day": 339,
+      "temperature": 48.6,
+      "demand": 1.951335
+    },
+    {
+      "day": 340,
+      "temperature": 26.186538,
+      "demand": 2.02585
+    },
+    {
+      "day": 341,
+      "temperature": 28.765,
+      "demand": 1.945404
+    },
+    {
+      "day": 342,
+      "temperature": 28.0,
+      "demand": 1.930184
+    },
+    {
+      "day": 343,
+      "temperature": 34.0,
+      "demand": 2.011819
+    },
+    {
+      "day": 344,
+      "temperature": 55.9,
+      "demand": 1.886088
+    },
+    {
+      "day": 345,
+      "temperature": 54.85,
+      "demand": 1.930091
+    },
+    {
+      "day": 346,
+      "temperature": 33.415,
+      "demand": 2.019381
+    },
+    {
+      "day": 347,
+      "temperature": 31.835,
+      "demand": 2.009739
+    },
+    {
+      "day": 348,
+      "temperature": 27.0,
+      "demand": 1.898919
+    },
+    {
+      "day": 349,
+      "temperature": 49.065,
+      "demand": 1.797545
+    },
+    {
+      "day": 350,
+      "temperature": 58.535,
+      "demand": 1.903038
+    },
+    {
+      "day": 351,
+      "temperature": 32.0,
+      "demand": 2.061181
+    },
+    {
+      "day": 352,
+      "temperature": 40.835,
+      "demand": 2.002088
+    },
+    {
+      "day": 353,
+      "temperature": 37.9,
+      "demand": 1.984054
+    },
+    {
+      "day": 354,
+      "temperature": 51.865,
+      "demand": 1.934129
+    },
+    {
+      "day": 355,
+      "temperature": 30.9,
+      "demand": 1.878452
+    },
+    {
+      "day": 356,
+      "temperature": 32.0,
+      "demand": 2.044556
+    },
+    {
+      "day": 357,
+      "temperature": 14.0,
+      "demand": 2.245418
+    },
+    {
+      "day": 358,
+      "temperature": 36.0,
+      "demand": 2.055672
+    },
+    {
+      "day": 359,
+      "temperature": 55.0,
+      "demand": 1.738479
+    },
+    {
+      "day": 360,
+      "temperature": 34.935,
+      "demand": 1.661711
+    },
+    {
+      "day": 361,
+      "temperature": 50.669565,
+      "demand": 1.800416
+    },
+    {
+      "day": 362,
+      "temperature": 68.0,
+      "demand": 1.619475
+    },
+    {
+      "day": 363,
+      "temperature": 64.9,
+      "demand": 1.635072
+    },
+    {
+      "day": 364,
+      "temperature": 45.85,
+      "demand": 1.811474
+    },
+    {
+      "day": 365,
+      "temperature": 39.765,
+      "demand": 1.836976
+    },
+    {
+      "day": 366,
+      "temperature": 43.8,
+      "demand": 1.929436
+    },
+    {
+      "day": 367,
+      "temperature": 28.9,
+      "demand": 1.779332
+    },
+    {
+      "day": 368,
+      "temperature": 41.0,
+      "demand": 1.797442
+    },
+    {
+      "day": 369,
+      "temperature": 34.935,
+      "demand": 1.730364
+    },
+    {
+      "day": 370,
+      "temperature": 47.04,
+      "demand": 1.72124
+    },
+    {
+      "day": 371,
+      "temperature": 37.094737,
+      "demand": 1.895927
+    },
+    {
+      "day": 372,
+      "temperature": 34.3,
+      "demand": 1.958635
+    },
+    {
+      "day": 373,
+      "temperature": 39.9,
+      "demand": 2.006234
+    },
+    {
+      "day": 374,
+      "temperature": 28.765,
+      "demand": 2.07048
+    },
+    {
+      "day": 375,
+      "temperature": 25.0,
+      "demand": 1.964048
+    },
+    {
+      "day": 376,
+      "temperature": 32.0,
+      "demand": 1.831554
+    },
+    {
+      "day": 377,
+      "temperature": 27.85,
+      "demand": 1.825949
+    },
+    {
+      "day": 378,
+      "temperature": 28.9,
+      "demand": 2.038559
+    },
+    {
+      "day": 379,
+      "temperature": 33.431579,
+      "demand": 2.031055
+    },
+    {
+      "day": 380,
+      "temperature": 18.496,
+      "demand": 2.100218
+    },
+    {
+      "day": 381,
+      "temperature": 15.7,
+      "demand": 2.135885
+    },
+    {
+      "day": 382,
+      "temperature": 6.1,
+      "demand": 2.196991
+    },
+    {
+      "day": 383,
+      "temperature": 23.3,
+      "demand": 1.996322
+    },
+    {
+      "day": 384,
+      "temperature": 31.52,
+      "demand": 1.846024
+    },
+    {
+      "day": 385,
+      "temperature": 19.9,
+      "demand": 2.075525
+    },
+    {
+      "day": 386,
+      "temperature": 21.0,
+      "demand": 2.109583
+    },
+    {
+      "day": 387,
+      "temperature": 20.835,
+      "demand": 2.112128
+    },
+    {
+      "day": 388,
+      "temperature": 37.0,
+      "demand": 1.984636
+    },
+    {
+      "day": 389,
+      "temperature": 49.835,
+      "demand": 1.820991
+    },
+    {
+      "day": 390,
+      "temperature": 30.0,
+      "demand": 1.875071
+    },
+    {
+      "day": 391,
+      "temperature": 17.28,
+      "demand": 1.918261
+    },
+    {
+      "day": 392,
+      "temperature": 21.0,
+      "demand": 2.07366
+    },
+    {
+      "day": 393,
+      "temperature": 25.165,
+      "demand": 2.054066
+    },
+    {
+      "day": 394,
+      "temperature": 33.1,
+      "demand": 2.033044
+    },
+    {
+      "day": 395,
+      "temperature": 25.0,
+      "demand": 2.004595
+    },
+    {
+      "day": 396,
+      "temperature": 25.0,
+      "demand": 1.974096
+    },
+    {
+      "day": 397,
+      "temperature": 29.2,
+      "demand": 1.832696
+    },
+    {
+      "day": 398,
+      "temperature": 44.1,
+      "demand": 1.588719
+    },
+    {
+      "day": 399,
+      "temperature": 36.0,
+      "demand": 1.928219
+    },
+    {
+      "day": 400,
+      "temperature": 26.865,
+      "demand": 1.998975
+    },
+    {
+      "day": 401,
+      "temperature": 19.765,
+      "demand": 2.078611
+    },
+    {
+      "day": 402,
+      "temperature": 17.235,
+      "demand": 2.090038
+    },
+    {
+      "day": 403,
+      "temperature": 39.0,
+      "demand": 1.912768
+    },
+    {
+      "day": 404,
+      "temperature": 54.85,
+      "demand": 1.627252
+    },
+    {
+      "day": 405,
+      "temperature": 51.373913,
+      "demand": 1.679736
+    },
+    {
+      "day": 406,
+      "temperature": 47.7,
+      "demand": 1.786659
+    },
+    {
+      "day": 407,
+      "temperature": 52.568182,
+      "demand": 1.823168
+    },
+    {
+      "day": 408,
+      "temperature": 65.835,
+      "demand": 1.754526
+    },
+    {
+      "day": 409,
+      "temperature": 45.629412,
+      "demand": 1.835956
+    },
+    {
+      "day": 410,
+      "temperature": 36.85,
+      "demand": 1.792329
+    },
+    {
+      "day": 411,
+      "temperature": 33.8,
+      "demand": 1.67861
+    },
+    {
+      "day": 412,
+      "temperature": 30.765,
+      "demand": 1.695535
+    },
+    {
+      "day": 413,
+      "temperature": 30.9,
+      "demand": 1.896418
+    },
+    {
+      "day": 414,
+      "temperature": 36.85,
+      "demand": 1.894652
+    },
+    {
+      "day": 415,
+      "temperature": 48.04186,
+      "demand": 1.781217
+    },
+    {
+      "day": 416,
+      "temperature": 38.686957,
+      "demand": 1.972799
+    },
+    {
+      "day": 417,
+      "temperature": 25.0,
+      "demand": 1.903422
+    },
+    {
+      "day": 418,
+      "temperature": 41.301887,
+      "demand": 1.671274
+    },
+    {
+      "day": 419,
+      "temperature": 29.775,
+      "demand": 1.778649
+    },
+    {
+      "day": 420,
+      "temperature": 22.835,
+      "demand": 2.006972
+    },
+    {
+      "day": 421,
+      "temperature": 28.9,
+      "demand": 1.911159
+    },
+    {
+      "day": 422,
+      "temperature": 51.1,
+      "demand": 1.828542
+    },
+    {
+      "day": 423,
+      "temperature": 52.0,
+      "demand": 1.764543
+    },
+    {
+      "day": 424,
+      "temperature": 55.765,
+      "demand": 1.723962
+    },
+    {
+      "day": 425,
+      "temperature": 34.0,
+      "demand": 1.64222
+    },
+    {
+      "day": 426,
+      "temperature": 32.0,
+      "demand": 1.73266
+    },
+    {
+      "day": 427,
+      "temperature": 19.9,
+      "demand": 2.028477
+    },
+    {
+      "day": 428,
+      "temperature": 26.1,
+      "demand": 1.983813
+    },
+    {
+      "day": 429,
+      "temperature": 37.0,
+      "demand": 1.892745
+    },
+    {
+      "day": 430,
+      "temperature": 57.0,
+      "demand": 1.780361
+    },
+    {
+      "day": 431,
+      "temperature": 69.1,
+      "demand": 1.648426
+    },
+    {
+      "day": 432,
+      "temperature": 72.0,
+      "demand": 1.51896
+    },
+    {
+      "day": 433,
+      "temperature": 66.0,
+      "demand": 1.496874
+    },
+    {
+      "day": 434,
+      "temperature": 59.935,
+      "demand": 1.681594
+    },
+    {
+      "day": 435,
+      "temperature": 55.615,
+      "demand": 1.719774
+    },
+    {
+      "day": 436,
+      "temperature": 63.85,
+      "demand": 1.70689
+    },
+    {
+      "day": 437,
+      "temperature": 32.0,
+      "demand": 1.796575
+    },
+    {
+      "day": 438,
+      "temperature": 46.0,
+      "demand": 1.756749
+    },
+    {
+      "day": 439,
+      "temperature": 51.1,
+      "demand": 1.524674
+    },
+    {
+      "day": 440,
+      "temperature": 57.765,
+      "demand": 1.486655
+    },
+    {
+      "day": 441,
+      "temperature": 55.0,
+      "demand": 1.643687
+    },
+    {
+      "day": 442,
+      "temperature": 63.0,
+      "demand": 1.64957
+    },
+    {
+      "day": 443,
+      "temperature": 72.0,
+      "demand": 1.664416
+    },
+    {
+      "day": 444,
+      "temperature": 53.1,
+      "demand": 1.652017
+    },
+    {
+      "day": 445,
+      "temperature": 39.9,
+      "demand": 1.769194
+    },
+    {
+      "day": 446,
+      "temperature": 46.0,
+      "demand": 1.557985
+    },
+    {
+      "day": 447,
+      "temperature": 56.835,
+      "demand": 1.48434
+    },
+    {
+      "day": 448,
+      "temperature": 50.0,
+      "demand": 1.698937
+    },
+    {
+      "day": 449,
+      "temperature": 53.7,
+      "demand": 1.717425
+    },
+    {
+      "day": 450,
+      "temperature": 48.032727,
+      "demand": 1.719697
+    },
+    {
+      "day": 451,
+      "temperature": 55.0,
+      "demand": 1.680004
+    },
+    {
+      "day": 452,
+      "temperature": 57.9,
+      "demand": 1.6872
+    },
+    {
+      "day": 453,
+      "temperature": 60.865,
+      "demand": 1.476675
+    },
+    {
+      "day": 454,
+      "temperature": 53.92,
+      "demand": 1.500785
+    },
+    {
+      "day": 455,
+      "temperature": 47.7,
+      "demand": 1.744489
+    },
+    {
+      "day": 456,
+      "temperature": 69.7,
+      "demand": 1.668603
+    },
+    {
+      "day": 457,
+      "temperature": 61.935,
+      "demand": 1.676893
+    },
+    {
+      "day": 458,
+      "temperature": 69.1,
+      "demand": 1.625172
+    },
+    {
+      "day": 459,
+      "temperature": 57.05,
+      "demand": 1.647232
+    },
+    {
+      "day": 460,
+      "temperature": 53.1,
+      "demand": 1.475996
+    },
+    {
+      "day": 461,
+      "temperature": 62.865,
+      "demand": 1.421432
+    },
+    {
+      "day": 462,
+      "temperature": 58.115,
+      "demand": 1.72593
+    },
+    {
+      "day": 463,
+      "temperature": 36.742857,
+      "demand": 1.798985
+    },
+    {
+      "day": 464,
+      "temperature": 51.1,
+      "demand": 1.759209
+    },
+    {
+      "day": 465,
+      "temperature": 57.0,
+      "demand": 1.674476
+    },
+    {
+      "day": 466,
+      "temperature": 52.8,
+      "demand": 1.559765
+    },
+    {
+      "day": 467,
+      "temperature": 53.1,
+      "demand": 1.453815
+    },
+    {
+      "day": 468,
+      "temperature": 50.935,
+      "demand": 1.383948
+    },
+    {
+      "day": 469,
+      "temperature": 54.0,
+      "demand": 1.667563
+    },
+    {
+      "day": 470,
+      "temperature": 55.9,
+      "demand": 1.651758
+    },
+    {
+      "day": 471,
+      "temperature": 48.9,
+      "demand": 1.699928
+    },
+    {
+      "day": 472,
+      "temperature": 64.0,
+      "demand": 1.676939
+    },
+    {
+      "day": 473,
+      "temperature": 68.935,
+      "demand": 1.63473
+    },
+    {
+      "day": 474,
+      "temperature": 73.0,
+      "demand": 1.418466
+    },
+    {
+      "day": 475,
+      "temperature": 66.9,
+      "demand": 1.449797
+    },
+    {
+      "day": 476,
+      "temperature": 55.765,
+      "demand": 1.636535
+    },
+    {
+      "day": 477,
+      "temperature": 53.235,
+      "demand": 1.645991
+    },
+    {
+      "day": 478,
+      "temperature": 51.1,
+      "demand": 1.673608
+    },
+    {
+      "day": 479,
+      "temperature": 59.0,
+      "demand": 1.64169
+    },
+    {
+      "day": 480,
+      "temperature": 84.9,
+      "demand": 1.672407
+    },
+    {
+      "day": 481,
+      "temperature": 87.1,
+      "demand": 1.677735
+    },
+    {
+      "day": 482,
+      "temperature": 85.835,
+      "demand": 1.744874
+    },
+    {
+      "day": 483,
+      "temperature": 86.935,
+      "demand": 2.06148
+    },
+    {
+      "day": 484,
+      "temperature": 79.935,
+      "demand": 2.000758
+    },
+    {
+      "day": 485,
+      "temperature": 59.77,
+      "demand": 1.651462
+    },
+    {
+      "day": 486,
+      "temperature": 67.065,
+      "demand": 1.689538
+    },
+    {
+      "day": 487,
+      "temperature": 73.0,
+      "demand": 1.708973
+    },
+    {
+      "day": 488,
+      "temperature": 62.1,
+      "demand": 1.406922
+    },
+    {
+      "day": 489,
+      "temperature": 63.85,
+      "demand": 1.388823
+    },
+    {
+      "day": 490,
+      "temperature": 56.7,
+      "demand": 1.629053
+    },
+    {
+      "day": 491,
+      "temperature": 60.1,
+      "demand": 1.656596
+    },
+    {
+      "day": 492,
+      "temperature": 64.9,
+      "demand": 1.694366
+    },
+    {
+      "day": 493,
+      "temperature": 67.835,
+      "demand": 1.680191
+    },
+    {
+      "day": 494,
+      "temperature": 69.1,
+      "demand": 1.713655
+    },
+    {
+      "day": 495,
+      "temperature": 73.765,
+      "demand": 1.518488
+    },
+    {
+      "day": 496,
+      "temperature": 61.0,
+      "demand": 1.372961
+    },
+    {
+      "day": 497,
+      "temperature": 62.235,
+      "demand": 1.627471
+    },
+    {
+      "day": 498,
+      "temperature": 63.85,
+      "demand": 1.669549
+    },
+    {
+      "day": 499,
+      "temperature": 72.0,
+      "demand": 1.710193
+    },
+    {
+      "day": 500,
+      "temperature": 72.85,
+      "demand": 1.781693
+    },
+    {
+      "day": 501,
+      "temperature": 79.0,
+      "demand": 1.785196
+    },
+    {
+      "day": 502,
+      "temperature": 76.835,
+      "demand": 1.62381
+    },
+    {
+      "day": 503,
+      "temperature": 57.9,
+      "demand": 1.379847
+    },
+    {
+      "day": 504,
+      "temperature": 60.865,
+      "demand": 1.617348
+    },
+    {
+      "day": 505,
+      "temperature": 73.0,
+      "demand": 1.718897
+    },
+    {
+      "day": 506,
+      "temperature": 81.0,
+      "demand": 1.842784
+    },
+    {
+      "day": 507,
+      "temperature": 82.765,
+      "demand": 1.992336
+    },
+    {
+      "day": 508,
+      "temperature": 84.0,
+      "demand": 2.044713
+    },
+    {
+      "day": 509,
+      "temperature": 83.835,
+      "demand": 1.821176
+    },
+    {
+      "day": 510,
+      "temperature": 80.55,
+      "demand": 1.780471
+    },
+    {
+      "day": 511,
+      "temperature": 82.0,
+      "demand": 1.852486
+    },
+    {
+      "day": 512,
+      "temperature": 70.935,
+      "demand": 1.76733
+    },
+    {
+      "day": 513,
+      "temperature": 78.951351,
+      "demand": 2.013785
+    },
+    {
+      "day": 514,
+      "temperature": 80.55,
+      "demand": 2.179847
+    },
+    {
+      "day": 515,
+      "temperature": 68.0,
+      "demand": 1.749517
+    },
+    {
+      "day": 516,
+      "temperature": 71.1,
+      "demand": 1.54033
+    },
+    {
+      "day": 517,
+      "temperature": 67.835,
+      "demand": 1.438189
+    },
+    {
+      "day": 518,
+      "temperature": 76.835,
+      "demand": 1.747936
+    },
+    {
+      "day": 519,
+      "temperature": 77.0,
+      "demand": 2.085982
+    },
+    {
+      "day": 520,
+      "temperature": 64.765,
+      "demand": 1.730702
+    },
+    {
+      "day": 521,
+      "temperature": 68.77,
+      "demand": 1.727766
+    },
+    {
+      "day": 522,
+      "temperature": 64.0,
+      "demand": 1.680666
+    },
+    {
+      "day": 523,
+      "temperature": 77.0,
+      "demand": 1.595521
+    },
+    {
+      "day": 524,
+      "temperature": 79.935,
+      "demand": 1.716703
+    },
+    {
+      "day": 525,
+      "temperature": 80.865,
+      "demand": 2.191049
+    },
+    {
+      "day": 526,
+      "temperature": 83.835,
+      "demand": 2.295583
+    },
+    {
+      "day": 527,
+      "temperature": 75.9,
+      "demand": 2.048913
+    },
+    {
+      "day": 528,
+      "temperature": 71.191837,
+      "demand": 1.982996
+    },
+    {
+      "day": 529,
+      "temperature": 70.935,
+      "demand": 1.818141
+    },
+    {
+      "day": 530,
+      "temperature": 74.835,
+      "demand": 1.679272
+    },
+    {
+      "day": 531,
+      "temperature": 77.935,
+      "demand": 1.679593
+    },
+    {
+      "day": 532,
+      "temperature": 79.8,
+      "demand": 2.031767
+    },
+    {
+      "day": 533,
+      "temperature": 80.865,
+      "demand": 2.146087
+    },
+    {
+      "day": 534,
+      "temperature": 74.835,
+      "demand": 1.862303
+    },
+    {
+      "day": 535,
+      "temperature": 74.835,
+      "demand": 1.867852
+    },
+    {
+      "day": 536,
+      "temperature": 79.0,
+      "demand": 1.957528
+    },
+    {
+      "day": 537,
+      "temperature": 82.9,
+      "demand": 1.957981
+    },
+    {
+      "day": 538,
+      "temperature": 76.835,
+      "demand": 1.765524
+    },
+    {
+      "day": 539,
+      "temperature": 82.9,
+      "demand": 2.230095
+    },
+    {
+      "day": 540,
+      "temperature": 82.765,
+      "demand": 2.256354
+    },
+    {
+      "day": 541,
+      "temperature": 85.835,
+      "demand": 2.326659
+    },
+    {
+      "day": 542,
+      "temperature": 87.1,
+      "demand": 2.548723
+    },
+    {
+      "day": 543,
+      "temperature": 81.715,
+      "demand": 2.298304
+    },
+    {
+      "day": 544,
+      "temperature": 79.935,
+      "demand": 1.93819
+    },
+    {
+      "day": 545,
+      "temperature": 78.365,
+      "demand": 1.799533
+    },
+    {
+      "day": 546,
+      "temperature": 78.865,
+      "demand": 2.010456
+    },
+    {
+      "day": 547,
+      "temperature": 72.0,
+      "demand": 1.883112
+    },
+    {
+      "day": 548,
+      "temperature": 70.785,
+      "demand": 1.850965
+    },
+    {
+      "day": 549,
+      "temperature": 66.066667,
+      "demand": 1.761356
+    },
+    {
+      "day": 550,
+      "temperature": 69.1,
+      "demand": 1.553238
+    },
+    {
+      "day": 551,
+      "temperature": 73.765,
+      "demand": 1.53241
+    },
+    {
+      "day": 552,
+      "temperature": 76.835,
+      "demand": 1.652137
+    },
+    {
+      "day": 553,
+      "temperature": 80.1,
+      "demand": 2.015207
+    },
+    {
+      "day": 554,
+      "temperature": 79.0,
+      "demand": 2.057568
+    },
+    {
+      "day": 555,
+      "temperature": 75.0,
+      "demand": 1.876719
+    },
+    {
+      "day": 556,
+      "temperature": 81.0,
+      "demand": 2.097285
+    },
+    {
+      "day": 557,
+      "temperature": 82.0,
+      "demand": 2.237166
+    },
+    {
+      "day": 558,
+      "temperature": 82.0,
+      "demand": 2.054303
+    },
+    {
+      "day": 559,
+      "temperature": 81.85,
+      "demand": 1.915574
+    },
+    {
+      "day": 560,
+      "temperature": 77.935,
+      "demand": 2.066904
+    },
+    {
+      "day": 561,
+      "temperature": 77.0,
+      "demand": 1.979122
+    },
+    {
+      "day": 562,
+      "temperature": 83.835,
+      "demand": 2.198604
+    },
+    {
+      "day": 563,
+      "temperature": 86.935,
+      "demand": 2.47347
+    },
+    {
+      "day": 564,
+      "temperature": 74.424,
+      "demand": 1.990103
+    },
+    {
+      "day": 565,
+      "temperature": 68.935,
+      "demand": 1.570576
+    },
+    {
+      "day": 566,
+      "temperature": 73.0,
+      "demand": 1.588153
+    },
+    {
+      "day": 567,
+      "temperature": 73.9,
+      "demand": 1.889955
+    },
+    {
+      "day": 568,
+      "temperature": 76.835,
+      "demand": 2.014655
+    },
+    {
+      "day": 569,
+      "temperature": 79.0,
+      "demand": 2.067839
+    },
+    {
+      "day": 570,
+      "temperature": 73.0,
+      "demand": 2.028794
+    },
+    {
+      "day": 571,
+      "temperature": 79.935,
+      "demand": 2.029508
+    },
+    {
+      "day": 572,
+      "temperature": 78.235,
+      "demand": 1.781218
+    },
+    {
+      "day": 573,
+      "temperature": 78.865,
+      "demand": 1.794569
+    },
+    {
+      "day": 574,
+      "temperature": 82.0,
+      "demand": 2.255336
+    },
+    {
+      "day": 575,
+      "temperature": 82.765,
+      "demand": 2.361148
+    },
+    {
+      "day": 576,
+      "temperature": 73.102857,
+      "demand": 2.067315
+    },
+    {
+      "day": 577,
+      "temperature": 80.1,
+      "demand": 2.249136
+    },
+    {
+      "day": 578,
+      "temperature": 79.935,
+      "demand": 2.077171
+    },
+    {
+      "day": 579,
+      "temperature": 81.715,
+      "demand": 1.972314
+    },
+    {
+      "day": 580,
+      "temperature": 78.1,
+      "demand": 1.898652
+    },
+    {
+      "day": 581,
+      "temperature": 78.1,
+      "demand": 2.126811
+    },
+    {
+      "day": 582,
+      "temperature": 81.0,
+      "demand": 2.288501
+    },
+    {
+      "day": 583,
+      "temperature": 75.9,
+      "demand": 2.023219
+    },
+    {
+      "day": 584,
+      "temperature": 76.7,
+      "demand": 1.945998
+    },
+    {
+      "day": 585,
+      "temperature": 78.1,
+      "demand": 1.993265
+    },
+    {
+      "day": 586,
+      "temperature": 77.935,
+      "demand": 1.846852
+    },
+    {
+      "day": 587,
+      "temperature": 89.1,
+      "demand": 2.368341
+    },
+    {
+      "day": 588,
+      "temperature": 88.635,
+      "demand": 2.690276
+    },
+    {
+      "day": 589,
+      "temperature": 80.235,
+      "demand": 2.359068
+    },
+    {
+      "day": 590,
+      "temperature": 77.284375,
+      "demand": 2.196513
+    },
+    {
+      "day": 591,
+      "temperature": 81.715,
+      "demand": 2.29437
+    },
+    {
+      "day": 592,
+      "temperature": 85.835,
+      "demand": 2.430123
+    },
+    {
+      "day": 593,
+      "temperature": 86.935,
+      "demand": 2.365709
+    },
+    {
+      "day": 594,
+      "temperature": 87.865,
+      "demand": 2.425878
+    },
+    {
+      "day": 595,
+      "temperature": 89.1,
+      "demand": 2.732222
+    },
+    {
+      "day": 596,
+      "temperature": 82.765,
+      "demand": 2.53881
+    },
+    {
+      "day": 597,
+      "temperature": 80.446154,
+      "demand": 2.439383
+    },
+    {
+      "day": 598,
+      "temperature": 84.9,
+      "demand": 2.489943
+    },
+    {
+      "day": 599,
+      "temperature": 80.865,
+      "demand": 2.317992
+    },
+    {
+      "day": 600,
+      "temperature": 79.0,
+      "demand": 1.992814
+    },
+    {
+      "day": 601,
+      "temperature": 70.0,
+      "demand": 1.668637
+    },
+    {
+      "day": 602,
+      "temperature": 75.9,
+      "demand": 2.023565
+    },
+    {
+      "day": 603,
+      "temperature": 80.1,
+      "demand": 2.231825
+    },
+    {
+      "day": 604,
+      "temperature": 82.0,
+      "demand": 2.336268
+    },
+    {
+      "day": 605,
+      "temperature": 79.935,
+      "demand": 2.25879
+    },
+    {
+      "day": 606,
+      "temperature": 73.765,
+      "demand": 1.977394
+    },
+    {
+      "day": 607,
+      "temperature": 76.835,
+      "demand": 1.859864
+    },
+    {
+      "day": 608,
+      "temperature": 65.835,
+      "demand": 1.513748
+    },
+    {
+      "day": 609,
+      "temperature": 68.0,
+      "demand": 1.769244
+    },
+    {
+      "day": 610,
+      "temperature": 71.865,
+      "demand": 1.780516
+    },
+    {
+      "day": 611,
+      "temperature": 75.0,
+      "demand": 1.833619
+    },
+    {
+      "day": 612,
+      "temperature": 75.9,
+      "demand": 1.856374
+    },
+    {
+      "day": 613,
+      "temperature": 79.935,
+      "demand": 1.881646
+    },
+    {
+      "day": 614,
+      "temperature": 78.865,
+      "demand": 1.743232
+    },
+    {
+      "day": 615,
+      "temperature": 82.0,
+      "demand": 1.672293
+    },
+    {
+      "day": 616,
+      "temperature": 69.253659,
+      "demand": 1.64162
+    },
+    {
+      "day": 617,
+      "temperature": 73.9,
+      "demand": 1.922532
+    },
+    {
+      "day": 618,
+      "temperature": 75.765,
+      "demand": 1.945511
+    },
+    {
+      "day": 619,
+      "temperature": 74.55,
+      "demand": 1.86584
+    },
+    {
+      "day": 620,
+      "temperature": 68.0,
+      "demand": 1.725677
+    },
+    {
+      "day": 621,
+      "temperature": 69.317241,
+      "demand": 1.542568
+    },
+    {
+      "day": 622,
+      "temperature": 76.73,
+      "demand": 1.674282
+    },
+    {
+      "day": 623,
+      "temperature": 79.8,
+      "demand": 1.98643
+    },
+    {
+      "day": 624,
+      "temperature": 79.935,
+      "demand": 2.03526
+    },
+    {
+      "day": 625,
+      "temperature": 73.0,
+      "demand": 1.887458
+    },
+    {
+      "day": 626,
+      "temperature": 73.615,
+      "demand": 1.842438
+    },
+    {
+      "day": 627,
+      "temperature": 75.0,
+      "demand": 1.833095
+    },
+    {
+      "day": 628,
+      "temperature": 72.85,
+      "demand": 1.561777
+    },
+    {
+      "day": 629,
+      "temperature": 81.0,
+      "demand": 1.73977
+    },
+    {
+      "day": 630,
+      "temperature": 75.0,
+      "demand": 1.963666
+    },
+    {
+      "day": 631,
+      "temperature": 73.765,
+      "demand": 1.939574
+    },
+    {
+      "day": 632,
+      "temperature": 78.1,
+      "demand": 2.074761
+    },
+    {
+      "day": 633,
+      "temperature": 75.765,
+      "demand": 1.97145
+    },
+    {
+      "day": 634,
+      "temperature": 69.865,
+      "demand": 1.772678
+    },
+    {
+      "day": 635,
+      "temperature": 63.55,
+      "demand": 1.527348
+    },
+    {
+      "day": 636,
+      "temperature": 66.765,
+      "demand": 1.513961
+    },
+    {
+      "day": 637,
+      "temperature": 65.63125,
+      "demand": 1.691195
+    },
+    {
+      "day": 638,
+      "temperature": 56.835,
+      "demand": 1.663272
+    },
+    {
+      "day": 639,
+      "temperature": 54.85,
+      "demand": 1.629937
+    },
+    {
+      "day": 640,
+      "temperature": 58.835,
+      "demand": 1.647503
+    },
+    {
+      "day": 641,
+      "temperature": 57.9,
+      "demand": 1.669749
+    },
+    {
+      "day": 642,
+      "temperature": 66.0,
+      "demand": 1.501364
+    },
+    {
+      "day": 643,
+      "temperature": 57.0,
+      "demand": 1.494956
+    },
+    {
+      "day": 644,
+      "temperature": 61.935,
+      "demand": 1.64914
+    },
+    {
+      "day": 645,
+      "temperature": 64.9,
+      "demand": 1.687281
+    },
+    {
+      "day": 646,
+      "temperature": 62.897143,
+      "demand": 1.661845
+    },
+    {
+      "day": 647,
+      "temperature": 59.0,
+      "demand": 1.678203
+    },
+    {
+      "day": 648,
+      "temperature": 69.55,
+      "demand": 1.736843
+    },
+    {
+      "day": 649,
+      "temperature": 59.869767,
+      "demand": 1.489104
+    },
+    {
+      "day": 650,
+      "temperature": 55.0,
+      "demand": 1.498984
+    },
+    {
+      "day": 651,
+      "temperature": 55.0,
+      "demand": 1.716777
+    },
+    {
+      "day": 652,
+      "temperature": 55.0,
+      "demand": 1.698622
+    },
+    {
+      "day": 653,
+      "temperature": 42.865,
+      "demand": 1.748798
+    },
+    {
+      "day": 654,
+      "temperature": 43.0,
+      "demand": 1.74866
+    },
+    {
+      "day": 655,
+      "temperature": 39.765,
+      "demand": 1.760845
+    },
+    {
+      "day": 656,
+      "temperature": 39.12,
+      "demand": 1.630229
+    },
+    {
+      "day": 657,
+      "temperature": 49.25,
+      "demand": 1.576235
+    },
+    {
+      "day": 658,
+      "temperature": 55.615,
+      "demand": 1.709527
+    },
+    {
+      "day": 659,
+      "temperature": 62.7,
+      "demand": 1.69757
+    },
+    {
+      "day": 660,
+      "temperature": 70.935,
+      "demand": 1.695816
+    },
+    {
+      "day": 661,
+      "temperature": 71.865,
+      "demand": 1.699136
+    },
+    {
+      "day": 662,
+      "temperature": 63.285,
+      "demand": 1.657115
+    },
+    {
+      "day": 663,
+      "temperature": 64.272727,
+      "demand": 1.462872
+    },
+    {
+      "day": 664,
+      "temperature": 59.935,
+      "demand": 1.462962
+    },
+    {
+      "day": 665,
+      "temperature": 66.0,
+      "demand": 1.622915
+    },
+    {
+      "day": 666,
+      "temperature": 59.935,
+      "demand": 1.679668
+    },
+    {
+      "day": 667,
+      "temperature": 57.0,
+      "demand": 1.704918
+    },
+    {
+      "day": 668,
+      "temperature": 54.0,
+      "demand": 1.661678
+    },
+    {
+      "day": 669,
+      "temperature": 72.55,
+      "demand": 1.618066
+    },
+    {
+      "day": 670,
+      "temperature": 66.9,
+      "demand": 1.505699
+    },
+    {
+      "day": 671,
+      "temperature": 52.935,
+      "demand": 1.578499
+    },
+    {
+      "day": 672,
+      "temperature": 55.9,
+      "demand": 1.736025
+    },
+    {
+      "day": 673,
+      "temperature": 52.0,
+      "demand": 1.74294
+    },
+    {
+      "day": 674,
+      "temperature": 43.0,
+      "demand": 1.79504
+    },
+    {
+      "day": 675,
+      "temperature": 50.635,
+      "demand": 1.784014
+    },
+    {
+      "day": 676,
+      "temperature": 46.9,
+      "demand": 1.670322
+    },
+    {
+      "day": 677,
+      "temperature": 66.765,
+      "demand": 1.52904
+    },
+    {
+      "day": 678,
+      "temperature": 70.935,
+      "demand": 1.545082
+    },
+    {
+      "day": 679,
+      "temperature": 64.9,
+      "demand": 1.69586
+    },
+    {
+      "day": 680,
+      "temperature": 59.935,
+      "demand": 1.728884
+    },
+    {
+      "day": 681,
+      "temperature": 54.85,
+      "demand": 1.711554
+    },
+    {
+      "day": 682,
+      "temperature": 55.0,
+      "demand": 1.737232
+    },
+    {
+      "day": 683,
+      "temperature": 64.0,
+      "demand": 1.676611
+    },
+    {
+      "day": 684,
+      "temperature": 66.0,
+      "demand": 1.531157
+    },
+    {
+      "day": 685,
+      "temperature": 64.9,
+      "demand": 1.570028
+    },
+    {
+      "day": 686,
+      "temperature": 52.935,
+      "demand": 1.701765
+    },
+    {
+      "day": 687,
+      "temperature": 55.765,
+      "demand": 1.735868
+    },
+    {
+      "day": 688,
+      "temperature": 58.835,
+      "demand": 1.745962
+    },
+    {
+      "day": 689,
+      "temperature": 55.4,
+      "demand": 1.786232
+    },
+    {
+      "day": 690,
+      "temperature": 49.835,
+      "demand": 1.729358
+    },
+    {
+      "day": 691,
+      "temperature": 51.726316,
+      "demand": 1.602355
+    },
+    {
+      "day": 692,
+      "temperature": 52.8,
+      "demand": 1.549102
+    },
+    {
+      "day": 693,
+      "temperature": 52.0,
+      "demand": 1.731572
+    },
+    {
+      "day": 694,
+      "temperature": 54.0,
+      "demand": 1.689682
+    },
+    {
+      "day": 695,
+      "temperature": 54.0,
+      "demand": 1.676035
+    },
+    {
+      "day": 696,
+      "temperature": 48.0,
+      "demand": 1.429531
+    },
+    {
+      "day": 697,
+      "temperature": 37.808163,
+      "demand": 1.683284
+    },
+    {
+      "day": 698,
+      "temperature": 45.85,
+      "demand": 1.587821
+    },
+    {
+      "day": 699,
+      "temperature": 61.0,
+      "demand": 1.593826
+    },
+    {
+      "day": 700,
+      "temperature": 50.0,
+      "demand": 1.802001
+    },
+    {
+      "day": 701,
+      "temperature": 46.9,
+      "demand": 1.805664
+    },
+    {
+      "day": 702,
+      "temperature": 54.217241,
+      "demand": 1.860581
+    },
+    {
+      "day": 703,
+      "temperature": 54.030769,
+      "demand": 1.860847
+    },
+    {
+      "day": 704,
+      "temperature": 39.054545,
+      "demand": 1.817803
+    },
+    {
+      "day": 705,
+      "temperature": 30.765,
+      "demand": 1.796004
+    },
+    {
+      "day": 706,
+      "temperature": 30.0,
+      "demand": 1.831186
+    },
+    {
+      "day": 707,
+      "temperature": 34.0,
+      "demand": 1.962915
+    },
+    {
+      "day": 708,
+      "temperature": 37.765,
+      "demand": 1.940656
+    },
+    {
+      "day": 709,
+      "temperature": 57.6,
+      "demand": 1.926344
+    },
+    {
+      "day": 710,
+      "temperature": 29.835,
+      "demand": 2.121282
+    },
+    {
+      "day": 711,
+      "temperature": 28.9,
+      "demand": 1.984543
+    },
+    {
+      "day": 712,
+      "temperature": 37.9,
+      "demand": 1.810458
+    },
+    {
+      "day": 713,
+      "temperature": 46.663158,
+      "demand": 1.80135
+    },
+    {
+      "day": 714,
+      "temperature": 52.0,
+      "demand": 1.91894
+    },
+    {
+      "day": 715,
+      "temperature": 50.0,
+      "demand": 1.985754
+    },
+    {
+      "day": 716,
+      "temperature": 29.7,
+      "demand": 2.047464
+    },
+    {
+      "day": 717,
+      "temperature": 30.9,
+      "demand": 2.001449
+    },
+    {
+      "day": 718,
+      "temperature": 37.765,
+      "demand": 1.943361
+    },
+    {
+      "day": 719,
+      "temperature": 28.9,
+      "demand": 1.896828
+    },
+    {
+      "day": 720,
+      "temperature": 30.0,
+      "demand": 1.876265
+    },
+    {
+      "day": 721,
+      "temperature": 31.325,
+      "demand": 2.001484
+    },
+    {
+      "day": 722,
+      "temperature": 30.9,
+      "demand": 1.979837
+    },
+    {
+      "day": 723,
+      "temperature": 28.615,
+      "demand": 1.953947
+    },
+    {
+      "day": 724,
+      "temperature": 37.0,
+      "demand": 1.756661
+    },
+    {
+      "day": 725,
+      "temperature": 44.1,
+      "demand": 1.568928
+    },
+    {
+      "day": 726,
+      "temperature": 44.914286,
+      "demand": 1.702953
+    },
+    {
+      "day": 727,
+      "temperature": 41.935,
+      "demand": 1.719389
+    },
+    {
+      "day": 728,
+      "temperature": 28.553846,
+      "demand": 2.009119
+    },
+    {
+      "day": 729,
+      "temperature": 23.0,
+      "demand": 1.992751
+    },
+    {
+      "day": 730,
+      "temperature": 32.0,
+      "demand": 1.947135
+    },
+    {
+      "day": 731,
+      "temperature": 36.0,
+      "demand": 1.82596
+    },
+    {
+      "day": 732,
+      "temperature": 33.957143,
+      "demand": 1.790807
+    },
+    {
+      "day": 733,
+      "temperature": 19.615,
+      "demand": 1.960115
+    },
+    {
+      "day": 734,
+      "temperature": 16.0,
+      "demand": 2.004995
+    },
+    {
+      "day": 735,
+      "temperature": 22.835,
+      "demand": 2.091005
+    },
+    {
+      "day": 736,
+      "temperature": 24.672727,
+      "demand": 2.121906
+    },
+    {
+      "day": 737,
+      "temperature": 26.1,
+      "demand": 2.113842
+    },
+    {
+      "day": 738,
+      "temperature": 24.8,
+      "demand": 2.059328
+    },
+    {
+      "day": 739,
+      "temperature": 23.0,
+      "demand": 2.113218
+    },
+    {
+      "day": 740,
+      "temperature": 23.0,
+      "demand": 1.921157
+    },
+    {
+      "day": 741,
+      "temperature": 19.9,
+      "demand": 1.973675
+    },
+    {
+      "day": 742,
+      "temperature": 21.734211,
+      "demand": 2.102087
+    },
+    {
+      "day": 743,
+      "temperature": 25.0,
+      "demand": 2.08932
+    },
+    {
+      "day": 744,
+      "temperature": 30.9,
+      "demand": 2.040598
+    },
+    {
+      "day": 745,
+      "temperature": 41.935,
+      "demand": 1.932637
+    },
+    {
+      "day": 746,
+      "temperature": 42.865,
+      "demand": 1.885552
+    },
+    {
+      "day": 747,
+      "temperature": 49.835,
+      "demand": 1.689212
+    },
+    {
+      "day": 748,
+      "temperature": 39.9,
+      "demand": 1.735328
+    },
+    {
+      "day": 749,
+      "temperature": 39.765,
+      "demand": 1.890204
+    },
+    {
+      "day": 750,
+      "temperature": 35.1,
+      "demand": 1.941263
+    },
+    {
+      "day": 751,
+      "temperature": 33.1,
+      "demand": 1.943493
+    },
+    {
+      "day": 752,
+      "temperature": 42.1,
+      "demand": 1.899233
+    },
+    {
+      "day": 753,
+      "temperature": 39.0,
+      "demand": 1.84978
+    },
+    {
+      "day": 754,
+      "temperature": 49.835,
+      "demand": 1.662298
+    },
+    {
+      "day": 755,
+      "temperature": 50.0,
+      "demand": 1.70107
+    },
+    {
+      "day": 756,
+      "temperature": 50.77,
+      "demand": 1.853714
+    },
+    {
+      "day": 757,
+      "temperature": 30.9,
+      "demand": 1.996821
+    },
+    {
+      "day": 758,
+      "temperature": 31.065,
+      "demand": 1.975317
+    },
+    {
+      "day": 759,
+      "temperature": 32.0,
+      "demand": 2.061711
+    },
+    {
+      "day": 760,
+      "temperature": 15.1,
+      "demand": 2.043169
+    },
+    {
+      "day": 761,
+      "temperature": 20.7,
+      "demand": 1.940771
+    },
+    {
+      "day": 762,
+      "temperature": 28.0,
+      "demand": 1.864153
+    },
+    {
+      "day": 763,
+      "temperature": 30.0,
+      "demand": 1.938987
+    },
+    {
+      "day": 764,
+      "temperature": 35.1,
+      "demand": 1.924244
+    },
+    {
+      "day": 765,
+      "temperature": 34.935,
+      "demand": 1.937587
+    },
+    {
+      "day": 766,
+      "temperature": 35.1,
+      "demand": 1.863278
+    },
+    {
+      "day": 767,
+      "temperature": 35.202273,
+      "demand": 1.906429
+    },
+    {
+      "day": 768,
+      "temperature": 28.765,
+      "demand": 1.674326
+    },
+    {
+      "day": 769,
+      "temperature": 22.682353,
+      "demand": 1.798997
+    },
+    {
+      "day": 770,
+      "temperature": 27.85,
+      "demand": 1.961112
+    },
+    {
+      "day": 771,
+      "temperature": 33.2575,
+      "demand": 1.999156
+    },
+    {
+      "day": 772,
+      "temperature": 30.465,
+      "demand": 2.017072
+    },
+    {
+      "day": 773,
+      "temperature": 26.1,
+      "demand": 1.969983
+    },
+    {
+      "day": 774,
+      "temperature": 27.85,
+      "demand": 1.897759
+    },
+    {
+      "day": 775,
+      "temperature": 26.1,
+      "demand": 1.830482
+    },
+    {
+      "day": 776,
+      "temperature": 26.865,
+      "demand": 1.86197
+    },
+    {
+      "day": 777,
+      "temperature": 28.704348,
+      "demand": 2.000772
+    },
+    {
+      "day": 778,
+      "temperature": 26.35,
+      "demand": 2.047128
+    },
+    {
+      "day": 779,
+      "temperature": 29.55,
+      "demand": 2.025133
+    },
+    {
+      "day": 780,
+      "temperature": 34.935,
+      "demand": 2.008723
+    },
+    {
+      "day": 781,
+      "temperature": 37.0,
+      "demand": 1.912161
+    },
+    {
+      "day": 782,
+      "temperature": 39.0,
+      "demand": 1.757933
+    },
+    {
+      "day": 783,
+      "temperature": 41.0,
+      "demand": 1.734792
+    },
+    {
+      "day": 784,
+      "temperature": 43.47,
+      "demand": 1.884524
+    },
+    {
+      "day": 785,
+      "temperature": 37.61875,
+      "demand": 1.950876
+    },
+    {
+      "day": 786,
+      "temperature": 36.715,
+      "demand": 1.885891
+    },
+    {
+      "day": 787,
+      "temperature": 29.835,
+      "demand": 1.998088
+    },
+    {
+      "day": 788,
+      "temperature": 28.156522,
+      "demand": 2.003517
+    },
+    {
+      "day": 789,
+      "temperature": 32.935,
+      "demand": 1.786953
+    },
+    {
+      "day": 790,
+      "temperature": 34.654545,
+      "demand": 1.770893
+    },
+    {
+      "day": 791,
+      "temperature": 37.0,
+      "demand": 1.879989
+    },
+    {
+      "day": 792,
+      "temperature": 34.0,
+      "demand": 1.928241
+    },
+    {
+      "day": 793,
+      "temperature": 37.0,
+      "demand": 1.916672
+    },
+    {
+      "day": 794,
+      "temperature": 37.9,
+      "demand": 1.882834
+    },
+    {
+      "day": 795,
+      "temperature": 39.9,
+      "demand": 1.861831
+    },
+    {
+      "day": 796,
+      "temperature": 40.7,
+      "demand": 1.663265
+    },
+    {
+      "day": 797,
+      "temperature": 46.9,
+      "demand": 1.658339
+    },
+    {
+      "day": 798,
+      "temperature": 51.53,
+      "demand": 1.781566
+    },
+    {
+      "day": 799,
+      "temperature": 56.835,
+      "demand": 1.761027
+    },
+    {
+      "day": 800,
+      "temperature": 64.615,
+      "demand": 1.722915
+    },
+    {
+      "day": 801,
+      "temperature": 66.765,
+      "demand": 1.722136
+    },
+    {
+      "day": 802,
+      "temperature": 60.865,
+      "demand": 1.731627
+    },
+    {
+      "day": 803,
+      "temperature": 49.7,
+      "demand": 1.610008
+    },
+    {
+      "day": 804,
+      "temperature": 45.0,
+      "demand": 1.624024
+    },
+    {
+      "day": 805,
+      "temperature": 42.94375,
+      "demand": 1.787998
+    },
+    {
+      "day": 806,
+      "temperature": 59.0,
+      "demand": 1.73883
+    },
+    {
+      "day": 807,
+      "temperature": 62.865,
+      "demand": 1.771683
+    },
+    {
+      "day": 808,
+      "temperature": 64.615,
+      "demand": 1.71648
+    },
+    {
+      "day": 809,
+      "temperature": 65.835,
+      "demand": 1.725555
+    },
+    {
+      "day": 810,
+      "temperature": 66.765,
+      "demand": 1.524099
+    },
+    {
+      "day": 811,
+      "temperature": 71.36,
+      "demand": 1.521984
+    },
+    {
+      "day": 812,
+      "temperature": 68.0,
+      "demand": 1.724557
+    },
+    {
+      "day": 813,
+      "temperature": 45.715,
+      "demand": 1.783173
+    },
+    {
+      "day": 814,
+      "temperature": 58.835,
+      "demand": 1.720329
+    },
+    {
+      "day": 815,
+      "temperature": 59.0,
+      "demand": 1.737071
+    },
+    {
+      "day": 816,
+      "temperature": 42.1,
+      "demand": 1.786972
+    },
+    {
+      "day": 817,
+      "temperature": 54.715,
+      "demand": 1.601359
+    },
+    {
+      "day": 818,
+      "temperature": 48.17,
+      "demand": 1.563885
+    },
+    {
+      "day": 819,
+      "temperature": 50.0,
+      "demand": 1.754014
+    },
+    {
+      "day": 820,
+      "temperature": 53.525,
+      "demand": 1.688828
+    },
+    {
+      "day": 821,
+      "temperature": 66.0,
+      "demand": 1.700579
+    },
+    {
+      "day": 822,
+      "temperature": 80.865,
+      "demand": 1.723654
+    },
+    {
+      "day": 823,
+      "temperature": 84.0,
+      "demand": 1.656179
+    },
+    {
+      "day": 824,
+      "temperature": 84.0,
+      "demand": 1.60017
+    },
+    {
+      "day": 825,
+      "temperature": 69.1,
+      "demand": 1.459662
+    },
+    {
+      "day": 826,
+      "temperature": 78.1,
+      "demand": 1.766353
+    },
+    {
+      "day": 827,
+      "temperature": 84.9,
+      "demand": 1.919513
+    },
+    {
+      "day": 828,
+      "temperature": 79.0,
+      "demand": 1.969919
+    },
+    {
+      "day": 829,
+      "temperature": 71.7,
+      "demand": 1.844468
+    },
+    {
+      "day": 830,
+      "temperature": 42.865,
+      "demand": 1.682498
+    },
+    {
+      "day": 831,
+      "temperature": 61.935,
+      "demand": 1.48568
+    },
+    {
+      "day": 832,
+      "temperature": 68.935,
+      "demand": 1.518428
+    },
+    {
+      "day": 833,
+      "temperature": 64.0,
+      "demand": 1.717091
+    },
+    {
+      "day": 834,
+      "temperature": 54.715,
+      "demand": 1.723132
+    },
+    {
+      "day": 835,
+      "temperature": 62.865,
+      "demand": 1.699774
+    },
+    {
+      "day": 836,
+      "temperature": 78.865,
+      "demand": 1.747751
+    },
+    {
+      "day": 837,
+      "temperature": 78.235,
+      "demand": 1.85136
+    },
+    {
+      "day": 838,
+      "temperature": 50.935,
+      "demand": 1.497085
+    },
+    {
+      "day": 839,
+      "temperature": 46.0,
+      "demand": 1.528996
+    },
+    {
+      "day": 840,
+      "temperature": 61.0,
+      "demand": 1.711794
+    },
+    {
+      "day": 841,
+      "temperature": 63.715,
+      "demand": 1.656999
+    },
+    {
+      "day": 842,
+      "temperature": 66.6,
+      "demand": 1.683288
+    },
+    {
+      "day": 843,
+      "temperature": 66.0,
+      "demand": 1.706796
+    },
+    {
+      "day": 844,
+      "temperature": 66.525,
+      "demand": 1.726725
+    },
+    {
+      "day": 845,
+      "temperature": 64.765,
+      "demand": 1.470038
+    },
+    {
+      "day": 846,
+      "temperature": 74.728302,
+      "demand": 1.481771
+    },
+    {
+      "day": 847,
+      "temperature": 58.535,
+      "demand": 1.701841
+    },
+    {
+      "day": 848,
+      "temperature": 52.8,
+      "demand": 1.661387
+    },
+    {
+      "day": 849,
+      "temperature": 52.635,
+      "demand": 1.713346
+    },
+    {
+      "day": 850,
+      "temperature": 63.85,
+      "demand": 1.689832
+    },
+    {
+      "day": 851,
+      "temperature": 80.865,
+      "demand": 1.773444
+    },
+    {
+      "day": 852,
+      "temperature": 82.765,
+      "demand": 1.689578
+    },
+    {
+      "day": 853,
+      "temperature": 70.0,
+      "demand": 1.617483
+    },
+    {
+      "day": 854,
+      "temperature": 75.0,
+      "demand": 1.912258
+    },
+    {
+      "day": 855,
+      "temperature": 71.865,
+      "demand": 1.800659
+    },
+    {
+      "day": 856,
+      "temperature": 79.935,
+      "demand": 1.91845
+    },
+    {
+      "day": 857,
+      "temperature": 72.0,
+      "demand": 1.814087
+    },
+    {
+      "day": 858,
+      "temperature": 82.765,
+      "demand": 1.769907
+    },
+    {
+      "day": 859,
+      "temperature": 77.472727,
+      "demand": 1.460616
+    },
+    {
+      "day": 860,
+      "temperature": 51.1,
+      "demand": 1.49347
+    },
+    {
+      "day": 861,
+      "temperature": 57.9,
+      "demand": 1.662164
+    },
+    {
+      "day": 862,
+      "temperature": 57.703125,
+      "demand": 1.724156
+    },
+    {
+      "day": 863,
+      "temperature": 59.0,
+      "demand": 1.711202
+    },
+    {
+      "day": 864,
+      "temperature": 76.835,
+      "demand": 1.725523
+    },
+    {
+      "day": 865,
+      "temperature": 80.865,
+      "demand": 1.962572
+    },
+    {
+      "day": 866,
+      "temperature": 69.865,
+      "demand": 1.552957
+    },
+    {
+      "day": 867,
+      "temperature": 68.0,
+      "demand": 1.54023
+    },
+    {
+      "day": 868,
+      "temperature": 60.1,
+      "demand": 1.764494
+    },
+    {
+      "day": 869,
+      "temperature": 60.1,
+      "demand": 1.711099
+    },
+    {
+      "day": 870,
+      "temperature": 67.4,
+      "demand": 1.749191
+    },
+    {
+      "day": 871,
+      "temperature": 77.77,
+      "demand": 1.857941
+    },
+    {
+      "day": 872,
+      "temperature": 75.03,
+      "demand": 1.866887
+    },
+    {
+      "day": 873,
+      "temperature": 71.260714,
+      "demand": 1.604496
+    },
+    {
+      "day": 874,
+      "temperature": 78.1,
+      "demand": 1.720135
+    },
+    {
+      "day": 875,
+      "temperature": 77.0,
+      "demand": 2.010305
+    },
+    {
+      "day": 876,
+      "temperature": 81.0,
+      "demand": 2.180474
+    },
+    {
+      "day": 877,
+      "temperature": 84.9,
+      "demand": 2.400646
+    },
+    {
+      "day": 878,
+      "temperature": 86.0,
+      "demand": 2.465505
+    },
+    {
+      "day": 879,
+      "temperature": 84.765,
+      "demand": 2.370972
+    },
+    {
+      "day": 880,
+      "temperature": 82.825,
+      "demand": 2.064991
+    },
+    {
+      "day": 881,
+      "temperature": 83.835,
+      "demand": 2.081485
+    },
+    {
+      "day": 882,
+      "temperature": 82.0,
+      "demand": 2.094694
+    },
+    {
+      "day": 883,
+      "temperature": 78.865,
+      "demand": 2.316551
+    },
+    {
+      "day": 884,
+      "temperature": 80.918182,
+      "demand": 2.323883
+    },
+    {
+      "day": 885,
+      "temperature": 77.77,
+      "demand": 2.120036
+    },
+    {
+      "day": 886,
+      "temperature": 80.1,
+      "demand": 2.287733
+    },
+    {
+      "day": 887,
+      "temperature": 73.765,
+      "demand": 1.923175
+    },
+    {
+      "day": 888,
+      "temperature": 75.042857,
+      "demand": 1.751349
+    },
+    {
+      "day": 889,
+      "temperature": 69.1,
+      "demand": 1.856395
+    },
+    {
+      "day": 890,
+      "temperature": 72.0,
+      "demand": 1.880281
+    },
+    {
+      "day": 891,
+      "temperature": 70.71,
+      "demand": 1.896097
+    },
+    {
+      "day": 892,
+      "temperature": 79.0,
+      "demand": 2.123793
+    },
+    {
+      "day": 893,
+      "temperature": 77.77,
+      "demand": 2.077076
+    },
+    {
+      "day": 894,
+      "temperature": 84.9,
+      "demand": 2.269154
+    },
+    {
+      "day": 895,
+      "temperature": 81.85,
+      "demand": 2.173881
+    },
+    {
+      "day": 896,
+      "temperature": 76.835,
+      "demand": 2.285151
+    },
+    {
+      "day": 897,
+      "temperature": 78.53,
+      "demand": 2.239938
+    },
+    {
+      "day": 898,
+      "temperature": 81.85,
+      "demand": 2.419767
+    },
+    {
+      "day": 899,
+      "temperature": 69.865,
+      "demand": 1.949072
+    },
+    {
+      "day": 900,
+      "temperature": 82.0,
+      "demand": 2.256417
+    },
+    {
+      "day": 901,
+      "temperature": 85.835,
+      "demand": 2.369417
+    },
+    {
+      "day": 902,
+      "temperature": 82.0,
+      "demand": 2.167917
+    },
+    {
+      "day": 903,
+      "temperature": 83.835,
+      "demand": 2.477141
+    },
+    {
+      "day": 904,
+      "temperature": 83.835,
+      "demand": 2.508067
+    },
+    {
+      "day": 905,
+      "temperature": 86.77,
+      "demand": 2.719905
+    },
+    {
+      "day": 906,
+      "temperature": 80.865,
+      "demand": 2.454979
+    },
+    {
+      "day": 907,
+      "temperature": 81.85,
+      "demand": 2.324858
+    },
+    {
+      "day": 908,
+      "temperature": 83.835,
+      "demand": 2.300235
+    },
+    {
+      "day": 909,
+      "temperature": 87.937931,
+      "demand": 2.47426
+    },
+    {
+      "day": 910,
+      "temperature": 79.935,
+      "demand": 2.397401
+    },
+    {
+      "day": 911,
+      "temperature": 73.765,
+      "demand": 2.048109
+    },
+    {
+      "day": 912,
+      "temperature": 73.34,
+      "demand": 1.893545
+    },
+    {
+      "day": 913,
+      "temperature": 72.85,
+      "demand": 1.83588
+    },
+    {
+      "day": 914,
+      "temperature": 75.9,
+      "demand": 1.857372
+    },
+    {
+      "day": 915,
+      "temperature": 83.835,
+      "demand": 1.979767
+    },
+    {
+      "day": 916,
+      "temperature": 87.1,
+      "demand": 2.177277
+    },
+    {
+      "day": 917,
+      "temperature": 89.865,
+      "demand": 2.570245
+    },
+    {
+      "day": 918,
+      "temperature": 91.615,
+      "demand": 2.832998
+    },
+    {
+      "day": 919,
+      "temperature": 92.7,
+      "demand": 2.857564
+    },
+    {
+      "day": 920,
+      "temperature": 91.0,
+      "demand": 2.82602
+    },
+    {
+      "day": 921,
+      "temperature": 84.465,
+      "demand": 2.6823
+    },
+    {
+      "day": 922,
+      "temperature": 84.0,
+      "demand": 2.169948
+    },
+    {
+      "day": 923,
+      "temperature": 84.9,
+      "demand": 2.265049
+    },
+    {
+      "day": 924,
+      "temperature": 81.85,
+      "demand": 2.400413
+    },
+    {
+      "day": 925,
+      "temperature": 79.935,
+      "demand": 2.38073
+    },
+    {
+      "day": 926,
+      "temperature": 84.9,
+      "demand": 2.516274
+    },
+    {
+      "day": 927,
+      "temperature": 87.1,
+      "demand": 2.757276
+    },
+    {
+      "day": 928,
+      "temperature": 85.835,
+      "demand": 2.553051
+    },
+    {
+      "day": 929,
+      "temperature": 87.1,
+      "demand": 2.42928
+    },
+    {
+      "day": 930,
+      "temperature": 88.935,
+      "demand": 2.474151
+    },
+    {
+      "day": 931,
+      "temperature": 82.9,
+      "demand": 2.601769
+    },
+    {
+      "day": 932,
+      "temperature": 81.85,
+      "demand": 2.429264
+    },
+    {
+      "day": 933,
+      "temperature": 85.73,
+      "demand": 2.702385
+    },
+    {
+      "day": 934,
+      "temperature": 86.0,
+      "demand": 2.690746
+    },
+    {
+      "day": 935,
+      "temperature": 91.9,
+      "demand": 2.888657
+    },
+    {
+      "day": 936,
+      "temperature": 91.76,
+      "demand": 2.769487
+    },
+    {
+      "day": 937,
+      "temperature": 82.0,
+      "demand": 2.274882
+    },
+    {
+      "day": 938,
+      "temperature": 82.615,
+      "demand": 2.406886
+    },
+    {
+      "day": 939,
+      "temperature": 84.765,
+      "demand": 2.504024
+    },
+    {
+      "day": 940,
+      "temperature": 88.935,
+      "demand": 2.759247
+    },
+    {
+      "day": 941,
+      "temperature": 82.0,
+      "demand": 2.496102
+    },
+    {
+      "day": 942,
+      "temperature": 80.1,
+      "demand": 2.156487
+    },
+    {
+      "day": 943,
+      "temperature": 81.0,
+      "demand": 2.051851
+    },
+    {
+      "day": 944,
+      "temperature": 82.765,
+      "demand": 2.186502
+    },
+    {
+      "day": 945,
+      "temperature": 85.835,
+      "demand": 2.642731
+    },
+    {
+      "day": 946,
+      "temperature": 77.935,
+      "demand": 2.359692
+    },
+    {
+      "day": 947,
+      "temperature": 87.357143,
+      "demand": 2.761483
+    },
+    {
+      "day": 948,
+      "temperature": 85.835,
+      "demand": 2.604217
+    },
+    {
+      "day": 949,
+      "temperature": 77.935,
+      "demand": 2.250479
+    },
+    {
+      "day": 950,
+      "temperature": 79.935,
+      "demand": 1.988864
+    },
+    {
+      "day": 951,
+      "temperature": 84.765,
+      "demand": 2.144081
+    },
+    {
+      "day": 952,
+      "temperature": 88.935,
+      "demand": 2.715317
+    },
+    {
+      "day": 953,
+      "temperature": 91.9,
+      "demand": 2.825423
+    },
+    {
+      "day": 954,
+      "temperature": 90.85,
+      "demand": 2.85677
+    },
+    {
+      "day": 955,
+      "temperature": 84.9,
+      "demand": 2.635295
+    },
+    {
+      "day": 956,
+      "temperature": 84.9,
+      "demand": 2.659984
+    },
+    {
+      "day": 957,
+      "temperature": 88.935,
+      "demand": 2.497735
+    },
+    {
+      "day": 958,
+      "temperature": 86.0,
+      "demand": 2.407369
+    },
+    {
+      "day": 959,
+      "temperature": 82.9,
+      "demand": 2.642017
+    },
+    {
+      "day": 960,
+      "temperature": 82.0,
+      "demand": 2.415115
+    },
+    {
+      "day": 961,
+      "temperature": 84.0,
+      "demand": 2.378341
+    },
+    {
+      "day": 962,
+      "temperature": 86.0,
+      "demand": 2.569111
+    },
+    {
+      "day": 963,
+      "temperature": 88.0,
+      "demand": 2.707885
+    },
+    {
+      "day": 964,
+      "temperature": 86.935,
+      "demand": 2.434017
+    },
+    {
+      "day": 965,
+      "temperature": 80.1,
+      "demand": 2.084681
+    },
+    {
+      "day": 966,
+      "temperature": 73.615,
+      "demand": 2.105784
+    },
+    {
+      "day": 967,
+      "temperature": 72.0,
+      "demand": 2.006764
+    },
+    {
+      "day": 968,
+      "temperature": 77.0,
+      "demand": 2.105137
+    },
+    {
+      "day": 969,
+      "temperature": 76.835,
+      "demand": 2.119267
+    },
+    {
+      "day": 970,
+      "temperature": 76.835,
+      "demand": 2.002454
+    },
+    {
+      "day": 971,
+      "temperature": 84.765,
+      "demand": 1.941626
+    },
+    {
+      "day": 972,
+      "temperature": 89.865,
+      "demand": 2.262642
+    },
+    {
+      "day": 973,
+      "temperature": 90.715,
+      "demand": 2.736766
+    },
+    {
+      "day": 974,
+      "temperature": 91.0,
+      "demand": 2.821922
+    },
+    {
+      "day": 975,
+      "temperature": 89.7,
+      "demand": 2.849299
+    },
+    {
+      "day": 976,
+      "temperature": 92.7,
+      "demand": 2.848521
+    },
+    {
+      "day": 977,
+      "temperature": 86.0,
+      "demand": 2.542263
+    },
+    {
+      "day": 978,
+      "temperature": 68.47,
+      "demand": 1.564984
+    },
+    {
+      "day": 979,
+      "temperature": 70.0,
+      "demand": 1.493761
+    },
+    {
+      "day": 980,
+      "temperature": 78.1,
+      "demand": 1.66406
+    },
+    {
+      "day": 981,
+      "temperature": 89.1,
+      "demand": 2.343294
+    },
+    {
+      "day": 982,
+      "temperature": 73.0,
+      "demand": 2.083743
+    },
+    {
+      "day": 983,
+      "temperature": 66.765,
+      "demand": 1.829722
+    },
+    {
+      "day": 984,
+      "temperature": 68.48125,
+      "demand": 1.779448
+    },
+    {
+      "day": 985,
+      "temperature": 78.695,
+      "demand": 1.641092
+    },
+    {
+      "day": 986,
+      "temperature": 73.615,
+      "demand": 1.650615
+    },
+    {
+      "day": 987,
+      "temperature": 80.865,
+      "demand": 1.974201
+    },
+    {
+      "day": 988,
+      "temperature": 75.9,
+      "demand": 1.957345
+    },
+    {
+      "day": 989,
+      "temperature": 76.835,
+      "demand": 1.96759
+    },
+    {
+      "day": 990,
+      "temperature": 67.676,
+      "demand": 1.879962
+    },
+    {
+      "day": 991,
+      "temperature": 64.765,
+      "demand": 1.77824
+    },
+    {
+      "day": 992,
+      "temperature": 76.7,
+      "demand": 1.618417
+    },
+    {
+      "day": 993,
+      "temperature": 78.7,
+      "demand": 1.647749
+    },
+    {
+      "day": 994,
+      "temperature": 71.865,
+      "demand": 1.826639
+    },
+    {
+      "day": 995,
+      "temperature": 84.765,
+      "demand": 2.007932
+    },
+    {
+      "day": 996,
+      "temperature": 86.0,
+      "demand": 2.294388
+    },
+    {
+      "day": 997,
+      "temperature": 87.1,
+      "demand": 2.356859
+    },
+    {
+      "day": 998,
+      "temperature": 88.935,
+      "demand": 2.439772
+    },
+    {
+      "day": 999,
+      "temperature": 73.3825,
+      "demand": 1.721077
+    },
+    {
+      "day": 1000,
+      "temperature": 64.9,
+      "demand": 1.506016
+    },
+    {
+      "day": 1001,
+      "temperature": 64.792857,
+      "demand": 1.757894
+    },
+    {
+      "day": 1002,
+      "temperature": 62.865,
+      "demand": 1.759493
+    },
+    {
+      "day": 1003,
+      "temperature": 64.0,
+      "demand": 1.755105
+    },
+    {
+      "day": 1004,
+      "temperature": 64.9,
+      "demand": 1.760424
+    },
+    {
+      "day": 1005,
+      "temperature": 64.615,
+      "demand": 1.699497
+    },
+    {
+      "day": 1006,
+      "temperature": 64.765,
+      "demand": 1.50803
+    },
+    {
+      "day": 1007,
+      "temperature": 54.0,
+      "demand": 1.534848
+    },
+    {
+      "day": 1008,
+      "temperature": 48.9,
+      "demand": 1.714924
+    },
+    {
+      "day": 1009,
+      "temperature": 50.935,
+      "demand": 1.778284
+    },
+    {
+      "day": 1010,
+      "temperature": 51.957143,
+      "demand": 1.742785
+    },
+    {
+      "day": 1011,
+      "temperature": 66.9,
+      "demand": 1.712507
+    },
+    {
+      "day": 1012,
+      "temperature": 73.0,
+      "demand": 1.723706
+    },
+    {
+      "day": 1013,
+      "temperature": 77.0,
+      "demand": 1.552806
+    },
+    {
+      "day": 1014,
+      "temperature": 82.0,
+      "demand": 1.605153
+    },
+    {
+      "day": 1015,
+      "temperature": 78.1,
+      "demand": 1.819182
+    },
+    {
+      "day": 1016,
+      "temperature": 69.1,
+      "demand": 1.773624
+    },
+    {
+      "day": 1017,
+      "temperature": 68.0,
+      "demand": 1.732422
+    },
+    {
+      "day": 1018,
+      "temperature": 56.7,
+      "demand": 1.7122
+    },
+    {
+      "day": 1019,
+      "temperature": 57.465,
+      "demand": 1.671874
+    },
+    {
+      "day": 1020,
+      "temperature": 61.0,
+      "demand": 1.506499
+    },
+    {
+      "day": 1021,
+      "temperature": 67.835,
+      "demand": 1.504246
+    },
+    {
+      "day": 1022,
+      "temperature": 58.835,
+      "demand": 1.704839
+    },
+    {
+      "day": 1023,
+      "temperature": 56.835,
+      "demand": 1.715205
+    },
+    {
+      "day": 1024,
+      "temperature": 60.1,
+      "demand": 1.715634
+    },
+    {
+      "day": 1025,
+      "temperature": 55.9,
+      "demand": 1.728973
+    },
+    {
+      "day": 1026,
+      "temperature": 54.0,
+      "demand": 1.711582
+    },
+    {
+      "day": 1027,
+      "temperature": 69.865,
+      "demand": 1.537312
+    },
+    {
+      "day": 1028,
+      "temperature": 75.0,
+      "demand": 1.574775
+    },
+    {
+      "day": 1029,
+      "temperature": 64.0,
+      "demand": 1.758382
+    },
+    {
+      "day": 1030,
+      "temperature": 78.865,
+      "demand": 1.811669
+    },
+    {
+      "day": 1031,
+      "temperature": 67.835,
+      "demand": 1.756928
+    },
+    {
+      "day": 1032,
+      "temperature": 61.935,
+      "demand": 1.722951
+    },
+    {
+      "day": 1033,
+      "temperature": 45.85,
+      "demand": 1.705848
+    },
+    {
+      "day": 1034,
+      "temperature": 54.85,
+      "demand": 1.57425
+    },
+    {
+      "day": 1035,
+      "temperature": 51.535,
+      "demand": 1.597034
+    },
+    {
+      "day": 1036,
+      "temperature": 46.9,
+      "demand": 1.814819
+    },
+    {
+      "day": 1037,
+      "temperature": 50.935,
+      "demand": 1.84005
+    },
+    {
+      "day": 1038,
+      "temperature": 57.765,
+      "demand": 1.833895
+    },
+    {
+      "day": 1039,
+      "temperature": 45.0,
+      "demand": 1.849609
+    },
+    {
+      "day": 1040,
+      "temperature": 43.935,
+      "demand": 1.84397
+    },
+    {
+      "day": 1041,
+      "temperature": 39.2,
+      "demand": 1.669784
+    },
+    {
+      "day": 1042,
+      "temperature": 44.94,
+      "demand": 1.672016
+    },
+    {
+      "day": 1043,
+      "temperature": 57.9,
+      "demand": 1.82118
+    },
+    {
+      "day": 1044,
+      "temperature": 57.0,
+      "demand": 1.847442
+    },
+    {
+      "day": 1045,
+      "temperature": 59.935,
+      "demand": 1.825761
+    },
+    {
+      "day": 1046,
+      "temperature": 63.0,
+      "demand": 1.79328
+    },
+    {
+      "day": 1047,
+      "temperature": 66.6,
+      "demand": 1.77076
+    },
+    {
+      "day": 1048,
+      "temperature": 66.765,
+      "demand": 1.590823
+    },
+    {
+      "day": 1049,
+      "temperature": 51.8,
+      "demand": 1.627136
+    },
+    {
+      "day": 1050,
+      "temperature": 46.9,
+      "demand": 1.832653
+    },
+    {
+      "day": 1051,
+      "temperature": 54.15,
+      "demand": 1.853497
+    },
+    {
+      "day": 1052,
+      "temperature": 54.25,
+      "demand": 1.848942
+    },
+    {
+      "day": 1053,
+      "temperature": 42.7,
+      "demand": 1.899624
+    },
+    {
+      "day": 1054,
+      "temperature": 44.865,
+      "demand": 1.816034
+    },
+    {
+      "day": 1055,
+      "temperature": 45.0,
+      "demand": 1.687095
+    },
+    {
+      "day": 1056,
+      "temperature": 62.94,
+      "demand": 1.684346
+    },
+    {
+      "day": 1057,
+      "temperature": 69.1,
+      "demand": 1.790624
+    },
+    {
+      "day": 1058,
+      "temperature": 61.8,
+      "demand": 1.805745
+    },
+    {
+      "day": 1059,
+      "temperature": 37.9,
+      "demand": 1.803401
+    },
+    {
+      "day": 1060,
+      "temperature": 53.581132,
+      "demand": 1.56831
+    },
+    {
+      "day": 1061,
+      "temperature": 53.565,
+      "demand": 1.725654
+    },
+    {
+      "day": 1062,
+      "temperature": 33.1,
+      "demand": 1.736672
+    },
+    {
+      "day": 1063,
+      "temperature": 40.835,
+      "demand": 1.682785
+    },
+    {
+      "day": 1064,
+      "temperature": 50.0,
+      "demand": 1.818149
+    },
+    {
+      "day": 1065,
+      "temperature": 53.35,
+      "demand": 1.904274
+    },
+    {
+      "day": 1066,
+      "temperature": 49.477419,
+      "demand": 2.056195
+    },
+    {
+      "day": 1067,
+      "temperature": 28.9,
+      "demand": 2.085676
+    },
+    {
+      "day": 1068,
+      "temperature": 29.686957,
+      "demand": 1.99727
+    },
+    {
+      "day": 1069,
+      "temperature": 30.17,
+      "demand": 1.833167
+    },
+    {
+      "day": 1070,
+      "temperature": 26.672727,
+      "demand": 1.962628
+    },
+    {
+      "day": 1071,
+      "temperature": 26.1,
+      "demand": 2.089132
+    },
+    {
+      "day": 1072,
+      "temperature": 24.1,
+      "demand": 2.165947
+    },
+    {
+      "day": 1073,
+      "temperature": 26.36,
+      "demand": 2.129049
+    },
+    {
+      "day": 1074,
+      "temperature": 25.935,
+      "demand": 2.116039
+    },
+    {
+      "day": 1075,
+      "temperature": 36.0,
+      "demand": 2.007571
+    },
+    {
+      "day": 1076,
+      "temperature": 46.18,
+      "demand": 1.81826
+    },
+    {
+      "day": 1077,
+      "temperature": 41.0,
+      "demand": 1.916015
+    },
+    {
+      "day": 1078,
+      "temperature": 22.55875,
+      "demand": 2.198482
+    },
+    {
+      "day": 1079,
+      "temperature": 17.1,
+      "demand": 2.280626
+    },
+    {
+      "day": 1080,
+      "temperature": 21.9,
+      "demand": 2.197351
+    },
+    {
+      "day": 1081,
+      "temperature": 24.1,
+      "demand": 2.172262
+    },
+    {
+      "day": 1082,
+      "temperature": 28.0,
+      "demand": 2.080235
+    },
+    {
+      "day": 1083,
+      "temperature": 26.865,
+      "demand": 1.94892
+    },
+    {
+      "day": 1084,
+      "temperature": 25.0,
+      "demand": 2.064892
+    },
+    {
+      "day": 1085,
+      "temperature": 27.0,
+      "demand": 2.13812
+    },
+    {
+      "day": 1086,
+      "temperature": 28.9,
+      "demand": 2.091561
+    },
+    {
+      "day": 1087,
+      "temperature": 30.2,
+      "demand": 2.0631
+    },
+    {
+      "day": 1088,
+      "temperature": 30.0,
+      "demand": 2.010063
+    },
+    {
+      "day": 1089,
+      "temperature": 28.663158,
+      "demand": 1.836177
+    },
+    {
+      "day": 1090,
+      "temperature": 28.0,
+      "demand": 1.667758
+    },
+    {
+      "day": 1091,
+      "temperature": 24.1,
+      "demand": 1.917547
+    },
+    {
+      "day": 1092,
+      "temperature": 25.935,
+      "demand": 2.040811
+    },
+    {
+      "day": 1093,
+      "temperature": 30.765,
+      "demand": 2.018289
+    },
+    {
+      "day": 1094,
+      "temperature": 37.0,
+      "demand": 1.950973
+    },
+    {
+      "day": 1095,
+      "temperature": 39.175,
+      "demand": 1.890985
+    },
+    {
+      "day": 1096,
+      "temperature": 57.6,
+      "demand": 1.753531
+    },
+    {
+      "day": 1097,
+      "temperature": 55.765,
+      "demand": 1.646175
+    },
+    {
+      "day": 1098,
+      "temperature": 39.765,
+      "demand": 1.820571
+    },
+    {
+      "day": 1099,
+      "temperature": 34.0,
+      "demand": 2.02312
+    },
+    {
+      "day": 1100,
+      "temperature": 37.765,
+      "demand": 2.021704
+    },
+    {
+      "day": 1101,
+      "temperature": 27.85,
+      "demand": 2.059737
+    },
+    {
+      "day": 1102,
+      "temperature": 30.069231,
+      "demand": 2.086662
+    },
+    {
+      "day": 1103,
+      "temperature": 23.0,
+      "demand": 2.026313
+    },
+    {
+      "day": 1104,
+      "temperature": 19.078261,
+      "demand": 1.961183
+    },
+    {
+      "day": 1105,
+      "temperature": 23.935,
+      "demand": 1.95526
+    },
+    {
+      "day": 1106,
+      "temperature": 26.36,
+      "demand": 2.059522
+    },
+    {
+      "day": 1107,
+      "temperature": 27.0,
+      "demand": 2.086405
+    },
+    {
+      "day": 1108,
+      "temperature": 24.303226,
+      "demand": 2.111129
+    },
+    {
+      "day": 1109,
+      "temperature": 23.0,
+      "demand": 2.085977
+    },
+    {
+      "day": 1110,
+      "temperature": 25.0,
+      "demand": 2.019065
+    },
+    {
+      "day": 1111,
+      "temperature": 35.865,
+      "demand": 1.834481
+    },
+    {
+      "day": 1112,
+      "temperature": 23.935,
+      "demand": 1.926599
+    },
+    {
+      "day": 1113,
+      "temperature": 32.0,
+      "demand": 2.046226
+    },
+    {
+      "day": 1114,
+      "temperature": 44.240625,
+      "demand": 1.942054
+    },
+    {
+      "day": 1115,
+      "temperature": 35.6,
+      "demand": 2.072463
+    },
+    {
+      "day": 1116,
+      "temperature": 25.8,
+      "demand": 2.090115
+    },
+    {
+      "day": 1117,
+      "temperature": 22.69434,
+      "demand": 2.143625
+    },
+    {
+      "day": 1118,
+      "temperature": 19.0,
+      "demand": 1.964245
+    },
+    {
+      "day": 1119,
+      "temperature": 18.0,
+      "demand": 1.935793
+    },
+    {
+      "day": 1120,
+      "temperature": 30.465,
+      "demand": 2.104605
+    },
+    {
+      "day": 1121,
+      "temperature": 35.421429,
+      "demand": 1.968556
+    },
+    {
+      "day": 1122,
+      "temperature": 33.296875,
+      "demand": 2.012165
+    },
+    {
+      "day": 1123,
+      "temperature": 28.765,
+      "demand": 1.991407
+    },
+    {
+      "day": 1124,
+      "temperature": 30.0,
+      "demand": 1.951239
+    },
+    {
+      "day": 1125,
+      "temperature": 33.1,
+      "demand": 1.846136
+    },
+    {
+      "day": 1126,
+      "temperature": 30.0,
+      "demand": 1.859633
+    },
+    {
+      "day": 1127,
+      "temperature": 32.0,
+      "demand": 2.034878
+    },
+    {
+      "day": 1128,
+      "temperature": 37.135,
+      "demand": 1.988525
+    },
+    {
+      "day": 1129,
+      "temperature": 48.18,
+      "demand": 2.085795
+    },
+    {
+      "day": 1130,
+      "temperature": 27.0,
+      "demand": 2.04327
+    },
+    {
+      "day": 1131,
+      "temperature": 34.0,
+      "demand": 2.015056
+    },
+    {
+      "day": 1132,
+      "temperature": 37.075,
+      "demand": 1.781728
+    },
+    {
+      "day": 1133,
+      "temperature": 32.0,
+      "demand": 1.70231
+    },
+    {
+      "day": 1134,
+      "temperature": 36.60625,
+      "demand": 1.945124
+    },
+    {
+      "day": 1135,
+      "temperature": 28.355263,
+      "demand": 2.095198
+    },
+    {
+      "day": 1136,
+      "temperature": 21.9,
+      "demand": 2.097154
+    },
+    {
+      "day": 1137,
+      "temperature": 19.9,
+      "demand": 2.100179
+    },
+    {
+      "day": 1138,
+      "temperature": 32.0,
+      "demand": 1.993122
+    },
+    {
+      "day": 1139,
+      "temperature": 35.865,
+      "demand": 1.782633
+    },
+    {
+      "day": 1140,
+      "temperature": 50.0,
+      "demand": 1.708321
+    },
+    {
+      "day": 1141,
+      "temperature": 49.835,
+      "demand": 1.936314
+    },
+    {
+      "day": 1142,
+      "temperature": 37.0,
+      "demand": 1.906987
+    },
+    {
+      "day": 1143,
+      "temperature": 54.0,
+      "demand": 1.881719
+    },
+    {
+      "day": 1144,
+      "temperature": 63.85,
+      "demand": 1.799943
+    },
+    {
+      "day": 1145,
+      "temperature": 64.765,
+      "demand": 1.712938
+    },
+    {
+      "day": 1146,
+      "temperature": 41.77,
+      "demand": 1.682704
+    },
+    {
+      "day": 1147,
+      "temperature": 37.0,
+      "demand": 1.735125
+    },
+    {
+      "day": 1148,
+      "temperature": 34.935,
+      "demand": 2.005301
+    },
+    {
+      "day": 1149,
+      "temperature": 31.835,
+      "demand": 2.011317
+    },
+    {
+      "day": 1150,
+      "temperature": 35.94,
+      "demand": 1.94548
+    },
+    {
+      "day": 1151,
+      "temperature": 39.765,
+      "demand": 1.903742
+    },
+    {
+      "day": 1152,
+      "temperature": 35.865,
+      "demand": 1.938326
+    },
+    {
+      "day": 1153,
+      "temperature": 36.85,
+      "demand": 1.717757
+    },
+    {
+      "day": 1154,
+      "temperature": 54.85,
+      "demand": 1.622529
+    },
+    {
+      "day": 1155,
+      "temperature": 62.6,
+      "demand": 1.88055
+    },
+    {
+      "day": 1156,
+      "temperature": 42.1,
+      "demand": 1.860691
+    },
+    {
+      "day": 1157,
+      "temperature": 43.0,
+      "demand": 1.898523
+    },
+    {
+      "day": 1158,
+      "temperature": 37.0,
+      "demand": 1.936128
+    },
+    {
+      "day": 1159,
+      "temperature": 55.0,
+      "demand": 1.808363
+    },
+    {
+      "day": 1160,
+      "temperature": 52.895,
+      "demand": 1.628698
+    },
+    {
+      "day": 1161,
+      "temperature": 50.0,
+      "demand": 1.727231
+    },
+    {
+      "day": 1162,
+      "temperature": 39.9,
+      "demand": 1.846601
+    },
+    {
+      "day": 1163,
+      "temperature": 48.9,
+      "demand": 1.785431
+    },
+    {
+      "day": 1164,
+      "temperature": 45.0,
+      "demand": 1.875839
+    },
+    {
+      "day": 1165,
+      "temperature": 51.959091,
+      "demand": 1.792363
+    },
+    {
+      "day": 1166,
+      "temperature": 34.0,
+      "demand": 1.834708
+    },
+    {
+      "day": 1167,
+      "temperature": 57.9,
+      "demand": 1.623792
+    },
+    {
+      "day": 1168,
+      "temperature": 41.935,
+      "demand": 1.720714
+    },
+    {
+      "day": 1169,
+      "temperature": 44.865,
+      "demand": 1.79057
+    },
+    {
+      "day": 1170,
+      "temperature": 45.0,
+      "demand": 1.785607
+    },
+    {
+      "day": 1171,
+      "temperature": 45.0,
+      "demand": 1.791177
+    },
+    {
+      "day": 1172,
+      "temperature": 62.1,
+      "demand": 1.717121
+    },
+    {
+      "day": 1173,
+      "temperature": 71.1,
+      "demand": 1.714273
+    },
+    {
+      "day": 1174,
+      "temperature": 48.9,
+      "demand": 1.579679
+    },
+    {
+      "day": 1175,
+      "temperature": 60.1,
+      "demand": 1.565117
+    },
+    {
+      "day": 1176,
+      "temperature": 72.0,
+      "demand": 1.695199
+    },
+    {
+      "day": 1177,
+      "temperature": 48.0,
+      "demand": 1.751152
+    },
+    {
+      "day": 1178,
+      "temperature": 67.655319,
+      "demand": 1.757596
+    },
+    {
+      "day": 1179,
+      "temperature": 39.765,
+      "demand": 1.818481
+    },
+    {
+      "day": 1180,
+      "temperature": 36.0,
+      "demand": 1.856394
+    },
+    {
+      "day": 1181,
+      "temperature": 35.865,
+      "demand": 1.678348
+    },
+    {
+      "day": 1182,
+      "temperature": 38.835,
+      "demand": 1.675638
+    },
+    {
+      "day": 1183,
+      "temperature": 39.005,
+      "demand": 1.871663
+    },
+    {
+      "day": 1184,
+      "temperature": 44.7,
+      "demand": 1.843072
+    },
+    {
+      "day": 1185,
+      "temperature": 42.1,
+      "demand": 1.827997
+    },
+    {
+      "day": 1186,
+      "temperature": 36.0,
+      "demand": 1.819284
+    },
+    {
+      "day": 1187,
+      "temperature": 44.1,
+      "demand": 1.81
+    },
+    {
+      "day": 1188,
+      "temperature": 46.765,
+      "demand": 1.566919
+    },
+    {
+      "day": 1189,
+      "temperature": 52.3,
+      "demand": 1.537901
+    },
+    {
+      "day": 1190,
+      "temperature": 69.689655,
+      "demand": 1.681167
+    },
+    {
+      "day": 1191,
+      "temperature": 44.92,
+      "demand": 1.801124
+    },
+    {
+      "day": 1192,
+      "temperature": 60.4,
+      "demand": 1.804939
+    },
+    {
+      "day": 1193,
+      "temperature": 61.935,
+      "demand": 1.685126
+    },
+    {
+      "day": 1194,
+      "temperature": 50.935,
+      "demand": 1.705917
+    },
+    {
+      "day": 1195,
+      "temperature": 56.835,
+      "demand": 1.53184
+    },
+    {
+      "day": 1196,
+      "temperature": 82.0,
+      "demand": 1.593762
+    },
+    {
+      "day": 1197,
+      "temperature": 75.9,
+      "demand": 1.838577
+    },
+    {
+      "day": 1198,
+      "temperature": 55.19,
+      "demand": 1.726482
+    },
+    {
+      "day": 1199,
+      "temperature": 56.835,
+      "demand": 1.748218
+    },
+    {
+      "day": 1200,
+      "temperature": 68.77,
+      "demand": 1.721258
+    },
+    {
+      "day": 1201,
+      "temperature": 69.7,
+      "demand": 1.696643
+    },
+    {
+      "day": 1202,
+      "temperature": 58.835,
+      "demand": 1.546467
+    },
+    {
+      "day": 1203,
+      "temperature": 59.0,
+      "demand": 1.556662
+    },
+    {
+      "day": 1204,
+      "temperature": 68.0,
+      "demand": 1.721306
+    },
+    {
+      "day": 1205,
+      "temperature": 60.865,
+      "demand": 1.712561
+    },
+    {
+      "day": 1206,
+      "temperature": 71.944231,
+      "demand": 1.742127
+    },
+    {
+      "day": 1207,
+      "temperature": 52.0,
+      "demand": 1.749728
+    },
+    {
+      "day": 1208,
+      "temperature": 48.038298,
+      "demand": 1.613622
+    },
+    {
+      "day": 1209,
+      "temperature": 73.0,
+      "demand": 1.498913
+    },
+    {
+      "day": 1210,
+      "temperature": 65.2,
+      "demand": 1.439598
+    },
+    {
+      "day": 1211,
+      "temperature": 81.0,
+      "demand": 1.823882
+    },
+    {
+      "day": 1212,
+      "temperature": 79.7,
+      "demand": 1.912922
+    },
+    {
+      "day": 1213,
+      "temperature": 82.135,
+      "demand": 1.925265
+    },
+    {
+      "day": 1214,
+      "temperature": 64.0,
+      "demand": 1.711669
+    },
+    {
+      "day": 1215,
+      "temperature": 51.7,
+      "demand": 1.682478
+    },
+    {
+      "day": 1216,
+      "temperature": 62.1,
+      "demand": 1.446948
+    },
+    {
+      "day": 1217,
+      "temperature": 61.0,
+      "demand": 1.543424
+    },
+    {
+      "day": 1218,
+      "temperature": 70.935,
+      "demand": 1.780095
+    },
+    {
+      "day": 1219,
+      "temperature": 52.635,
+      "demand": 1.683391
+    },
+    {
+      "day": 1220,
+      "temperature": 49.835,
+      "demand": 1.745913
+    },
+    {
+      "day": 1221,
+      "temperature": 63.0,
+      "demand": 1.692667
+    },
+    {
+      "day": 1222,
+      "temperature": 63.85,
+      "demand": 1.679195
+    },
+    {
+      "day": 1223,
+      "temperature": 62.785,
+      "demand": 1.425121
+    },
+    {
+      "day": 1224,
+      "temperature": 67.835,
+      "demand": 1.478122
+    },
+    {
+      "day": 1225,
+      "temperature": 69.865,
+      "demand": 1.676202
+    },
+    {
+      "day": 1226,
+      "temperature": 75.765,
+      "demand": 1.745461
+    },
+    {
+      "day": 1227,
+      "temperature": 80.1,
+      "demand": 1.878387
+    },
+    {
+      "day": 1228,
+      "temperature": 80.865,
+      "demand": 2.039122
+    },
+    {
+      "day": 1229,
+      "temperature": 77.935,
+      "demand": 2.093552
+    },
+    {
+      "day": 1230,
+      "temperature": 74.835,
+      "demand": 1.72286
+    },
+    {
+      "day": 1231,
+      "temperature": 66.9,
+      "demand": 1.615272
+    },
+    {
+      "day": 1232,
+      "temperature": 54.0,
+      "demand": 1.678363
+    },
+    {
+      "day": 1233,
+      "temperature": 60.55,
+      "demand": 1.717997
+    },
+    {
+      "day": 1234,
+      "temperature": 65.6,
+      "demand": 1.785499
+    },
+    {
+      "day": 1235,
+      "temperature": 64.765,
+      "demand": 1.748118
+    },
+    {
+      "day": 1236,
+      "temperature": 69.1,
+      "demand": 1.781767
+    },
+    {
+      "day": 1237,
+      "temperature": 78.7,
+      "demand": 1.636659
+    },
+    {
+      "day": 1238,
+      "temperature": 82.0,
+      "demand": 1.803574
+    },
+    {
+      "day": 1239,
+      "temperature": 78.7,
+      "demand": 1.987853
+    },
+    {
+      "day": 1240,
+      "temperature": 73.9,
+      "demand": 1.98469
+    },
+    {
+      "day": 1241,
+      "temperature": 81.0,
+      "demand": 2.14057
+    },
+    {
+      "day": 1242,
+      "temperature": 81.0,
+      "demand": 2.170722
+    },
+    {
+      "day": 1243,
+      "temperature": 68.0,
+      "demand": 1.889273
+    },
+    {
+      "day": 1244,
+      "temperature": 78.865,
+      "demand": 1.773595
+    },
+    {
+      "day": 1245,
+      "temperature": 86.935,
+      "demand": 1.989704
+    },
+    {
+      "day": 1246,
+      "temperature": 89.1,
+      "demand": 2.424259
+    },
+    {
+      "day": 1247,
+      "temperature": 90.0,
+      "demand": 2.831251
+    },
+    {
+      "day": 1248,
+      "temperature": 84.0,
+      "demand": 2.650607
+    },
+    {
+      "day": 1249,
+      "temperature": 73.0,
+      "demand": 2.018105
+    },
+    {
+      "day": 1250,
+      "temperature": 75.2,
+      "demand": 1.843924
+    },
+    {
+      "day": 1251,
+      "temperature": 84.9,
+      "demand": 1.95637
+    },
+    {
+      "day": 1252,
+      "temperature": 84.9,
+      "demand": 2.156791
+    },
+    {
+      "day": 1253,
+      "temperature": 84.0,
+      "demand": 2.418061
+    },
+    {
+      "day": 1254,
+      "temperature": 77.935,
+      "demand": 2.103568
+    },
+    {
+      "day": 1255,
+      "temperature": 90.0,
+      "demand": 2.764512
+    },
+    {
+      "day": 1256,
+      "temperature": 89.1,
+      "demand": 2.775553
+    },
+    {
+      "day": 1257,
+      "temperature": 78.865,
+      "demand": 2.401986
+    },
+    {
+      "day": 1258,
+      "temperature": 79.8,
+      "demand": 2.107355
+    },
+    {
+      "day": 1259,
+      "temperature": 77.635,
+      "demand": 1.942413
+    },
+    {
+      "day": 1260,
+      "temperature": 73.9,
+      "demand": 1.864208
+    },
+    {
+      "day": 1261,
+      "temperature": 67.835,
+      "demand": 1.780219
+    },
+    {
+      "day": 1262,
+      "temperature": 77.0,
+      "demand": 1.925284
+    },
+    {
+      "day": 1263,
+      "temperature": 75.9,
+      "demand": 2.032804
+    },
+    {
+      "day": 1264,
+      "temperature": 78.695,
+      "demand": 1.994018
+    },
+    {
+      "day": 1265,
+      "temperature": 79.635,
+      "demand": 2.011132
+    },
+    {
+      "day": 1266,
+      "temperature": 79.0,
+      "demand": 1.987939
+    },
+    {
+      "day": 1267,
+      "temperature": 78.53,
+      "demand": 2.29199
+    },
+    {
+      "day": 1268,
+      "temperature": 84.9,
+      "demand": 2.642886
+    },
+    {
+      "day": 1269,
+      "temperature": 82.0,
+      "demand": 2.499287
+    },
+    {
+      "day": 1270,
+      "temperature": 78.1,
+      "demand": 2.278211
+    },
+    {
+      "day": 1271,
+      "temperature": 69.535,
+      "demand": 1.958499
+    },
+    {
+      "day": 1272,
+      "temperature": 71.6,
+      "demand": 1.609568
+    },
+    {
+      "day": 1273,
+      "temperature": 75.765,
+      "demand": 1.74827
+    },
+    {
+      "day": 1274,
+      "temperature": 80.1,
+      "demand": 2.228065
+    },
+    {
+      "day": 1275,
+      "temperature": 84.0,
+      "demand": 2.542368
+    },
+    {
+      "day": 1276,
+      "temperature": 77.0,
+      "demand": 2.190055
+    },
+    {
+      "day": 1277,
+      "temperature": 79.635,
+      "demand": 2.224261
+    },
+    {
+      "day": 1278,
+      "temperature": 85.835,
+      "demand": 2.260844
+    },
+    {
+      "day": 1279,
+      "temperature": 82.765,
+      "demand": 2.169405
+    },
+    {
+      "day": 1280,
+      "temperature": 88.0,
+      "demand": 2.292397
+    },
+    {
+      "day": 1281,
+      "temperature": 83.835,
+      "demand": 2.116868
+    },
+    {
+      "day": 1282,
+      "temperature": 85.835,
+      "demand": 2.51885
+    },
+    {
+      "day": 1283,
+      "temperature": 87.97,
+      "demand": 2.689134
+    },
+    {
+      "day": 1284,
+      "temperature": 87.1,
+      "demand": 2.670966
+    },
+    {
+      "day": 1285,
+      "temperature": 75.465,
+      "demand": 2.071109
+    },
+    {
+      "day": 1286,
+      "temperature": 86.935,
+      "demand": 2.216491
+    },
+    {
+      "day": 1287,
+      "temperature": 88.0,
+      "demand": 2.419534
+    },
+    {
+      "day": 1288,
+      "temperature": 89.7,
+      "demand": 2.811896
+    },
+    {
+      "day": 1289,
+      "temperature": 88.0,
+      "demand": 2.664794
+    },
+    {
+      "day": 1290,
+      "temperature": 80.7,
+      "demand": 2.380494
+    },
+    {
+      "day": 1291,
+      "temperature": 81.85,
+      "demand": 2.32004
+    },
+    {
+      "day": 1292,
+      "temperature": 82.765,
+      "demand": 2.266495
+    },
+    {
+      "day": 1293,
+      "temperature": 84.9,
+      "demand": 2.308547
+    },
+    {
+      "day": 1294,
+      "temperature": 84.765,
+      "demand": 2.442425
+    },
+    {
+      "day": 1295,
+      "temperature": 87.1,
+      "demand": 2.719686
+    },
+    {
+      "day": 1296,
+      "temperature": 84.9,
+      "demand": 2.650494
+    },
+    {
+      "day": 1297,
+      "temperature": 90.0,
+      "demand": 2.816648
+    },
+    {
+      "day": 1298,
+      "temperature": 93.17,
+      "demand": 3.011643
+    },
+    {
+      "day": 1299,
+      "temperature": 95.0,
+      "demand": 3.010701
+    },
+    {
+      "day": 1300,
+      "temperature": 90.0,
+      "demand": 2.69433
+    },
+    {
+      "day": 1301,
+      "temperature": 87.7,
+      "demand": 2.512039
+    },
+    {
+      "day": 1302,
+      "temperature": 84.0,
+      "demand": 2.52787
+    },
+    {
+      "day": 1303,
+      "temperature": 86.935,
+      "demand": 2.664046
+    },
+    {
+      "day": 1304,
+      "temperature": 82.765,
+      "demand": 2.524508
+    },
+    {
+      "day": 1305,
+      "temperature": 89.865,
+      "demand": 2.757059
+    },
+    {
+      "day": 1306,
+      "temperature": 91.0,
+      "demand": 2.860047
+    },
+    {
+      "day": 1307,
+      "temperature": 88.8,
+      "demand": 2.459345
+    },
+    {
+      "day": 1308,
+      "temperature": 90.85,
+      "demand": 2.516436
+    },
+    {
+      "day": 1309,
+      "temperature": 88.8,
+      "demand": 2.758125
+    },
+    {
+      "day": 1310,
+      "temperature": 90.715,
+      "demand": 2.846215
+    },
+    {
+      "day": 1311,
+      "temperature": 76.835,
+      "demand": 2.302479
+    },
+    {
+      "day": 1312,
+      "temperature": 86.0,
+      "demand": 2.701409
+    },
+    {
+      "day": 1313,
+      "temperature": 90.715,
+      "demand": 2.731171
+    },
+    {
+      "day": 1314,
+      "temperature": 84.9,
+      "demand": 2.457737
+    },
+    {
+      "day": 1315,
+      "temperature": 86.935,
+      "demand": 2.463799
+    },
+    {
+      "day": 1316,
+      "temperature": 82.0,
+      "demand": 2.541716
+    },
+    {
+      "day": 1317,
+      "temperature": 82.9,
+      "demand": 2.471969
+    },
+    {
+      "day": 1318,
+      "temperature": 82.13,
+      "demand": 2.252015
+    },
+    {
+      "day": 1319,
+      "temperature": 78.1,
+      "demand": 2.149238
+    },
+    {
+      "day": 1320,
+      "temperature": 81.85,
+      "demand": 2.115389
+    },
+    {
+      "day": 1321,
+      "temperature": 84.795,
+      "demand": 2.091367
+    },
+    {
+      "day": 1322,
+      "temperature": 73.9,
+      "demand": 1.913227
+    },
+    {
+      "day": 1323,
+      "temperature": 73.6,
+      "demand": 2.027181
+    },
+    {
+      "day": 1324,
+      "temperature": 82.765,
+      "demand": 2.29445
+    },
+    {
+      "day": 1325,
+      "temperature": 84.0,
+      "demand": 2.348846
+    },
+    {
+      "day": 1326,
+      "temperature": 84.9,
+      "demand": 2.463037
+    },
+    {
+      "day": 1327,
+      "temperature": 83.424,
+      "demand": 2.307752
+    },
+    {
+      "day": 1328,
+      "temperature": 84.0,
+      "demand": 2.099452
+    },
+    {
+      "day": 1329,
+      "temperature": 79.074419,
+      "demand": 2.057511
+    },
+    {
+      "day": 1330,
+      "temperature": 75.0,
+      "demand": 1.961666
+    },
+    {
+      "day": 1331,
+      "temperature": 78.7,
+      "demand": 2.024464
+    },
+    {
+      "day": 1332,
+      "temperature": 81.0,
+      "demand": 2.154256
+    },
+    {
+      "day": 1333,
+      "temperature": 82.765,
+      "demand": 2.372079
+    },
+    {
+      "day": 1334,
+      "temperature": 77.935,
+      "demand": 2.258709
+    },
+    {
+      "day": 1335,
+      "temperature": 83.835,
+      "demand": 2.091848
+    },
+    {
+      "day": 1336,
+      "temperature": 78.865,
+      "demand": 1.902391
+    },
+    {
+      "day": 1337,
+      "temperature": 80.747368,
+      "demand": 1.891649
+    },
+    {
+      "day": 1338,
+      "temperature": 80.7,
+      "demand": 2.019208
+    },
+    {
+      "day": 1339,
+      "temperature": 84.795,
+      "demand": 2.261138
+    },
+    {
+      "day": 1340,
+      "temperature": 81.715,
+      "demand": 2.279016
+    },
+    {
+      "day": 1341,
+      "temperature": 90.0,
+      "demand": 2.702873
+    },
+    {
+      "day": 1342,
+      "temperature": 94.835,
+      "demand": 2.655438
+    },
+    {
+      "day": 1343,
+      "temperature": 79.935,
+      "demand": 2.023798
+    },
+    {
+      "day": 1344,
+      "temperature": 66.9,
+      "demand": 1.596163
+    },
+    {
+      "day": 1345,
+      "temperature": 62.525,
+      "demand": 1.747274
+    },
+    {
+      "day": 1346,
+      "temperature": 71.97,
+      "demand": 1.788118
+    },
+    {
+      "day": 1347,
+      "temperature": 76.835,
+      "demand": 2.015017
+    },
+    {
+      "day": 1348,
+      "temperature": 75.17,
+      "demand": 1.963605
+    },
+    {
+      "day": 1349,
+      "temperature": 75.465,
+      "demand": 1.824456
+    },
+    {
+      "day": 1350,
+      "temperature": 75.0,
+      "demand": 1.796938
+    },
+    {
+      "day": 1351,
+      "temperature": 76.835,
+      "demand": 2.08408
+    },
+    {
+      "day": 1352,
+      "temperature": 81.0,
+      "demand": 2.289781
+    },
+    {
+      "day": 1353,
+      "temperature": 75.9,
+      "demand": 2.196409
+    },
+    {
+      "day": 1354,
+      "temperature": 59.77,
+      "demand": 1.78948
+    },
+    {
+      "day": 1355,
+      "temperature": 59.0,
+      "demand": 1.72682
+    },
+    {
+      "day": 1356,
+      "temperature": 64.9,
+      "demand": 1.537598
+    },
+    {
+      "day": 1357,
+      "temperature": 66.0,
+      "demand": 1.618644
+    },
+    {
+      "day": 1358,
+      "temperature": 64.9,
+      "demand": 1.747658
+    },
+    {
+      "day": 1359,
+      "temperature": 72.85,
+      "demand": 1.872304
+    },
+    {
+      "day": 1360,
+      "temperature": 79.8,
+      "demand": 2.008995
+    },
+    {
+      "day": 1361,
+      "temperature": 75.9,
+      "demand": 2.080893
+    },
+    {
+      "day": 1362,
+      "temperature": 68.0,
+      "demand": 1.953384
+    },
+    {
+      "day": 1363,
+      "temperature": 69.53,
+      "demand": 1.659571
+    },
+    {
+      "day": 1364,
+      "temperature": 78.695,
+      "demand": 1.856573
+    },
+    {
+      "day": 1365,
+      "temperature": 81.52,
+      "demand": 2.143211
+    },
+    {
+      "day": 1366,
+      "temperature": 70.935,
+      "demand": 1.948429
+    },
+    {
+      "day": 1367,
+      "temperature": 70.8,
+      "demand": 1.83752
+    },
+    {
+      "day": 1368,
+      "temperature": 62.94,
+      "demand": 1.735645
+    },
+    {
+      "day": 1369,
+      "temperature": 58.930769,
+      "demand": 1.739658
+    },
+    {
+      "day": 1370,
+      "temperature": 49.682353,
+      "demand": 1.54237
+    },
+    {
+      "day": 1371,
+      "temperature": 45.85,
+      "demand": 1.597452
+    },
+    {
+      "day": 1372,
+      "temperature": 53.421429,
+      "demand": 1.752253
+    },
+    {
+      "day": 1373,
+      "temperature": 62.865,
+      "demand": 1.739753
+    },
+    {
+      "day": 1374,
+      "temperature": 70.935,
+      "demand": 1.75239
+    },
+    {
+      "day": 1375,
+      "temperature": 72.925,
+      "demand": 1.77741
+    },
+    {
+      "day": 1376,
+      "temperature": 74.835,
+      "demand": 1.736164
+    },
+    {
+      "day": 1377,
+      "temperature": 78.865,
+      "demand": 1.606036
+    },
+    {
+      "day": 1378,
+      "temperature": 79.8,
+      "demand": 1.600715
+    },
+    {
+      "day": 1379,
+      "temperature": 72.0,
+      "demand": 1.715884
+    },
+    {
+      "day": 1380,
+      "temperature": 71.865,
+      "demand": 1.734847
+    },
+    {
+      "day": 1381,
+      "temperature": 64.0,
+      "demand": 1.717594
+    },
+    {
+      "day": 1382,
+      "temperature": 69.1,
+      "demand": 1.756694
+    },
+    {
+      "day": 1383,
+      "temperature": 60.235,
+      "demand": 1.670698
+    },
+    {
+      "day": 1384,
+      "temperature": 60.865,
+      "demand": 1.513769
+    },
+    {
+      "day": 1385,
+      "temperature": 66.9,
+      "demand": 1.524426
+    },
+    {
+      "day": 1386,
+      "temperature": 62.865,
+      "demand": 1.75169
+    },
+    {
+      "day": 1387,
+      "temperature": 64.9,
+      "demand": 1.752565
+    },
+    {
+      "day": 1388,
+      "temperature": 66.0,
+      "demand": 1.803213
+    },
+    {
+      "day": 1389,
+      "temperature": 49.85,
+      "demand": 1.808304
+    },
+    {
+      "day": 1390,
+      "temperature": 46.815094,
+      "demand": 1.754775
+    },
+    {
+      "day": 1391,
+      "temperature": 55.9,
+      "demand": 1.563289
+    },
+    {
+      "day": 1392,
+      "temperature": 60.1,
+      "demand": 1.580401
+    },
+    {
+      "day": 1393,
+      "temperature": 54.0,
+      "demand": 1.749593
+    },
+    {
+      "day": 1394,
+      "temperature": 62.865,
+      "demand": 1.735298
+    },
+    {
+      "day": 1395,
+      "temperature": 61.935,
+      "demand": 1.744033
+    },
+    {
+      "day": 1396,
+      "temperature": 57.6,
+      "demand": 1.773444
+    },
+    {
+      "day": 1397,
+      "temperature": 42.1,
+      "demand": 1.757531
+    },
+    {
+      "day": 1398,
+      "temperature": 39.138462,
+      "demand": 1.705029
+    },
+    {
+      "day": 1399,
+      "temperature": 42.1,
+      "demand": 1.659076
+    },
+    {
+      "day": 1400,
+      "temperature": 51.1,
+      "demand": 1.796562
+    },
+    {
+      "day": 1401,
+      "temperature": 55.9,
+      "demand": 1.824292
+    },
+    {
+      "day": 1402,
+      "temperature": 63.0,
+      "demand": 1.77832
+    },
+    {
+      "day": 1403,
+      "temperature": 61.935,
+      "demand": 1.794933
+    },
+    {
+      "day": 1404,
+      "temperature": 53.1,
+      "demand": 1.729062
+    },
+    {
+      "day": 1405,
+      "temperature": 54.0,
+      "demand": 1.609373
+    },
+    {
+      "day": 1406,
+      "temperature": 59.77,
+      "demand": 1.589716
+    },
+    {
+      "day": 1407,
+      "temperature": 64.765,
+      "demand": 1.761585
+    },
+    {
+      "day": 1408,
+      "temperature": 68.0,
+      "demand": 1.774811
+    },
+    {
+      "day": 1409,
+      "temperature": 67.835,
+      "demand": 1.763193
+    },
+    {
+      "day": 1410,
+      "temperature": 48.18,
+      "demand": 1.805656
+    },
+    {
+      "day": 1411,
+      "temperature": 41.0,
+      "demand": 1.801809
+    },
+    {
+      "day": 1412,
+      "temperature": 60.1,
+      "demand": 1.629714
+    },
+    {
+      "day": 1413,
+      "temperature": 64.19,
+      "demand": 1.595107
+    },
+    {
+      "day": 1414,
+      "temperature": 70.0,
+      "demand": 1.828772
+    },
+    {
+      "day": 1415,
+      "temperature": 56.76,
+      "demand": 1.839825
+    },
+    {
+      "day": 1416,
+      "temperature": 53.907692,
+      "demand": 1.833624
+    },
+    {
+      "day": 1417,
+      "temperature": 39.0,
+      "demand": 1.957706
+    },
+    {
+      "day": 1418,
+      "temperature": 42.1,
+      "demand": 1.891102
+    },
+    {
+      "day": 1419,
+      "temperature": 55.0,
+      "demand": 1.60733
+    },
+    {
+      "day": 1420,
+      "temperature": 59.0,
+      "demand": 1.613123
+    },
+    {
+      "day": 1421,
+      "temperature": 44.897143,
+      "demand": 1.858141
+    },
+    {
+      "day": 1422,
+      "temperature": 59.0,
+      "demand": 1.868168
+    },
+    {
+      "day": 1423,
+      "temperature": 59.0,
+      "demand": 1.813568
+    },
+    {
+      "day": 1424,
+      "temperature": 45.0,
+      "demand": 1.538404
+    },
+    {
+      "day": 1425,
+      "temperature": 57.9,
+      "demand": 1.653516
+    },
+    {
+      "day": 1426,
+      "temperature": 60.1,
+      "demand": 1.579961
+    },
+    {
+      "day": 1427,
+      "temperature": 58.835,
+      "demand": 1.632766
+    },
+    {
+      "day": 1428,
+      "temperature": 59.0,
+      "demand": 1.84511
+    },
+    {
+      "day": 1429,
+      "temperature": 58.352,
+      "demand": 1.886061
+    },
+    {
+      "day": 1430,
+      "temperature": 39.0,
+      "demand": 1.963905
+    },
+    {
+      "day": 1431,
+      "temperature": 39.0,
+      "demand": 1.943905
+    },
+    {
+      "day": 1432,
+      "temperature": 42.963265,
+      "demand": 1.926064
+    },
+    {
+      "day": 1433,
+      "temperature": 48.765,
+      "demand": 1.727396
+    },
+    {
+      "day": 1434,
+      "temperature": 60.1,
+      "demand": 1.706385
+    },
+    {
+      "day": 1435,
+      "temperature": 60.1,
+      "demand": 1.956933
+    },
+    {
+      "day": 1436,
+      "temperature": 51.243182,
+      "demand": 1.976482
+    },
+    {
+      "day": 1437,
+      "temperature": 39.765,
+      "demand": 2.051955
+    },
+    {
+      "day": 1438,
+      "temperature": 34.0,
+      "demand": 2.082102
+    },
+    {
+      "day": 1439,
+      "temperature": 42.1,
+      "demand": 1.945786
+    },
+    {
+      "day": 1440,
+      "temperature": 32.935,
+      "demand": 1.843153
+    },
+    {
+      "day": 1441,
+      "temperature": 37.0,
+      "demand": 1.875535
+    },
+    {
+      "day": 1442,
+      "temperature": 43.0,
+      "demand": 2.069371
+    },
+    {
+      "day": 1443,
+      "temperature": 46.0,
+      "demand": 2.031373
+    },
+    {
+      "day": 1444,
+      "temperature": 46.9,
+      "demand": 1.982491
+    },
+    {
+      "day": 1445,
+      "temperature": 57.9,
+      "demand": 1.953018
+    },
+    {
+      "day": 1446,
+      "temperature": 39.765,
+      "demand": 1.974575
+    },
+    {
+      "day": 1447,
+      "temperature": 32.0,
+      "demand": 1.96848
+    },
+    {
+      "day": 1448,
+      "temperature": 35.7,
+      "demand": 1.900782
+    },
+    {
+      "day": 1449,
+      "temperature": 45.0,
+      "demand": 2.035936
+    },
+    {
+      "day": 1450,
+      "temperature": 44.7,
+      "demand": 1.990746
+    },
+    {
+      "day": 1451,
+      "temperature": 59.558621,
+      "demand": 1.920732
+    },
+    {
+      "day": 1452,
+      "temperature": 48.69,
+      "demand": 1.866255
+    },
+    {
+      "day": 1453,
+      "temperature": 38.835,
+      "demand": 1.891841
+    },
+    {
+      "day": 1454,
+      "temperature": 37.0,
+      "demand": 1.681594
+    },
+    {
+      "day": 1455,
+      "temperature": 45.715,
+      "demand": 1.549525
+    },
+    {
+      "day": 1456,
+      "temperature": 41.0,
+      "demand": 1.75466
+    },
+    {
+      "day": 1457,
+      "temperature": 42.277419,
+      "demand": 1.908735
+    },
+    {
+      "day": 1458,
+      "temperature": 35.207143,
+      "demand": 1.995137
+    },
+    {
+      "day": 1459,
+      "temperature": 41.165,
+      "demand": 1.971487
+    },
+    {
+      "day": 1460,
+      "temperature": 51.695,
+      "demand": 1.802185
+    }
+  ]
+}

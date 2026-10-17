@@ -1,0 +1,22 @@
+# Computação Numérica e Manipulação de Dados
+numpy>=1.26.0
+pandas>=2.0.0
+scipy>=1.11.0
+scikit-learn>=1.3.0
+openpyxl>=3.1.0
+
+# Visualização e Dashboard Web Monolítico
+matplotlib>=3.8.0
+plotly>=5.18.0
+streamlit>=1.30.0
+
+# Qualidade de Código, Linting e Testes (Estilo Prettier & SonarQube)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.1.0
+
+# Geração de Relatórios e Slides
+python-docx>=1.1.0
+python-pptx>=0.6.21

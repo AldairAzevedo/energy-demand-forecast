@@ -1,0 +1,1383 @@
+{
+  "cycle_id": 7,
+  "title": "Smart Building: Previsão de Carga e Métricas Multi-critério (Zenodo 2025)",
+  "total_5min_samples": 105120,
+  "total_hourly_samples": 8760,
+  "train_samples": 7008,
+  "test_samples": 1752,
+  "models_benchmarking": {
+    "Ridge_Linear": {
+      "name": "Regressão Ridge com Lags Temporais",
+      "metrics": {
+        "mse": 158684.3516,
+        "rmse": 398.352,
+        "mae": 221.6658,
+        "r2": 0.8706,
+        "runtime_ms": 17.52
+      }
+    },
+    "Random_Forest": {
+      "name": "Random Forest Regressor (50 árvores)",
+      "metrics": {
+        "mse": 122112.1673,
+        "rmse": 349.4455,
+        "mae": 184.116,
+        "r2": 0.9004,
+        "runtime_ms": 134.09
+      }
+    }
+  },
+  "solar_energy_impact": {
+    "mean_consumption_w": 1710.2866723744291,
+    "mean_solar_generation_w": 231.37457191780823,
+    "mean_net_demand_w": 1478.912100456621,
+    "peak_solar_generation_w": 2403.5,
+    "solar_coverage_ratio_pct": 13.53
+  },
+  "recent_predictions_sample": [
+    {
+      "hour": 1,
+      "real_power_w": 1190.5,
+      "pred_ridge_w": 1201.6,
+      "pred_rf_w": 1212.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1190.5
+    },
+    {
+      "hour": 2,
+      "real_power_w": 1190.2,
+      "pred_ridge_w": 1203.2,
+      "pred_rf_w": 1204.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1190.2
+    },
+    {
+      "hour": 3,
+      "real_power_w": 1255.8,
+      "pred_ridge_w": 1212.8,
+      "pred_rf_w": 1204.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1255.8
+    },
+    {
+      "hour": 4,
+      "real_power_w": 1277.9,
+      "pred_ridge_w": 1268.0,
+      "pred_rf_w": 1254.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1277.9
+    },
+    {
+      "hour": 5,
+      "real_power_w": 1333.2,
+      "pred_ridge_w": 1287.8,
+      "pred_rf_w": 1269.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1333.2
+    },
+    {
+      "hour": 6,
+      "real_power_w": 1338.3,
+      "pred_ridge_w": 1334.5,
+      "pred_rf_w": 1335.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1338.3
+    },
+    {
+      "hour": 7,
+      "real_power_w": 1343.0,
+      "pred_ridge_w": 1340.4,
+      "pred_rf_w": 1326.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1343.0
+    },
+    {
+      "hour": 8,
+      "real_power_w": 1292.6,
+      "pred_ridge_w": 1335.7,
+      "pred_rf_w": 1351.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1292.6
+    },
+    {
+      "hour": 9,
+      "real_power_w": 1280.2,
+      "pred_ridge_w": 1302.1,
+      "pred_rf_w": 1305.3,
+      "solar_pv_w": 85.7,
+      "net_demand_w": 1194.6
+    },
+    {
+      "hour": 10,
+      "real_power_w": 1263.9,
+      "pred_ridge_w": 1314.2,
+      "pred_rf_w": 1274.5,
+      "solar_pv_w": 442.8,
+      "net_demand_w": 821.1
+    },
+    {
+      "hour": 11,
+      "real_power_w": 1258.6,
+      "pred_ridge_w": 1307.6,
+      "pred_rf_w": 1302.2,
+      "solar_pv_w": 606.2,
+      "net_demand_w": 652.3
+    },
+    {
+      "hour": 12,
+      "real_power_w": 1262.2,
+      "pred_ridge_w": 1342.3,
+      "pred_rf_w": 1304.1,
+      "solar_pv_w": 1212.5,
+      "net_demand_w": 49.8
+    },
+    {
+      "hour": 13,
+      "real_power_w": 1260.8,
+      "pred_ridge_w": 1365.1,
+      "pred_rf_w": 1300.9,
+      "solar_pv_w": 1514.7,
+      "net_demand_w": -253.9
+    },
+    {
+      "hour": 14,
+      "real_power_w": 1268.0,
+      "pred_ridge_w": 1429.2,
+      "pred_rf_w": 1306.9,
+      "solar_pv_w": 2403.5,
+      "net_demand_w": -1135.5
+    },
+    {
+      "hour": 15,
+      "real_power_w": 1267.4,
+      "pred_ridge_w": 1396.7,
+      "pred_rf_w": 1301.2,
+      "solar_pv_w": 1929.8,
+      "net_demand_w": -662.4
+    },
+    {
+      "hour": 16,
+      "real_power_w": 1256.8,
+      "pred_ridge_w": 1342.0,
+      "pred_rf_w": 1299.9,
+      "solar_pv_w": 1217.5,
+      "net_demand_w": 39.3
+    },
+    {
+      "hour": 17,
+      "real_power_w": 1274.0,
+      "pred_ridge_w": 1291.0,
+      "pred_rf_w": 1296.5,
+      "solar_pv_w": 690.7,
+      "net_demand_w": 583.3
+    },
+    {
+      "hour": 18,
+      "real_power_w": 1266.5,
+      "pred_ridge_w": 1281.9,
+      "pred_rf_w": 1278.1,
+      "solar_pv_w": 362.9,
+      "net_demand_w": 903.6
+    },
+    {
+      "hour": 19,
+      "real_power_w": 1263.7,
+      "pred_ridge_w": 1258.2,
+      "pred_rf_w": 1280.7,
+      "solar_pv_w": 93.2,
+      "net_demand_w": 1170.4
+    },
+    {
+      "hour": 20,
+      "real_power_w": 1266.4,
+      "pred_ridge_w": 1252.7,
+      "pred_rf_w": 1268.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1266.4
+    },
+    {
+      "hour": 21,
+      "real_power_w": 1259.2,
+      "pred_ridge_w": 1258.6,
+      "pred_rf_w": 1268.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1259.2
+    },
+    {
+      "hour": 22,
+      "real_power_w": 1278.8,
+      "pred_ridge_w": 1255.2,
+      "pred_rf_w": 1286.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1278.8
+    },
+    {
+      "hour": 23,
+      "real_power_w": 1264.6,
+      "pred_ridge_w": 1274.7,
+      "pred_rf_w": 1263.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1264.6
+    },
+    {
+      "hour": 24,
+      "real_power_w": 1261.3,
+      "pred_ridge_w": 1264.9,
+      "pred_rf_w": 1269.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1261.3
+    },
+    {
+      "hour": 25,
+      "real_power_w": 1264.4,
+      "pred_ridge_w": 1264.1,
+      "pred_rf_w": 1277.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1264.4
+    },
+    {
+      "hour": 26,
+      "real_power_w": 1259.5,
+      "pred_ridge_w": 1268.4,
+      "pred_rf_w": 1267.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1259.5
+    },
+    {
+      "hour": 27,
+      "real_power_w": 1239.9,
+      "pred_ridge_w": 1274.2,
+      "pred_rf_w": 1267.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1239.9
+    },
+    {
+      "hour": 28,
+      "real_power_w": 1265.8,
+      "pred_ridge_w": 1262.5,
+      "pred_rf_w": 1232.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1265.8
+    },
+    {
+      "hour": 29,
+      "real_power_w": 1311.2,
+      "pred_ridge_w": 1291.6,
+      "pred_rf_w": 1259.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1311.2
+    },
+    {
+      "hour": 30,
+      "real_power_w": 1338.3,
+      "pred_ridge_w": 1330.6,
+      "pred_rf_w": 1321.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1338.3
+    },
+    {
+      "hour": 31,
+      "real_power_w": 1350.8,
+      "pred_ridge_w": 1354.5,
+      "pred_rf_w": 1337.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1350.8
+    },
+    {
+      "hour": 32,
+      "real_power_w": 1344.9,
+      "pred_ridge_w": 1359.6,
+      "pred_rf_w": 1346.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1344.9
+    },
+    {
+      "hour": 33,
+      "real_power_w": 1341.9,
+      "pred_ridge_w": 1366.9,
+      "pred_rf_w": 1407.8,
+      "solar_pv_w": 182.2,
+      "net_demand_w": 1159.7
+    },
+    {
+      "hour": 34,
+      "real_power_w": 1405.8,
+      "pred_ridge_w": 1392.6,
+      "pred_rf_w": 1387.4,
+      "solar_pv_w": 599.0,
+      "net_demand_w": 806.8
+    },
+    {
+      "hour": 35,
+      "real_power_w": 2816.8,
+      "pred_ridge_w": 1481.1,
+      "pred_rf_w": 1457.4,
+      "solar_pv_w": 1175.3,
+      "net_demand_w": 1641.5
+    },
+    {
+      "hour": 36,
+      "real_power_w": 3697.2,
+      "pred_ridge_w": 2623.6,
+      "pred_rf_w": 3558.1,
+      "solar_pv_w": 1249.3,
+      "net_demand_w": 2447.8
+    },
+    {
+      "hour": 37,
+      "real_power_w": 3095.7,
+      "pred_ridge_w": 3371.5,
+      "pred_rf_w": 3929.2,
+      "solar_pv_w": 1746.6,
+      "net_demand_w": 1349.1
+    },
+    {
+      "hour": 38,
+      "real_power_w": 2924.6,
+      "pred_ridge_w": 2876.7,
+      "pred_rf_w": 3419.3,
+      "solar_pv_w": 1716.7,
+      "net_demand_w": 1207.9
+    },
+    {
+      "hour": 39,
+      "real_power_w": 3419.8,
+      "pred_ridge_w": 2696.7,
+      "pred_rf_w": 3405.4,
+      "solar_pv_w": 1257.5,
+      "net_demand_w": 2162.2
+    },
+    {
+      "hour": 40,
+      "real_power_w": 3489.3,
+      "pred_ridge_w": 3098.3,
+      "pred_rf_w": 3424.2,
+      "solar_pv_w": 1279.1,
+      "net_demand_w": 2210.2
+    },
+    {
+      "hour": 41,
+      "real_power_w": 3353.6,
+      "pred_ridge_w": 3119.1,
+      "pred_rf_w": 3573.5,
+      "solar_pv_w": 786.3,
+      "net_demand_w": 2567.2
+    },
+    {
+      "hour": 42,
+      "real_power_w": 2706.3,
+      "pred_ridge_w": 2975.9,
+      "pred_rf_w": 3010.6,
+      "solar_pv_w": 342.7,
+      "net_demand_w": 2363.7
+    },
+    {
+      "hour": 43,
+      "real_power_w": 1988.7,
+      "pred_ridge_w": 2431.2,
+      "pred_rf_w": 1875.6,
+      "solar_pv_w": 44.7,
+      "net_demand_w": 1944.0
+    },
+    {
+      "hour": 44,
+      "real_power_w": 1678.1,
+      "pred_ridge_w": 1850.3,
+      "pred_rf_w": 1689.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1678.1
+    },
+    {
+      "hour": 45,
+      "real_power_w": 1289.1,
+      "pred_ridge_w": 1601.9,
+      "pred_rf_w": 1510.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1289.1
+    },
+    {
+      "hour": 46,
+      "real_power_w": 1199.5,
+      "pred_ridge_w": 1291.5,
+      "pred_rf_w": 1286.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1199.5
+    },
+    {
+      "hour": 47,
+      "real_power_w": 1203.2,
+      "pred_ridge_w": 1219.7,
+      "pred_rf_w": 1202.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1203.2
+    },
+    {
+      "hour": 48,
+      "real_power_w": 1200.4,
+      "pred_ridge_w": 1224.6,
+      "pred_rf_w": 1209.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1200.4
+    },
+    {
+      "hour": 49,
+      "real_power_w": 1201.9,
+      "pred_ridge_w": 1224.1,
+      "pred_rf_w": 1211.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1201.9
+    },
+    {
+      "hour": 50,
+      "real_power_w": 1198.3,
+      "pred_ridge_w": 1226.5,
+      "pred_rf_w": 1209.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1198.3
+    },
+    {
+      "hour": 51,
+      "real_power_w": 1207.2,
+      "pred_ridge_w": 1224.2,
+      "pred_rf_w": 1210.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1207.2
+    },
+    {
+      "hour": 52,
+      "real_power_w": 1202.8,
+      "pred_ridge_w": 1234.6,
+      "pred_rf_w": 1212.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1202.8
+    },
+    {
+      "hour": 53,
+      "real_power_w": 1294.0,
+      "pred_ridge_w": 1236.4,
+      "pred_rf_w": 1221.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1294.0
+    },
+    {
+      "hour": 54,
+      "real_power_w": 1289.1,
+      "pred_ridge_w": 1313.8,
+      "pred_rf_w": 1310.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1289.1
+    },
+    {
+      "hour": 55,
+      "real_power_w": 1285.4,
+      "pred_ridge_w": 1311.2,
+      "pred_rf_w": 1300.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1285.4
+    },
+    {
+      "hour": 56,
+      "real_power_w": 1280.2,
+      "pred_ridge_w": 1307.1,
+      "pred_rf_w": 1322.7,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1280.2
+    },
+    {
+      "hour": 57,
+      "real_power_w": 1803.3,
+      "pred_ridge_w": 1308.2,
+      "pred_rf_w": 1303.5,
+      "solar_pv_w": 95.2,
+      "net_demand_w": 1708.1
+    },
+    {
+      "hour": 58,
+      "real_power_w": 1760.7,
+      "pred_ridge_w": 1768.3,
+      "pred_rf_w": 1758.9,
+      "solar_pv_w": 477.8,
+      "net_demand_w": 1282.9
+    },
+    {
+      "hour": 59,
+      "real_power_w": 2376.5,
+      "pred_ridge_w": 1916.0,
+      "pred_rf_w": 2607.4,
+      "solar_pv_w": 887.6,
+      "net_demand_w": 1488.9
+    },
+    {
+      "hour": 60,
+      "real_power_w": 3841.5,
+      "pred_ridge_w": 2527.0,
+      "pred_rf_w": 3637.5,
+      "solar_pv_w": 1136.8,
+      "net_demand_w": 2704.7
+    },
+    {
+      "hour": 61,
+      "real_power_w": 3213.5,
+      "pred_ridge_w": 3697.0,
+      "pred_rf_w": 3545.8,
+      "solar_pv_w": 1818.2,
+      "net_demand_w": 1395.2
+    },
+    {
+      "hour": 62,
+      "real_power_w": 3103.8,
+      "pred_ridge_w": 3140.3,
+      "pred_rf_w": 3014.0,
+      "solar_pv_w": 1536.3,
+      "net_demand_w": 1567.4
+    },
+    {
+      "hour": 63,
+      "real_power_w": 3785.6,
+      "pred_ridge_w": 3085.6,
+      "pred_rf_w": 2704.3,
+      "solar_pv_w": 1302.5,
+      "net_demand_w": 2483.1
+    },
+    {
+      "hour": 64,
+      "real_power_w": 3718.8,
+      "pred_ridge_w": 3627.7,
+      "pred_rf_w": 3526.4,
+      "solar_pv_w": 1091.7,
+      "net_demand_w": 2627.2
+    },
+    {
+      "hour": 65,
+      "real_power_w": 3588.2,
+      "pred_ridge_w": 3542.3,
+      "pred_rf_w": 3469.6,
+      "solar_pv_w": 865.8,
+      "net_demand_w": 2722.3
+    },
+    {
+      "hour": 66,
+      "real_power_w": 3375.6,
+      "pred_ridge_w": 3335.0,
+      "pred_rf_w": 3081.4,
+      "solar_pv_w": 470.9,
+      "net_demand_w": 2904.7
+    },
+    {
+      "hour": 67,
+      "real_power_w": 2190.8,
+      "pred_ridge_w": 3055.8,
+      "pred_rf_w": 2817.5,
+      "solar_pv_w": 101.2,
+      "net_demand_w": 2089.6
+    },
+    {
+      "hour": 68,
+      "real_power_w": 1492.0,
+      "pred_ridge_w": 2054.3,
+      "pred_rf_w": 1878.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1492.0
+    },
+    {
+      "hour": 69,
+      "real_power_w": 1287.9,
+      "pred_ridge_w": 1447.0,
+      "pred_rf_w": 1503.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1287.9
+    },
+    {
+      "hour": 70,
+      "real_power_w": 1278.0,
+      "pred_ridge_w": 1273.8,
+      "pred_rf_w": 1291.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1278.0
+    },
+    {
+      "hour": 71,
+      "real_power_w": 1229.9,
+      "pred_ridge_w": 1267.3,
+      "pred_rf_w": 1256.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1229.9
+    },
+    {
+      "hour": 72,
+      "real_power_w": 1175.6,
+      "pred_ridge_w": 1228.6,
+      "pred_rf_w": 1227.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1175.6
+    },
+    {
+      "hour": 73,
+      "real_power_w": 1178.2,
+      "pred_ridge_w": 1186.7,
+      "pred_rf_w": 1191.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1178.2
+    },
+    {
+      "hour": 74,
+      "real_power_w": 1179.3,
+      "pred_ridge_w": 1189.9,
+      "pred_rf_w": 1198.7,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1179.3
+    },
+    {
+      "hour": 75,
+      "real_power_w": 1174.7,
+      "pred_ridge_w": 1193.1,
+      "pred_rf_w": 1201.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1174.7
+    },
+    {
+      "hour": 76,
+      "real_power_w": 1216.8,
+      "pred_ridge_w": 1190.8,
+      "pred_rf_w": 1195.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1216.8
+    },
+    {
+      "hour": 77,
+      "real_power_w": 1180.7,
+      "pred_ridge_w": 1236.3,
+      "pred_rf_w": 1218.7,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1180.7
+    },
+    {
+      "hour": 78,
+      "real_power_w": 1251.8,
+      "pred_ridge_w": 1205.5,
+      "pred_rf_w": 1205.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1251.8
+    },
+    {
+      "hour": 79,
+      "real_power_w": 1252.4,
+      "pred_ridge_w": 1261.8,
+      "pred_rf_w": 1250.7,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1252.4
+    },
+    {
+      "hour": 80,
+      "real_power_w": 1254.9,
+      "pred_ridge_w": 1260.7,
+      "pred_rf_w": 1248.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1254.9
+    },
+    {
+      "hour": 81,
+      "real_power_w": 1406.8,
+      "pred_ridge_w": 1321.4,
+      "pred_rf_w": 1423.2,
+      "solar_pv_w": 5.1,
+      "net_demand_w": 1401.7
+    },
+    {
+      "hour": 82,
+      "real_power_w": 1858.2,
+      "pred_ridge_w": 1446.6,
+      "pred_rf_w": 1398.4,
+      "solar_pv_w": 112.2,
+      "net_demand_w": 1746.0
+    },
+    {
+      "hour": 83,
+      "real_power_w": 2729.5,
+      "pred_ridge_w": 1894.8,
+      "pred_rf_w": 2058.9,
+      "solar_pv_w": 332.9,
+      "net_demand_w": 2396.6
+    },
+    {
+      "hour": 84,
+      "real_power_w": 3374.5,
+      "pred_ridge_w": 2787.7,
+      "pred_rf_w": 3664.1,
+      "solar_pv_w": 660.8,
+      "net_demand_w": 2713.8
+    },
+    {
+      "hour": 85,
+      "real_power_w": 3201.2,
+      "pred_ridge_w": 3272.3,
+      "pred_rf_w": 3184.4,
+      "solar_pv_w": 1100.8,
+      "net_demand_w": 2100.4
+    },
+    {
+      "hour": 86,
+      "real_power_w": 2986.3,
+      "pred_ridge_w": 3180.0,
+      "pred_rf_w": 3214.0,
+      "solar_pv_w": 1892.8,
+      "net_demand_w": 1093.6
+    },
+    {
+      "hour": 87,
+      "real_power_w": 3565.6,
+      "pred_ridge_w": 3042.9,
+      "pred_rf_w": 3565.0,
+      "solar_pv_w": 1391.3,
+      "net_demand_w": 2174.2
+    },
+    {
+      "hour": 88,
+      "real_power_w": 3742.4,
+      "pred_ridge_w": 3477.1,
+      "pred_rf_w": 3805.0,
+      "solar_pv_w": 999.8,
+      "net_demand_w": 2742.6
+    },
+    {
+      "hour": 89,
+      "real_power_w": 3344.8,
+      "pred_ridge_w": 3551.1,
+      "pred_rf_w": 3681.1,
+      "solar_pv_w": 312.4,
+      "net_demand_w": 3032.4
+    },
+    {
+      "hour": 90,
+      "real_power_w": 2999.9,
+      "pred_ridge_w": 3202.4,
+      "pred_rf_w": 3236.2,
+      "solar_pv_w": 257.8,
+      "net_demand_w": 2742.1
+    },
+    {
+      "hour": 91,
+      "real_power_w": 2500.1,
+      "pred_ridge_w": 2776.2,
+      "pred_rf_w": 2396.1,
+      "solar_pv_w": 74.2,
+      "net_demand_w": 2425.9
+    },
+    {
+      "hour": 92,
+      "real_power_w": 1451.2,
+      "pred_ridge_w": 2288.4,
+      "pred_rf_w": 2404.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1451.2
+    },
+    {
+      "hour": 93,
+      "real_power_w": 1606.4,
+      "pred_ridge_w": 1414.6,
+      "pred_rf_w": 1447.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1606.4
+    },
+    {
+      "hour": 94,
+      "real_power_w": 1755.5,
+      "pred_ridge_w": 1540.7,
+      "pred_rf_w": 1500.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1755.5
+    },
+    {
+      "hour": 95,
+      "real_power_w": 1579.4,
+      "pred_ridge_w": 1659.2,
+      "pred_rf_w": 1476.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1579.4
+    },
+    {
+      "hour": 96,
+      "real_power_w": 1329.4,
+      "pred_ridge_w": 1511.5,
+      "pred_rf_w": 1382.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1329.4
+    },
+    {
+      "hour": 97,
+      "real_power_w": 1234.4,
+      "pred_ridge_w": 1310.6,
+      "pred_rf_w": 1332.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1234.4
+    },
+    {
+      "hour": 98,
+      "real_power_w": 1239.2,
+      "pred_ridge_w": 1235.2,
+      "pred_rf_w": 1232.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1239.2
+    },
+    {
+      "hour": 99,
+      "real_power_w": 1164.8,
+      "pred_ridge_w": 1240.2,
+      "pred_rf_w": 1240.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1164.8
+    },
+    {
+      "hour": 100,
+      "real_power_w": 1162.9,
+      "pred_ridge_w": 1185.9,
+      "pred_rf_w": 1167.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1162.9
+    },
+    {
+      "hour": 101,
+      "real_power_w": 1163.9,
+      "pred_ridge_w": 1179.5,
+      "pred_rf_w": 1162.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1163.9
+    },
+    {
+      "hour": 102,
+      "real_power_w": 1238.8,
+      "pred_ridge_w": 1187.8,
+      "pred_rf_w": 1168.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1238.8
+    },
+    {
+      "hour": 103,
+      "real_power_w": 1244.8,
+      "pred_ridge_w": 1248.3,
+      "pred_rf_w": 1237.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1244.8
+    },
+    {
+      "hour": 104,
+      "real_power_w": 1264.6,
+      "pred_ridge_w": 1253.6,
+      "pred_rf_w": 1245.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1264.6
+    },
+    {
+      "hour": 105,
+      "real_power_w": 1488.2,
+      "pred_ridge_w": 1292.7,
+      "pred_rf_w": 1284.2,
+      "solar_pv_w": 63.4,
+      "net_demand_w": 1424.8
+    },
+    {
+      "hour": 106,
+      "real_power_w": 1960.2,
+      "pred_ridge_w": 1529.6,
+      "pred_rf_w": 1591.6,
+      "solar_pv_w": 164.2,
+      "net_demand_w": 1796.1
+    },
+    {
+      "hour": 107,
+      "real_power_w": 2800.8,
+      "pred_ridge_w": 2010.1,
+      "pred_rf_w": 2345.5,
+      "solar_pv_w": 222.2,
+      "net_demand_w": 2578.6
+    },
+    {
+      "hour": 108,
+      "real_power_w": 3145.9,
+      "pred_ridge_w": 2774.5,
+      "pred_rf_w": 3327.5,
+      "solar_pv_w": 422.3,
+      "net_demand_w": 2723.6
+    },
+    {
+      "hour": 109,
+      "real_power_w": 2592.5,
+      "pred_ridge_w": 3033.6,
+      "pred_rf_w": 3134.6,
+      "solar_pv_w": 455.1,
+      "net_demand_w": 2137.4
+    },
+    {
+      "hour": 110,
+      "real_power_w": 2227.0,
+      "pred_ridge_w": 2544.7,
+      "pred_rf_w": 3171.0,
+      "solar_pv_w": 279.3,
+      "net_demand_w": 1947.7
+    },
+    {
+      "hour": 111,
+      "real_power_w": 3206.8,
+      "pred_ridge_w": 2320.2,
+      "pred_rf_w": 2645.1,
+      "solar_pv_w": 386.0,
+      "net_demand_w": 2820.8
+    },
+    {
+      "hour": 112,
+      "real_power_w": 3257.0,
+      "pred_ridge_w": 3176.3,
+      "pred_rf_w": 3484.7,
+      "solar_pv_w": 951.8,
+      "net_demand_w": 2305.2
+    },
+    {
+      "hour": 113,
+      "real_power_w": 2834.2,
+      "pred_ridge_w": 3140.2,
+      "pred_rf_w": 3175.3,
+      "solar_pv_w": 550.6,
+      "net_demand_w": 2283.7
+    },
+    {
+      "hour": 114,
+      "real_power_w": 2611.6,
+      "pred_ridge_w": 2746.3,
+      "pred_rf_w": 3064.4,
+      "solar_pv_w": 385.7,
+      "net_demand_w": 2225.9
+    },
+    {
+      "hour": 115,
+      "real_power_w": 2031.2,
+      "pred_ridge_w": 2488.5,
+      "pred_rf_w": 2391.1,
+      "solar_pv_w": 83.1,
+      "net_demand_w": 1948.2
+    },
+    {
+      "hour": 116,
+      "real_power_w": 1346.2,
+      "pred_ridge_w": 1894.8,
+      "pred_rf_w": 1666.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1346.2
+    },
+    {
+      "hour": 117,
+      "real_power_w": 1190.0,
+      "pred_ridge_w": 1359.8,
+      "pred_rf_w": 1365.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1190.0
+    },
+    {
+      "hour": 118,
+      "real_power_w": 1188.0,
+      "pred_ridge_w": 1251.7,
+      "pred_rf_w": 1188.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1188.0
+    },
+    {
+      "hour": 119,
+      "real_power_w": 1194.2,
+      "pred_ridge_w": 1231.8,
+      "pred_rf_w": 1199.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1194.2
+    },
+    {
+      "hour": 120,
+      "real_power_w": 1184.8,
+      "pred_ridge_w": 1211.4,
+      "pred_rf_w": 1195.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1184.8
+    },
+    {
+      "hour": 121,
+      "real_power_w": 1167.3,
+      "pred_ridge_w": 1195.0,
+      "pred_rf_w": 1208.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1167.3
+    },
+    {
+      "hour": 122,
+      "real_power_w": 1167.3,
+      "pred_ridge_w": 1182.6,
+      "pred_rf_w": 1165.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1167.3
+    },
+    {
+      "hour": 123,
+      "real_power_w": 1168.4,
+      "pred_ridge_w": 1176.6,
+      "pred_rf_w": 1163.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1168.4
+    },
+    {
+      "hour": 124,
+      "real_power_w": 1174.2,
+      "pred_ridge_w": 1179.7,
+      "pred_rf_w": 1166.2,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1174.2
+    },
+    {
+      "hour": 125,
+      "real_power_w": 1172.0,
+      "pred_ridge_w": 1186.2,
+      "pred_rf_w": 1183.7,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1172.0
+    },
+    {
+      "hour": 126,
+      "real_power_w": 1197.4,
+      "pred_ridge_w": 1194.3,
+      "pred_rf_w": 1182.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1197.4
+    },
+    {
+      "hour": 127,
+      "real_power_w": 1248.1,
+      "pred_ridge_w": 1216.2,
+      "pred_rf_w": 1198.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1248.1
+    },
+    {
+      "hour": 128,
+      "real_power_w": 1248.4,
+      "pred_ridge_w": 1261.3,
+      "pred_rf_w": 1250.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1248.4
+    },
+    {
+      "hour": 129,
+      "real_power_w": 1337.1,
+      "pred_ridge_w": 1291.6,
+      "pred_rf_w": 1314.0,
+      "solar_pv_w": 56.7,
+      "net_demand_w": 1280.4
+    },
+    {
+      "hour": 130,
+      "real_power_w": 2276.9,
+      "pred_ridge_w": 1437.7,
+      "pred_rf_w": 1450.7,
+      "solar_pv_w": 352.3,
+      "net_demand_w": 1924.6
+    },
+    {
+      "hour": 131,
+      "real_power_w": 3192.0,
+      "pred_ridge_w": 2311.0,
+      "pred_rf_w": 3158.0,
+      "solar_pv_w": 675.8,
+      "net_demand_w": 2516.2
+    },
+    {
+      "hour": 132,
+      "real_power_w": 3483.0,
+      "pred_ridge_w": 3070.0,
+      "pred_rf_w": 3273.2,
+      "solar_pv_w": 506.3,
+      "net_demand_w": 2976.7
+    },
+    {
+      "hour": 133,
+      "real_power_w": 2651.2,
+      "pred_ridge_w": 3228.4,
+      "pred_rf_w": 2741.3,
+      "solar_pv_w": 394.4,
+      "net_demand_w": 2256.8
+    },
+    {
+      "hour": 134,
+      "real_power_w": 2360.0,
+      "pred_ridge_w": 2496.8,
+      "pred_rf_w": 2286.2,
+      "solar_pv_w": 272.1,
+      "net_demand_w": 2087.9
+    },
+    {
+      "hour": 135,
+      "real_power_w": 2630.5,
+      "pred_ridge_w": 2358.8,
+      "pred_rf_w": 2816.0,
+      "solar_pv_w": 189.1,
+      "net_demand_w": 2441.4
+    },
+    {
+      "hour": 136,
+      "real_power_w": 2778.6,
+      "pred_ridge_w": 2576.3,
+      "pred_rf_w": 2806.5,
+      "solar_pv_w": 130.7,
+      "net_demand_w": 2647.9
+    },
+    {
+      "hour": 137,
+      "real_power_w": 2693.4,
+      "pred_ridge_w": 2644.9,
+      "pred_rf_w": 2604.5,
+      "solar_pv_w": 92.1,
+      "net_demand_w": 2601.3
+    },
+    {
+      "hour": 138,
+      "real_power_w": 2376.2,
+      "pred_ridge_w": 2548.0,
+      "pred_rf_w": 2336.3,
+      "solar_pv_w": 49.2,
+      "net_demand_w": 2327.0
+    },
+    {
+      "hour": 139,
+      "real_power_w": 2003.6,
+      "pred_ridge_w": 2228.2,
+      "pred_rf_w": 1714.3,
+      "solar_pv_w": 4.6,
+      "net_demand_w": 1999.0
+    },
+    {
+      "hour": 140,
+      "real_power_w": 1501.2,
+      "pred_ridge_w": 1855.4,
+      "pred_rf_w": 1585.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1501.2
+    },
+    {
+      "hour": 141,
+      "real_power_w": 1156.1,
+      "pred_ridge_w": 1435.4,
+      "pred_rf_w": 1316.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1156.1
+    },
+    {
+      "hour": 142,
+      "real_power_w": 1132.7,
+      "pred_ridge_w": 1159.1,
+      "pred_rf_w": 1161.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1132.7
+    },
+    {
+      "hour": 143,
+      "real_power_w": 1134.2,
+      "pred_ridge_w": 1144.1,
+      "pred_rf_w": 1191.6,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1134.2
+    },
+    {
+      "hour": 144,
+      "real_power_w": 1157.2,
+      "pred_ridge_w": 1147.4,
+      "pred_rf_w": 1193.1,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1157.2
+    },
+    {
+      "hour": 145,
+      "real_power_w": 1132.2,
+      "pred_ridge_w": 1165.5,
+      "pred_rf_w": 1161.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1132.2
+    },
+    {
+      "hour": 146,
+      "real_power_w": 1134.8,
+      "pred_ridge_w": 1145.9,
+      "pred_rf_w": 1170.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1134.8
+    },
+    {
+      "hour": 147,
+      "real_power_w": 1131.0,
+      "pred_ridge_w": 1148.2,
+      "pred_rf_w": 1208.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1131.0
+    },
+    {
+      "hour": 148,
+      "real_power_w": 1182.0,
+      "pred_ridge_w": 1147.2,
+      "pred_rf_w": 1123.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1182.0
+    },
+    {
+      "hour": 149,
+      "real_power_w": 1222.8,
+      "pred_ridge_w": 1190.5,
+      "pred_rf_w": 1218.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1222.8
+    },
+    {
+      "hour": 150,
+      "real_power_w": 1218.4,
+      "pred_ridge_w": 1228.9,
+      "pred_rf_w": 1217.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1218.4
+    },
+    {
+      "hour": 151,
+      "real_power_w": 1216.3,
+      "pred_ridge_w": 1232.5,
+      "pred_rf_w": 1213.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1216.3
+    },
+    {
+      "hour": 152,
+      "real_power_w": 1213.0,
+      "pred_ridge_w": 1233.0,
+      "pred_rf_w": 1217.0,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1213.0
+    },
+    {
+      "hour": 153,
+      "real_power_w": 1164.7,
+      "pred_ridge_w": 1240.8,
+      "pred_rf_w": 1230.5,
+      "solar_pv_w": 4.3,
+      "net_demand_w": 1160.3
+    },
+    {
+      "hour": 154,
+      "real_power_w": 1177.2,
+      "pred_ridge_w": 1311.1,
+      "pred_rf_w": 1289.6,
+      "solar_pv_w": 92.2,
+      "net_demand_w": 1085.1
+    },
+    {
+      "hour": 155,
+      "real_power_w": 1190.3,
+      "pred_ridge_w": 1417.4,
+      "pred_rf_w": 1205.2,
+      "solar_pv_w": 121.3,
+      "net_demand_w": 1069.0
+    },
+    {
+      "hour": 156,
+      "real_power_w": 1191.4,
+      "pred_ridge_w": 1452.3,
+      "pred_rf_w": 1191.6,
+      "solar_pv_w": 139.5,
+      "net_demand_w": 1051.9
+    },
+    {
+      "hour": 157,
+      "real_power_w": 1200.3,
+      "pred_ridge_w": 1354.2,
+      "pred_rf_w": 1206.4,
+      "solar_pv_w": 149.7,
+      "net_demand_w": 1050.7
+    },
+    {
+      "hour": 158,
+      "real_power_w": 1194.0,
+      "pred_ridge_w": 1425.4,
+      "pred_rf_w": 1198.8,
+      "solar_pv_w": 1461.3,
+      "net_demand_w": -267.3
+    },
+    {
+      "hour": 159,
+      "real_power_w": 1208.2,
+      "pred_ridge_w": 1493.1,
+      "pred_rf_w": 1212.3,
+      "solar_pv_w": 2045.3,
+      "net_demand_w": -837.1
+    },
+    {
+      "hour": 160,
+      "real_power_w": 1219.3,
+      "pred_ridge_w": 1442.4,
+      "pred_rf_w": 1211.9,
+      "solar_pv_w": 1012.3,
+      "net_demand_w": 207.0
+    },
+    {
+      "hour": 161,
+      "real_power_w": 1225.3,
+      "pred_ridge_w": 1405.3,
+      "pred_rf_w": 1261.4,
+      "solar_pv_w": 535.8,
+      "net_demand_w": 689.6
+    },
+    {
+      "hour": 162,
+      "real_power_w": 1223.6,
+      "pred_ridge_w": 1364.1,
+      "pred_rf_w": 1256.2,
+      "solar_pv_w": 367.0,
+      "net_demand_w": 856.6
+    },
+    {
+      "hour": 163,
+      "real_power_w": 1199.8,
+      "pred_ridge_w": 1299.1,
+      "pred_rf_w": 1264.7,
+      "solar_pv_w": 36.7,
+      "net_demand_w": 1163.1
+    },
+    {
+      "hour": 164,
+      "real_power_w": 1200.1,
+      "pred_ridge_w": 1224.3,
+      "pred_rf_w": 1213.4,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1200.1
+    },
+    {
+      "hour": 165,
+      "real_power_w": 1200.9,
+      "pred_ridge_w": 1188.4,
+      "pred_rf_w": 1205.9,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1200.9
+    },
+    {
+      "hour": 166,
+      "real_power_w": 1202.7,
+      "pred_ridge_w": 1187.9,
+      "pred_rf_w": 1207.8,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1202.7
+    },
+    {
+      "hour": 167,
+      "real_power_w": 1202.7,
+      "pred_ridge_w": 1189.2,
+      "pred_rf_w": 1186.5,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1202.7
+    },
+    {
+      "hour": 168,
+      "real_power_w": 1203.7,
+      "pred_ridge_w": 1193.3,
+      "pred_rf_w": 1208.3,
+      "solar_pv_w": 0.0,
+      "net_demand_w": 1203.7
+    }
+  ]
+}

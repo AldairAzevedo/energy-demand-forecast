@@ -1,0 +1,9 @@
+{
+  "cycle_id": 4,
+  "title": "Sincronização Temporal Horária: Interpolação Linear de Clima",
+  "total_hourly_timestamps": 35064,
+  "start_timestamp": 1199167200.0,
+  "end_timestamp": 1325394000.0,
+  "mean_hourly_demand_mw": 1670.1241411419119,
+  "mean_hourly_temperature_f": 51.82279529793198
+}
