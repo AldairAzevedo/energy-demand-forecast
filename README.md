@@ -77,11 +77,25 @@ _(Em redes corporativas/acadêmicas com proxy SSL, utilize: `pip install --trust
 
 ### 4.1. Iniciar o Dashboard Web Interativo (Streamlit)
 
-Para abrir a interface monolítica no seu navegador:
+Para iniciar o servidor local e abrir a interface monolítica no seu navegador:
 
 ```bash
+# Recomendado (funciona diretamente em qualquer terminal Windows, Linux ou macOS):
+python -m streamlit run src/ui/app.py
+
+# Ou atalho direto (caso a pasta Scripts do Python esteja no seu PATH):
 streamlit run src/ui/app.py
 ```
+
+> [!TIP]
+> **Primeira Execução do Streamlit (Prompt de Boas-Vindas):**  
+> Na primeira vez em que o comando for executado, o terminal exibirá uma mensagem de boas-vindas solicitando um e-mail opcional:
+> ```text
+> Welcome to Streamlit!
+> Email: 
+> ```
+> **Basta pressionar a tecla `Enter`** (deixando o campo vazio). O Streamlit salvará essa preferência, iniciará o servidor local e abrirá automaticamente uma aba no navegador em:  
+> 👉 **`http://localhost:8501`**
 
 A interface carregará com 4 módulos de navegação:
 
