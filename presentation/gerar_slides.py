@@ -1,8 +1,10 @@
 """Script para geração automatizada dos slides da apresentação (PowerPoint)."""
 
 import os
+
 from pptx import Presentation
 from pptx.dml.color import RGBColor
+from pptx.enum.shapes import MSO_SHAPE
 from pptx.util import Inches, Pt
 
 
@@ -328,7 +330,7 @@ def build_presentation(base_dir: str) -> str:
         "9. Conclusões e Contribuições para a Pesquisa",
         "Síntese das Contribuições e Integração com a Dissertação de Mestrado",
     )
-    tb10 = s10.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(11.7), Inches(5.0))
+    tb10 = s10.shapes.add_textbox(Inches(0.8), Inches(1.6), Inches(11.7), Inches(3.6))
     tf10 = tb10.text_frame
     tf10.word_wrap = True
 
@@ -360,13 +362,57 @@ def build_presentation(base_dir: str) -> str:
         run1 = p.add_run()
         run1.text = title
         run1.font.bold = True
-        run1.font.size = Pt(14)
+        run1.font.size = Pt(13)
         run1.font.color.rgb = NAVY
         run2 = p.add_run()
         run2.text = desc
-        run2.font.size = Pt(14)
+        run2.font.size = Pt(13)
         run2.font.color.rgb = DARK
-        p.space_before = Pt(10)
+        p.space_before = Pt(6)
+
+    # Card do Repositório GitHub para Download e Teste
+    card_gh = s10.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Inches(0.8),
+        Inches(5.35),
+        Inches(11.7),
+        Inches(1.55),
+    )
+    card_gh.fill.solid()
+    card_gh.fill.fore_color.rgb = RGBColor(241, 245, 249)
+    card_gh.line.color.rgb = BLUE
+    card_gh.line.width = Pt(1.5)
+
+    tf_gh = card_gh.text_frame
+    tf_gh.word_wrap = True
+    tf_gh.margin_top = Inches(0.12)
+    tf_gh.margin_left = Inches(0.2)
+    tf_gh.margin_right = Inches(0.2)
+
+    p_gh1 = tf_gh.paragraphs[0]
+    p_gh1.text = "Repositório no GitHub (Código-Fonte Aberto, Dados, Testes e Dashboard Web):"
+    p_gh1.font.bold = True
+    p_gh1.font.size = Pt(12)
+    p_gh1.font.color.rgb = NAVY
+
+    p_gh2 = tf_gh.add_paragraph()
+    run_gh_link = p_gh2.add_run()
+    run_gh_link.text = "👉 https://github.com/AldairAzevedo/energy-demand-forecast"
+    run_gh_link.font.bold = True
+    run_gh_link.font.size = Pt(14)
+    run_gh_link.font.color.rgb = BLUE
+    run_gh_link.hyperlink.address = "https://github.com/AldairAzevedo/energy-demand-forecast"
+    p_gh2.space_before = Pt(3)
+
+    p_gh3 = tf_gh.add_paragraph()
+    p_gh3.text = (
+        "Para clonar e testar localmente:  git clone "
+        "https://github.com/AldairAzevedo/energy-demand-forecast.git  &&  "
+        "python -m streamlit run src/ui/app.py"
+    )
+    p_gh3.font.size = Pt(10.5)
+    p_gh3.font.color.rgb = DARK
+    p_gh3.space_before = Pt(3)
 
     out_file = os.path.join(base_dir, "presentation", "slides_apresentacao.pptx")
     prs.save(out_file)
