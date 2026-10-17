@@ -8,11 +8,7 @@
 [![Linter: Flake8](https://img.shields.io/badge/linter-flake8-green.svg)](https://flake8.pycqa.org/)
 [![Tests: Pytest](https://img.shields.io/badge/tests-pytest-blue.svg)](https://docs.pytest.org/)
 
-Aplicação acadêmica monolítica desenvolvida para a disciplina **PGENE585 – Transição Energética Sustentável e Mercados de Energia** do Programa de Pós-Graduação em Engenharia Elétrica (**PPGEE / UFAM**).
-
-- **Aluno:** Aldair da Silva Azevedo
-- **Professor:** Dr. Kenny Vinente
-- **Data da Apresentação:** 17/10/2026
+Aplicação acadêmica monolítica desenvolvida para a disciplina **PGENE585 – Transição Energética Sustentável e Mercados de Energia**.
 
 ---
 
@@ -150,3 +146,15 @@ Os slides da apresentação oral já foram gerados e estão disponíveis na past
 
 - **Licença:** Este projeto está sob a licença livre [MIT](LICENSE) © 2026 Aldair da Silva Azevedo.
 - **Segurança:** Diretrizes de integridade de dados e processo de divulgação responsável detalhados em [SECURITY.md](SECURITY.md).
+
+---
+
+## 8. Autor
+
+Desenvolvido por **Aldair da Silva Azevedo**.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Aldair%20Azevedo-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/aldair-azevedo/)
+[![GitHub](https://img.shields.io/badge/GitHub-AldairAzevedo-100000?style=flat&logo=github&logoColor=white)](https://github.com/AldairAzevedo)
+[![Email](https://img.shields.io/badge/Email-aldairazevedo%40hotmail.com.br-D14836?style=flat&logo=gmail&logoColor=white)](mailto:aldairazevedo@hotmail.com.br)
+
+Conecte-se comigo no LinkedIn: [linkedin.com/in/aldair-azevedo](https://www.linkedin.com/in/aldair-azevedo/)
