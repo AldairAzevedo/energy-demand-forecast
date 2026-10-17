@@ -1,6 +1,8 @@
 # Sistema Monolítico Full Stack de Previsão de Carga e Demanda Líquida
 
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Security: Policy](https://img.shields.io/badge/Security-Policy-brightgreen.svg)](SECURITY.md)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&square)](https://pycqa.github.io/isort/)
 [![Linter: Flake8](https://img.shields.io/badge/linter-flake8-green.svg)](https://flake8.pycqa.org/)
@@ -141,3 +143,10 @@ Os slides da apresentação oral já foram gerados e estão disponíveis na past
   ```bash
   python presentation/gerar_slides.py
   ```
+
+---
+
+## 7. Licença e Segurança
+
+- **Licença:** Este projeto está sob a licença livre [MIT](LICENSE) © 2026 Aldair da Silva Azevedo.
+- **Segurança:** Diretrizes de integridade de dados e processo de divulgação responsável detalhados em [SECURITY.md](SECURITY.md).
