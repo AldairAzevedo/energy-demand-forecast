@@ -214,55 +214,181 @@ def build_presentation(base_dir: str) -> str:
     s3 = prs.slides.add_slide(blank_layout)
     add_header(
         s3,
-        "2. Formulação Matemática: Funções de Perda L2 vs. L1",
-        "Otimização Paramétrica e Comportamento dos Erros no Sistema em Python",
+        "2. Formulação Matemática: Modelos de Regressão & Perdas L2 vs. L1",
+        "Conceito Fundamental, Otimização Paramétrica e Comportamento dos Erros no Python",
     )
-    tb3 = s3.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(11.7), Inches(5.0))
-    tf3 = tb3.text_frame
-    tf3.word_wrap = True
 
-    points_s3 = [
+    # Card Superior: Definição Explícita de Modelo de Regressão
+    card_def = s3.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Inches(0.8),
+        Inches(1.7),
+        Inches(11.733),
+        Inches(1.4),
+    )
+    card_def.fill.solid()
+    card_def.fill.fore_color.rgb = RGBColor(239, 246, 255)
+    card_def.line.color.rgb = BLUE
+    card_def.line.width = Pt(1.5)
+
+    tf_def = card_def.text_frame
+    tf_def.word_wrap = True
+    tf_def.margin_top = Inches(0.12)
+    tf_def.margin_bottom = Inches(0.1)
+    tf_def.margin_left = Inches(0.2)
+    tf_def.margin_right = Inches(0.2)
+
+    p_def0 = tf_def.paragraphs[0]
+    p_def0.text = "O que é um Modelo de Regressão?"
+    p_def0.font.bold = True
+    p_def0.font.size = Pt(13)
+    p_def0.font.color.rgb = NAVY
+
+    p_def1 = tf_def.add_paragraph()
+    p_def1.text = (
+        "É uma técnica estatística e de aprendizado de máquina (Machine Learning) usada para "
+        "investigar a relação entre uma variável dependente (o desfecho ou valor que queremos "
+        "prever) e uma ou mais variáveis independentes (os preditores ou características)."
+    )
+    p_def1.font.size = Pt(11.5)
+    p_def1.font.color.rgb = DARK
+    p_def1.space_before = Pt(3)
+
+    p_def2 = tf_def.add_paragraph()
+    run_ex = p_def2.add_run()
+    run_ex.text = "➔ Aplicação no Sistema (CMU Item 5): "
+    run_ex.font.bold = True
+    run_ex.font.size = Pt(10.5)
+    run_ex.font.color.rgb = BLUE
+    run_ex2 = p_def2.add_run()
+    run_ex2.text = (
+        "Variável Dependente (y): Pico diário de demanda da rede em GW | "
+        "Variável Independente (x): Temperatura máxima diária em °C | "
+        "Amostras: N = 1.460 dias."
+    )
+    run_ex2.font.size = Pt(10.5)
+    run_ex2.font.color.rgb = DARK
+    p_def2.space_before = Pt(3)
+
+    # Card Inferior Esquerdo: Perda Quadrática L2 (Mínimos Quadrados)
+    card_l2 = s3.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Inches(0.8),
+        Inches(3.25),
+        Inches(5.7),
+        Inches(3.65),
+    )
+    card_l2.fill.solid()
+    card_l2.fill.fore_color.rgb = RGBColor(248, 250, 252)
+    card_l2.line.color.rgb = RGBColor(203, 213, 225)
+    card_l2.line.width = Pt(1)
+
+    tf_l2 = card_l2.text_frame
+    tf_l2.word_wrap = True
+    tf_l2.margin_top = Inches(0.12)
+    tf_l2.margin_bottom = Inches(0.1)
+    tf_l2.margin_left = Inches(0.18)
+    tf_l2.margin_right = Inches(0.18)
+
+    p_l2_0 = tf_l2.paragraphs[0]
+    p_l2_0.text = "Perda Quadrática (L2 — Mínimos Quadrados / OLS)"
+    p_l2_0.font.bold = True
+    p_l2_0.font.size = Pt(12)
+    p_l2_0.font.color.rgb = NAVY
+
+    pts_l2 = [
         (
-            "O que é um Modelo de Regressão:",
-            " Técnica estatística e de Machine Learning usada para investigar a relação funcional "
-            "entre uma variável dependente (alvo a prever: demanda em GW) e uma ou mais "
-            "variáveis independentes (preditores: temperatura máxima diária em °C).",
+            "Função Objetivo: ",
+            "J(θ) = Σ (y_i - φ(x_i) θ)². Minimiza o erro quadrático médio em toda a amostra.",
         ),
         (
-            "Variáveis Físicas do Modelo (CMU Item 5):",
-            " Entrada (x): Temperatura máxima diária em graus Celsius (°C). Alvo (y): Pico diário "
-            "de demanda da concessionária em Gigawatts (GW). Histórico: N = 1.460 dias observados.",
+            "Solução no Python: ",
+            "Equação Normal analítica exata: θ = (Φᵀ Φ)⁻¹ Φᵀ y, executada com alta velocidade.",
         ),
         (
-            "Perda Quadrática (L2 — Mínimos Quadrados / Squared Loss):",
-            " J(θ) = Σ (y_i - φ(x_i) θ)². Resolvida no Python por Equação Normal analítica: "
-            "θ = (Φᵀ Φ)⁻¹ Φᵀ y. Supõe distribuição normal de ruídos; pune severamente erros "
-            "grandes, sendo puxada para baixo por feriados ou quedas pontuais de carga.",
+            "Comportamento Estatístico: ",
+            "Estima a MÉDIA condicional da demanda dada a temperatura (distribuição Gaussiana).",
         ),
         (
-            "Perda Absoluta (L1 — LAD Robusta / Absolute Loss):",
-            " J(θ) = Σ |y_i - φ(x_i) θ|. Otimiza a MEDIANA condicional (distribuição Laplace). "
-            "Resolvida no Python por otimização convexa direta (scipy via Powell). Extremamente "
-            "robusta a desvios e quedas anômalas, traçando a curva da demanda típica.",
-        ),
-        (
-            "Regularização Ridge (L2 Shrinkage com λ = 10⁻⁴):",
-            " Adiciona penalidade λ ||θ||² na função objetivo para restringir a norma dos pesos "
-            "e evitar sobreajuste (overfitting) em transformações de alta dimensão.",
+            "Sensibilidade a Outliers: ",
+            "Por elevar os erros ao quadrado, a curva é puxada para baixo por dias com quedas "
+            "atípicas de consumo (feriados, pontes e paradas pontuais da rede).",
         ),
     ]
-    for title, desc in points_s3:
-        p = tf3.add_paragraph()
-        run1 = p.add_run()
-        run1.text = title
-        run1.font.bold = True
-        run1.font.size = Pt(12)
-        run1.font.color.rgb = NAVY
-        run2 = p.add_run()
-        run2.text = desc
-        run2.font.size = Pt(11.5)
-        run2.font.color.rgb = DARK
-        p.space_before = Pt(5)
+    for tit, desc in pts_l2:
+        p = tf_l2.add_paragraph()
+        p.space_before = Pt(4)
+        r1 = p.add_run()
+        r1.text = tit
+        r1.font.bold = True
+        r1.font.size = Pt(10)
+        r1.font.color.rgb = BLUE
+        r2 = p.add_run()
+        r2.text = desc
+        r2.font.size = Pt(10)
+        r2.font.color.rgb = DARK
+
+    # Card Inferior Direito: Perda Absoluta L1 (Robusta / LAD)
+    card_l1 = s3.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Inches(6.833),
+        Inches(3.25),
+        Inches(5.7),
+        Inches(3.65),
+    )
+    card_l1.fill.solid()
+    card_l1.fill.fore_color.rgb = RGBColor(248, 250, 252)
+    card_l1.line.color.rgb = RGBColor(203, 213, 225)
+    card_l1.line.width = Pt(1)
+
+    tf_l1 = card_l1.text_frame
+    tf_l1.word_wrap = True
+    tf_l1.margin_top = Inches(0.12)
+    tf_l1.margin_bottom = Inches(0.1)
+    tf_l1.margin_left = Inches(0.18)
+    tf_l1.margin_right = Inches(0.18)
+
+    p_l1_0 = tf_l1.paragraphs[0]
+    p_l1_0.text = "Perda Absoluta (L1 — LAD Robusta / Powell)"
+    p_l1_0.font.bold = True
+    p_l1_0.font.size = Pt(12)
+    p_l1_0.font.color.rgb = NAVY
+
+    pts_l1 = [
+        (
+            "Função Objetivo: ",
+            "J(θ) = Σ |y_i - φ(x_i) θ|. Penaliza os desvios de forma linear e proporcional.",
+        ),
+        (
+            "Solução no Python: ",
+            "Otimização numérica via scipy.optimize.minimize com método Powell (sem derivada).",
+        ),
+        (
+            "Comportamento Estatístico: ",
+            "Estima a MEDIANA condicional da demanda (associada à distribuição de Laplace).",
+        ),
+        (
+            "Máxima Robustez Física: ",
+            "Ignora quedas atípicas de feriados; traça o consumo típico e fica ligeiramente "
+            "ACIMA de L2 no gráfico, refletindo os dias de operação plena da rede.",
+        ),
+        (
+            "Regularização Ridge (λ = 10⁻⁴): ",
+            "Penalidade λ ||θ||² incluída para evitar sobreajuste em matrizes de alta dimensão.",
+        ),
+    ]
+    for tit, desc in pts_l1:
+        p = tf_l1.add_paragraph()
+        p.space_before = Pt(3.5)
+        r1 = p.add_run()
+        r1.text = tit
+        r1.font.bold = True
+        r1.font.size = Pt(9.5)
+        r1.font.color.rgb = BLUE
+        r2 = p.add_run()
+        r2.text = desc
+        r2.font.size = Pt(9.5)
+        r2.font.color.rgb = DARK
 
     # =========================================================================
     # SLIDE 4: Os 4 Modelos de Regressão (Item 5)
