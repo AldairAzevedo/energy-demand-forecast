@@ -145,9 +145,12 @@ class CMUQ5Pipeline:
             ("L1", "Função de Perda Absoluta Robusta (L1 - LAD)"),
         ]
 
+        temps_c = (temps - 32.0) * 5.0 / 9.0
+        t_grid_c = (t_grid - 32.0) * 5.0 / 9.0
+
         for ax, (loss_key, loss_title) in zip(axes, titles):
             ax.scatter(
-                temps,
+                temps_c,
                 demands,
                 color="#64748B",
                 alpha=0.6,
@@ -159,7 +162,7 @@ class CMUQ5Pipeline:
                 m_info = fitted_results[loss_key][model_key]
                 label_txt = f"{m_info['model_name']} (R²: {m_info['metrics']['r2']:.3f})"
                 ax.plot(
-                    t_grid,
+                    t_grid_c,
                     m_info["grid_predictions"],
                     label=label_txt,
                     color=style_color,
@@ -167,7 +170,7 @@ class CMUQ5Pipeline:
                 )
 
             ax.set_title(loss_title, fontsize=12, fontweight="bold", pad=10)
-            ax.set_xlabel("Temperatura Máxima Diária (°F)", fontsize=11)
+            ax.set_xlabel("Temperatura Máxima Diária (°C)", fontsize=11)
             ax.grid(True, linestyle="--", alpha=0.5)
             ax.legend(loc="upper left", fontsize=9, framealpha=0.9)
 

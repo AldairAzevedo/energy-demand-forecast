@@ -27,20 +27,25 @@ def build_cmu_q5_chart(
     # Pontos de dispersão observados
     if show_scatter and "records" in raw_data:
         temps = [r["temperature"] for r in raw_data["records"]]
+        temps_c = [(t - 32.0) * 5.0 / 9.0 for t in temps]
         demands = [r["demand"] for r in raw_data["records"]]
         fig.add_trace(
             go.Scatter(
-                x=temps,
+                x=temps_c,
                 y=demands,
                 mode="markers",
                 name="Demanda Real Observada",
                 marker=dict(size=5, color=COLOR_PALETTE["Observado"], opacity=0.5),
-                hovertemplate="Temperatura: %{x:.1f} °F<br>Demanda: %{y:.3f} GW<extra></extra>",
+                hovertemplate=(
+                    "Temperatura: %{x:.1f} °C<br>"
+                    "Demanda: %{y:.3f} GW<extra></extra>"
+                ),
             )
         )
 
     # Curvas dos modelos selecionados
     grid_temps = fitted_data.get("grid_temperatures", [])
+    grid_temps_c = [(t - 32.0) * 5.0 / 9.0 for t in grid_temps]
     models_dict = fitted_data.get("models", {}).get(loss_type, {})
 
     for model_key in selected_models:
@@ -53,14 +58,15 @@ def build_cmu_q5_chart(
 
             fig.add_trace(
                 go.Scatter(
-                    x=grid_temps,
+                    x=grid_temps_c,
                     y=m_info["grid_predictions"],
                     mode="lines",
                     name=name_label,
                     line=dict(color=color, width=2.5),
                     hovertemplate=(
                         f"<b>{m_info['model_name']}</b><br>"
-                        "Temp: %{x:.1f} °F<br>Pred: %{y:.3f} GW<extra></extra>"
+                        "Temp: %{x:.1f} °C<br>"
+                        "Pred: %{y:.3f} GW<extra></extra>"
                     ),
                 )
             )
@@ -73,7 +79,7 @@ def build_cmu_q5_chart(
             text=f"Ajuste de Modelos de Demanda de Pico vs. Temperatura ({loss_label})",
             font=dict(size=16, family="Arial, sans-serif"),
         ),
-        xaxis_title="Temperatura Máxima Diária (°F)",
+        xaxis_title="Temperatura Máxima Diária (°C)",
         yaxis_title="Pico de Demanda Diária (GW)",
         template="plotly_white",
         hovermode="closest",
@@ -104,11 +110,12 @@ def build_residuals_chart(
     if model_key in models_dict and "records" in raw_data:
         m_info = models_dict[model_key]
         temps = [r["temperature"] for r in raw_data["records"]]
+        temps_c = [(t - 32.0) * 5.0 / 9.0 for t in temps]
         residuals = m_info.get("residuals", [])
 
         fig.add_trace(
             go.Scatter(
-                x=temps,
+                x=temps_c,
                 y=residuals,
                 mode="markers",
                 name="Resíduos (y - ŷ)",
@@ -120,7 +127,7 @@ def build_residuals_chart(
                     colorbar=dict(title="Erro (GW)"),
                     opacity=0.7,
                 ),
-                hovertemplate="Temperatura: %{x:.1f} °F<br>Resíduo: %{y:.3f} GW<extra></extra>",
+                hovertemplate="Temperatura: %{x:.1f} °C<br>Resíduo: %{y:.3f} GW<extra></extra>",
             )
         )
 
@@ -128,7 +135,7 @@ def build_residuals_chart(
 
     fig.update_layout(
         title=f"Distribuição de Resíduos: {model_key} ({loss_type})",
-        xaxis_title="Temperatura Máxima Diária (°F)",
+        xaxis_title="Temperatura Máxima Diária (°C)",
         yaxis_title="Resíduo de Demanda (GW)",
         template="plotly_white",
         margin=dict(l=50, r=30, t=60, b=50),

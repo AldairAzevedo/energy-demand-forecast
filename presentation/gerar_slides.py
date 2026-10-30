@@ -178,8 +178,9 @@ def build_presentation(base_dir: str) -> str:
         (
             "A Física da Não-Linearidade Térmica:",
             " O consumo de energia responde à termodinâmica humana em curva em 'U': dias amenos "
-            "(~60°F) têm baixa demanda, enquanto o frio rigoroso dispara o aquecimento elétrico "
-            "e o calor extremo dispara o ar-condicionado.",
+            "(~15,6°C) têm baixa demanda, enquanto o frio rigoroso (abaixo de 0°C e até "
+            "-14,4°C) dispara o aquecimento e o calor intenso (acima de 29°C e até 35,0°C) "
+            "dispara o ar-condicionado.",
         ),
         (
             "Cenário 2 — Edifício Inteligente Comercial Prosumidor (Zenodo 2025):",
@@ -222,21 +223,27 @@ def build_presentation(base_dir: str) -> str:
 
     points_s3 = [
         (
+            "O que é um Modelo de Regressão:",
+            " Técnica estatística e de Machine Learning usada para investigar a relação funcional "
+            "entre uma variável dependente (alvo a prever: demanda em GW) e uma ou mais "
+            "variáveis independentes (preditores: temperatura máxima diária em °C).",
+        ),
+        (
             "Variáveis Físicas do Modelo (CMU Item 5):",
-            " Entrada (x): Temperatura máxima diária em °F. Alvo (y): Pico diário de demanda "
-            "da concessionária em Gigawatts (GW). Amostras: N = 1.460 dias observados.",
+            " Entrada (x): Temperatura máxima diária em graus Celsius (°C). Alvo (y): Pico diário "
+            "de demanda da concessionária em Gigawatts (GW). Histórico: N = 1.460 dias observados.",
         ),
         (
             "Perda Quadrática (L2 — Mínimos Quadrados / Squared Loss):",
             " J(θ) = Σ (y_i - φ(x_i) θ)². Resolvida no Python por Equação Normal analítica: "
             "θ = (Φᵀ Φ)⁻¹ Φᵀ y. Supõe distribuição normal de ruídos; pune severamente erros "
-            "grandes, sendo muito vulnerável a picos anômalos de consumo.",
+            "grandes, sendo puxada para baixo por feriados ou quedas pontuais de carga.",
         ),
         (
             "Perda Absoluta (L1 — LAD Robusta / Absolute Loss):",
             " J(θ) = Σ |y_i - φ(x_i) θ|. Otimiza a MEDIANA condicional (distribuição Laplace). "
             "Resolvida no Python por otimização convexa direta (scipy via Powell). Extremamente "
-            "robusta a feriados, anomalias e variações bruscas de carga.",
+            "robusta a desvios e quedas anômalas, traçando a curva da demanda típica.",
         ),
         (
             "Regularização Ridge (L2 Shrinkage com λ = 10⁻⁴):",
@@ -249,13 +256,13 @@ def build_presentation(base_dir: str) -> str:
         run1 = p.add_run()
         run1.text = title
         run1.font.bold = True
-        run1.font.size = Pt(13)
+        run1.font.size = Pt(12)
         run1.font.color.rgb = NAVY
         run2 = p.add_run()
         run2.text = desc
-        run2.font.size = Pt(12.5)
+        run2.font.size = Pt(11.5)
         run2.font.color.rgb = DARK
-        p.space_before = Pt(8)
+        p.space_before = Pt(5)
 
     # =========================================================================
     # SLIDE 4: Os 4 Modelos de Regressão (Item 5)
@@ -284,9 +291,9 @@ def build_presentation(base_dir: str) -> str:
         ),
         (
             "3. Funções de Base Radial (RBF Local):",
-            " 5 centros fixos μ = [20, 40, 60, 80, 100]°F com dispersão σ = 20. φ_j(x) = "
-            "exp(-(x - μ_j)² / (2σ²)). Sinos gaussianos que capturam comportamentos locais "
-            "sem instabilidade nas bordas (R² = 0.713).",
+            " 5 centros fixos distribuídos na faixa térmica μ = [-6,7; 4,4; 15,6; 26,7; 37,8]°C "
+            "com dispersão σ ≈ 11,1°C. φ_j(x) = exp(-(x - μ_j)² / (2σ²)). Sinos gaussianos que "
+            "capturam comportamentos locais sem instabilidade nas bordas (R² = 0.713).",
         ),
         (
             "4. Kernel Gaussiano com Ridge (Dual, λ = 10⁻⁴):",
@@ -324,12 +331,13 @@ def build_presentation(base_dir: str) -> str:
         ),
         (
             "Mínimo Térmico: ",
-            "O vale de consumo ocorre perto de 60°F (15°C); acima de 85°F a demanda atinge pico.",
+            "O vale de consumo ocorre perto de 15,6°C; acima de 29°C (chegando a 35,0°C) a "
+            "demanda atinge pico.",
         ),
         (
             "Comportamento L1 vs L2: ",
-            "As curvas com perda L1 (tracejadas) situam-se ligeiramente abaixo de L2, "
-            "ajustando à mediana típica sem serem distorcidas por dias atípicos de calor extremo.",
+            "As curvas com perda L1 (mediana) situam-se ligeiramente ACIMA de L2 (média), "
+            "pois a perda quadrática L2 é puxada para baixo por feriados e quedas anômalas.",
         ),
         (
             "Conclusão do Estudo: ",
@@ -337,8 +345,10 @@ def build_presentation(base_dir: str) -> str:
             "em >600%.",
         ),
     ]
-    hl_title_s5 = "Tabela Oficial de Métricas Calculadas no Sistema em Python:"
+    hl_title_s5 = "Métricas de Acurácia Calculadas no Sistema em Python:"
     hl_desc_s5 = (
+        "• Métricas: R² = Acurácia/Explicação (0 a 1) | RMSE = Erro quadrático (GW) | "
+        "MAE = Desvio médio absoluto (GW)\n"
         "• Linear Simples (L2): RMSE = 0.278 GW | MAE = 0.226 GW | R² = 0.116 (Insuficiente)\n"
         "• Polinomial d=5 (L2): RMSE = 0.158 GW | MAE = 0.120 GW | R² = 0.715 (Excelente em U)\n"
         "• RBF 5 centros (L2): RMSE = 0.158 GW | MAE = 0.121 GW | R² = 0.713 (Estável local)\n"

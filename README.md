@@ -45,7 +45,7 @@ Todos os dados intermediários e finais são persistidos na pasta `data/cycles/`
 
 | Ciclo  | Arquivo JSON                                   | Descrição                                                                                                             |
 | :----: | :--------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| **01** | `cycle_01_cmu_q5_raw.json`                     | 1.460 dias de $T_{\max}$ (°F) e Pico de Demanda (GW) com estatísticas descritivas.                                    |
+| **01** | `cycle_01_cmu_q5_raw.json`                     | 1.460 dias de $T_{\max}$ (°C) e Pico de Demanda (GW) com estatísticas descritivas.                                    |
 | **02** | `cycle_02_cmu_q5_fitted_models.json`           | Predições, resíduos e métricas dos **4 modelos $\times$ 2 funções de perda ($L_2$ e $L_1$)**.                         |
 | **03** | `cycle_03_cmu_q6_cleaned_weather.json`         | Limpeza de 100 valores sentinelas (`-9999`) de sensores e deduplicação de timestamps.                                 |
 | **04** | `cycle_04_cmu_q6_interpolated_sync.json`       | Sincronização temporal de 35.064 horas entre clima e demanda via interpolação linear.                                 |

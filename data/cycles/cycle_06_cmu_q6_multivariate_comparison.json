@@ -9,7 +9,7 @@
       "rmse": 157.8016,
       "mae": 120.3413,
       "r2": 0.7147,
-      "runtime_ms": 0.23
+      "runtime_ms": 0.27
     }
   },
   "multivariate_model": {
@@ -20,7 +20,7 @@
       "rmse": 150.7528,
       "mae": 117.9261,
       "r2": 0.7396,
-      "runtime_ms": 0.07
+      "runtime_ms": 0.08
     }
   },
   "comparison": {
