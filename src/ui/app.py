@@ -392,29 +392,11 @@ def main() -> None:
 
     # Módulo 4: Auditoria dos 7 Ciclos (JSON)
     elif navigation == "Auditoria dos 7 Ciclos (JSON)":
-        col_head, col_btn = st.columns([2.2, 1.2])
-        with col_head:
-            st.title("📋 Trilha de Auditoria: Os 7 Ciclos em JSON")
-            st.markdown(
-                "Todos os ciclos de ingestão, higienização, engenharia e predição persistidos "
-                "em arquivos JSON estruturados em `data/cycles/`."
-            )
-        with col_btn:
-            st.write("")
-            st.write("")
-            if st.button(
-                "🔄 Reprocessar Todos os 7 Ciclos",
-                key="btn_run_pipeline_tab4",
-                type="primary",
-                help="Executa o pipeline completo em lote e atualiza todos os JSONs e gráficos.",
-                use_container_width=True,
-            ):
-                with st.spinner("Executando os 7 ciclos em lote (CMU Q5, CMU Q6 e Zenodo)..."):
-                    manager = CycleManager(project_root)
-                    manager.run_all()
-                    st.cache_data.clear()
-                st.success("✅ Todos os 7 ciclos foram reprocessados e validados com sucesso!")
-                st.rerun()
+        st.title("📋 Trilha de Auditoria: Os 7 Ciclos em JSON")
+        st.markdown(
+            "Todos os ciclos de ingestão, higienização, engenharia e predição persistidos "
+            "em arquivos JSON estruturados em `data/cycles/`."
+        )
 
         cycle_keys = [
             ("cycle_01", "Ciclo 01: Dados Brutos CMU Q5 (Temperatura & Demanda)"),
