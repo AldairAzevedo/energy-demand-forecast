@@ -272,9 +272,9 @@ def build_presentation(base_dir: str) -> str:
     card_def4 = s4.shapes.add_shape(
         MSO_SHAPE.ROUNDED_RECTANGLE,
         Inches(0.8),
-        Inches(1.7),
+        Inches(1.65),
         Inches(11.733),
-        Inches(1.2),
+        Inches(1.38),
     )
     card_def4.fill.solid()
     card_def4.fill.fore_color.rgb = RGBColor(239, 246, 255)
@@ -283,15 +283,15 @@ def build_presentation(base_dir: str) -> str:
 
     tf_def4 = card_def4.text_frame
     tf_def4.word_wrap = True
-    tf_def4.margin_top = Inches(0.1)
-    tf_def4.margin_bottom = Inches(0.08)
+    tf_def4.margin_top = Inches(0.08)
+    tf_def4.margin_bottom = Inches(0.06)
     tf_def4.margin_left = Inches(0.18)
     tf_def4.margin_right = Inches(0.18)
 
     p_def0 = tf_def4.paragraphs[0]
     p_def0.text = "O que é um Modelo de Regressão?"
     p_def0.font.bold = True
-    p_def0.font.size = Pt(12.5)
+    p_def0.font.size = Pt(12)
     p_def0.font.color.rgb = NAVY
 
     p_def1 = tf_def4.add_paragraph()
@@ -300,11 +300,37 @@ def build_presentation(base_dir: str) -> str:
         "investigar a relação entre uma variável dependente (o desfecho ou valor que queremos "
         "prever) e uma ou mais variáveis independentes (os preditores ou características)."
     )
-    p_def1.font.size = Pt(11)
+    p_def1.font.size = Pt(10.5)
     p_def1.font.color.rgb = DARK
-    p_def1.space_before = Pt(3)
+    p_def1.space_before = Pt(2)
 
-    tb4 = s4.shapes.add_textbox(Inches(0.8), Inches(3.05), Inches(11.733), Inches(4.0))
+    p_def2 = tf_def4.add_paragraph()
+    p_def2.space_before = Pt(3)
+    run_def2_lbl = p_def2.add_run()
+    run_def2_lbl.text = "➔ No Nosso Desafio: "
+    run_def2_lbl.font.bold = True
+    run_def2_lbl.font.size = Pt(10.5)
+    run_def2_lbl.font.color.rgb = BLUE
+
+    run_def2_y = p_def2.add_run()
+    run_def2_y.text = (
+        "Variável Dependente (Y): Quantidade de energia consumida / pico de demanda da rede (GW) "
+        "  •   "
+    )
+    run_def2_y.font.bold = True
+    run_def2_y.font.size = Pt(10)
+    run_def2_y.font.color.rgb = NAVY
+
+    run_def2_x = p_def2.add_run()
+    run_def2_x.text = (
+        "Variável Independente (X): Temperatura responsável por induzir o consumo naquele "
+        "momento (°C)."
+    )
+    run_def2_x.font.bold = True
+    run_def2_x.font.size = Pt(10)
+    run_def2_x.font.color.rgb = BLUE
+
+    tb4 = s4.shapes.add_textbox(Inches(0.8), Inches(3.15), Inches(11.733), Inches(3.9))
     tf4 = tb4.text_frame
     tf4.word_wrap = True
 
@@ -338,14 +364,14 @@ def build_presentation(base_dir: str) -> str:
         run1 = p.add_run()
         run1.text = title
         run1.font.bold = True
-        run1.font.size = Pt(12)
+        run1.font.size = Pt(11.5)
         run1.font.color.rgb = NAVY
         run2 = p.add_run()
         run2.text = desc
-        run2.font.size = Pt(11.5)
+        run2.font.size = Pt(11)
         run2.font.color.rgb = DARK
         if idx > 0:
-            p.space_before = Pt(6)
+            p.space_before = Pt(5)
 
     # =========================================================================
     # SLIDE 5: Resultados Visuais CMU Q5 (Gráfico + Painel Lateral)
