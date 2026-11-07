@@ -51,6 +51,65 @@ def load_all_cycles(base_path: str) -> Dict[str, Any]:
     return loaded
 
 
+def _render_sidebar_pipeline_controls(root_dir: str) -> None:
+    """Renderiza controles de execução do pipeline com logs ao vivo e bloqueio de estado."""
+    st.markdown("---")
+    st.markdown("**Governança de Dados (MLOps):**")
+
+    if "pipeline_running" not in st.session_state:
+        st.session_state.pipeline_running = False
+    if "pipeline_logs" not in st.session_state:
+        st.session_state.pipeline_logs = []
+
+    def start_pipeline() -> None:
+        st.session_state.pipeline_running = True
+
+    btn_label = (
+        "⏳ Executando Pipeline..."
+        if st.session_state.pipeline_running
+        else "⚡ Executar Pipeline (7 Ciclos)"
+    )
+
+    st.button(
+        btn_label,
+        key="btn_run_pipeline_sidebar",
+        disabled=st.session_state.pipeline_running,
+        help="Executa o pipeline completo em lote e atualiza todos os JSONs e gráficos.",
+        use_container_width=True,
+        on_click=start_pipeline,
+    )
+
+    log_placeholder = st.empty()
+
+    if st.session_state.pipeline_running:
+        live_logs = []
+
+        def live_callback(msg: str) -> None:
+            live_logs.append(msg)
+            log_placeholder.code("\n".join(live_logs), language="bash")
+
+        try:
+            live_callback("[Início] Inicializando executor do pipeline...")
+            manager = CycleManager(root_dir)
+            manager.run_all(callback=live_callback)
+            st.cache_data.clear()
+            st.session_state.pipeline_logs = live_logs
+            st.toast("✅ Todos os 7 ciclos executados com sucesso!")
+        except Exception as exc:
+            live_logs.append(f"[ERRO] Falha na execução: {exc}")
+            log_placeholder.code("\n".join(live_logs), language="bash")
+            st.error(f"Erro ao executar pipeline: {exc}")
+        finally:
+            st.session_state.pipeline_running = False
+            st.rerun()
+
+    elif st.session_state.pipeline_logs:
+        with st.expander("📋 Logs da Execução", expanded=True):
+            st.code("\n".join(st.session_state.pipeline_logs), language="bash")
+
+    st.caption("Arquitetura Monolítica 100% Python | POO & SOLID")
+
+
 def main() -> None:
     """Função principal de renderização do dashboard monolítico."""
     st.set_page_config(
@@ -81,22 +140,7 @@ def main() -> None:
             index=0,
         )
 
-        st.markdown("---")
-        st.markdown("**Governança de Dados (MLOps):**")
-        if st.button(
-            "⚡ Executar Pipeline (7 Ciclos)",
-            key="btn_run_pipeline_sidebar",
-            help="Executa o pipeline completo em lote e atualiza todos os JSONs e gráficos.",
-            use_container_width=True,
-        ):
-            with st.spinner("Executando os 7 ciclos em lote (CMU Q5, CMU Q6 e Zenodo)..."):
-                manager = CycleManager(project_root)
-                manager.run_all()
-                st.cache_data.clear()
-            st.success("✅ Pipeline executado com sucesso!")
-            st.rerun()
-
-        st.caption("Arquitetura Monolítica 100% Python | POO & SOLID")
+        _render_sidebar_pipeline_controls(project_root)
 
     # Módulo 1: Laboratório de Modelos (CMU Item 5)
     if navigation == "Laboratório de Modelos (CMU Item 5)":

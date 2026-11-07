@@ -2,7 +2,7 @@
 
 import argparse
 import os
-from typing import Dict
+from typing import Callable, Dict, Optional
 
 from src.pipelines.cmu_q5_pipeline import CMUQ5Pipeline
 from src.pipelines.cmu_q6_pipeline import CMUQ6Pipeline
@@ -24,31 +24,33 @@ class CycleManager:
         self.q6_pipe = CMUQ6Pipeline(self.data_cmu, self.cycles_dir, self.results_dir)
         self.zenodo_pipe = ZenodoPipeline(self.data_zenodo, self.cycles_dir, self.results_dir)
 
-    def run_all(self) -> None:
+    def run_all(self, callback: Optional[Callable[[str], None]] = None) -> None:
         """Executa sequencialmente todos os 7 ciclos do pipeline de dados."""
-        print("[CycleManager] Iniciando processamento de todos os ciclos...")
-        print(" -> Executando Ciclo 01 (CMU Q5 Raw)...")
+        log = callback if callback is not None else print
+
+        log("[CycleManager] Iniciando processamento de todos os ciclos...")
+        log(" -> Executando Ciclo 01 (CMU Q5 Raw: 1.460 dias)...")
         self.q5_pipe.run_cycle_01()
 
-        print(" -> Executando Ciclo 02 (CMU Q5 Fitted Models: 4 Modelos x 2 Perdas)...")
+        log(" -> Executando Ciclo 02 (CMU Q5: 4 Modelos x Perdas L2 e L1)...")
         self.q5_pipe.run_cycle_02()
 
-        print(" -> Executando Ciclo 03 (CMU Q6 Cleaned Weather)...")
+        log(" -> Executando Ciclo 03 (CMU Q6: Limpeza de 100 Sentinelas -9999)...")
         self.q6_pipe.run_cycle_03()
 
-        print(" -> Executando Ciclo 04 (CMU Q6 Interpolated Synchronization)...")
+        log(" -> Executando Ciclo 04 (CMU Q6: Sincronização de 35.064 Horas)...")
         self.q6_pipe.run_cycle_04()
 
-        print(" -> Executando Ciclo 05 (CMU Q6 Daily Features)...")
+        log(" -> Executando Ciclo 05 (CMU Q6: 6 Variáveis Climáticas Diárias)...")
         self.q6_pipe.run_cycle_05()
 
-        print(" -> Executando Ciclo 06 (CMU Q6 Multivariate Comparison)...")
+        log(" -> Executando Ciclo 06 (CMU Q6: Prova da Redução do MSE em 8.73%)...")
         self.q6_pipe.run_cycle_06()
 
-        print(" -> Executando Ciclo 07 (Zenodo 2025 Smart Building Forecast)...")
+        log(" -> Executando Ciclo 07 (Zenodo: Smart Building, RF 90% & Curva do Pato)...")
         self.zenodo_pipe.run_cycle_07()
 
-        print("[CycleManager] Todos os 7 ciclos foram gerados e validados com sucesso!")
+        log("[CycleManager] ✅ Todos os 7 ciclos foram gerados e validados com sucesso!")
 
     def check_integrity(self) -> Dict[str, bool]:
         """Verifica a integridade de todos os arquivos JSON gerados."""
