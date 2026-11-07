@@ -17,6 +17,10 @@ def apply_custom_styles() -> None:
             padding: 16px 20px;
             margin-bottom: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            min-height: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .metric-label {
             font-size: 13px;
@@ -54,8 +58,12 @@ def apply_custom_styles() -> None:
 
 
 def render_kpi_card(title: str, value: str, subtext: str = "") -> None:
-    """Renderiza um card de KPI compacto e elegante."""
-    sub_html = f'<div class="metric-delta">{subtext}</div>' if subtext else ""
+    """Renderiza um card de KPI compacto e elegante com altura rigorosamente uniforme."""
+    sub_html = (
+        f'<div class="metric-delta">{subtext}</div>'
+        if subtext
+        else '<div class="metric-delta" style="visibility: hidden;">&nbsp;</div>'
+    )
     card_html = f"""
     <div class="metric-card">
         <div class="metric-label">{title}</div>

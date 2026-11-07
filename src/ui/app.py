@@ -213,7 +213,11 @@ def main() -> None:
 
         col_kpi1, col_kpi2, col_kpi3, col_kpi4 = st.columns(4)
         with col_kpi1:
-            render_kpi_card("Registros Originais", f"{c3_data.get('original_records_count', 0):,}")
+            render_kpi_card(
+                "Registros Originais",
+                f"{c3_data.get('original_records_count', 0):,}",
+                "Base Clima Bruta",
+            )
         with col_kpi2:
             render_kpi_card("Sentinelas -9999", "100 tratados", "Limpos e Interpolados")
         with col_kpi3:
@@ -272,7 +276,11 @@ def main() -> None:
 
         col1, col2, col3, col4 = st.columns(4)
         with col1:
-            render_kpi_card("Consumo Médio", f"{solar_info.get('mean_consumption_w', 0):.0f} W")
+            render_kpi_card(
+                "Consumo Médio",
+                f"{solar_info.get('mean_consumption_w', 0):.0f} W",
+                "Carga do Edifício",
+            )
         with col2:
             render_kpi_card(
                 "Geração Solar Média",
