@@ -14,32 +14,34 @@ def apply_custom_styles() -> None:
             background-color: #F8FAFC;
             border: 1px solid #E2E8F0;
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             margin-bottom: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            min-height: 108px;
+            min-height: 120px;
+            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .metric-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: #64748B;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .metric-value {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
             color: #0F172A;
-            margin-top: 4px;
+            margin-top: 3px;
         }
         .metric-delta {
-            font-size: 13px;
-            color: #10B981;
+            font-size: 12px;
+            color: #059669;
             font-weight: 500;
-            margin-top: 2px;
+            margin-top: 4px;
+            line-height: 1.35;
         }
         .badge-cycle {
             display: inline-block;

@@ -216,16 +216,28 @@ def main() -> None:
             render_kpi_card(
                 "Registros Originais",
                 f"{c3_data.get('original_records_count', 0):,}",
-                "Base Clima Bruta",
+                "Total de leituras brutas da estação NOAA",
             )
         with col_kpi2:
-            render_kpi_card("Sentinelas -9999", "100 tratados", "Limpos e Interpolados")
+            render_kpi_card(
+                "Sentinelas -9999",
+                "100 tratados",
+                "Falhas de sensor corrigidas por interpolação",
+            )
         with col_kpi3:
             reduction = c6_data.get("comparison", {}).get("mse_reduction_percentage", 0.0)
-            render_kpi_card("Redução no MSE", f"{reduction}%", "Benefício Multivariado")
+            render_kpi_card(
+                "Redução no MSE",
+                f"{reduction}%",
+                "Queda no erro ao usar vento, umidade e orvalho",
+            )
         with col_kpi4:
             r2_multi = c6_data.get("comparison", {}).get("r2_multivariate", 0.0)
-            render_kpi_card("R² Multivariado", f"{r2_multi:.3f}", "Acurácia Superior")
+            render_kpi_card(
+                "R² Multivariado",
+                f"{r2_multi:.3f} ({r2_multi * 100:.1f}%)",
+                "Demanda explicada pelo clima completo",
+            )
 
         st.markdown("---")
 
@@ -279,25 +291,25 @@ def main() -> None:
             render_kpi_card(
                 "Consumo Médio",
                 f"{solar_info.get('mean_consumption_w', 0):.0f} W",
-                "Carga do Edifício",
+                "Demanda total de eletricidade do edifício",
             )
         with col2:
             render_kpi_card(
                 "Geração Solar Média",
                 f"{solar_info.get('mean_solar_generation_w', 0):.0f} W",
-                "Painéis no Telhado",
+                "Potência limpa gerada na cobertura solar",
             )
         with col3:
             render_kpi_card(
                 "Demanda Líquida",
                 f"{solar_info.get('mean_net_demand_w', 0):.0f} W",
-                "Impacto na Rede",
+                "Carga real puxada da rede (Consumo − Solar)",
             )
         with col4:
             render_kpi_card(
                 "Cobertura Solar",
                 f"{solar_info.get('solar_coverage_ratio_pct', 0):.1f}%",
-                "Autoconsumo Limpo",
+                "Parcela do consumo atendida pela energia solar",
             )
 
         col_opt1, col_opt2 = st.columns(2)
