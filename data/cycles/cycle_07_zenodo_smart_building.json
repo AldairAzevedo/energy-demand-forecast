@@ -13,7 +13,7 @@
         "rmse": 398.352,
         "mae": 221.6658,
         "r2": 0.8706,
-        "runtime_ms": 16.71
+        "runtime_ms": 1.09
       }
     },
     "Random_Forest": {
@@ -23,7 +23,7 @@
         "rmse": 349.4455,
         "mae": 184.116,
         "r2": 0.9004,
-        "runtime_ms": 126.09
+        "runtime_ms": 132.5
       }
     }
   },
