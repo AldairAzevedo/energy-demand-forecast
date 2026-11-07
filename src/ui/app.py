@@ -2,6 +2,7 @@
 
 import io
 import os
+import shutil
 import sys
 from typing import Any, Dict, List
 import zipfile
@@ -53,6 +54,26 @@ def load_all_cycles(base_path: str) -> Dict[str, Any]:
     return loaded
 
 
+def restore_baseline_data(root_dir: str) -> None:
+    """Restaura os datasets originais de referência da CMU e do Zenodo a partir do baseline."""
+    baseline_cmu = os.path.join(root_dir, "data", "baseline", "cmu")
+    baseline_zenodo = os.path.join(root_dir, "data", "baseline", "zenodo")
+    target_cmu = os.path.join(root_dir, "data", "cmu")
+    target_zenodo = os.path.join(root_dir, "data", "zenodo")
+
+    if os.path.exists(baseline_cmu):
+        for fname in os.listdir(baseline_cmu):
+            src_file = os.path.join(baseline_cmu, fname)
+            if os.path.isfile(src_file):
+                shutil.copy2(src_file, os.path.join(target_cmu, fname))
+
+    if os.path.exists(baseline_zenodo):
+        for fname in os.listdir(baseline_zenodo):
+            src_file = os.path.join(baseline_zenodo, fname)
+            if os.path.isfile(src_file):
+                shutil.copy2(src_file, os.path.join(target_zenodo, fname))
+
+
 def _render_sidebar_pipeline_controls(root_dir: str) -> None:
     """Renderiza controles de execução do pipeline com logs ao vivo e bloqueio de estado."""
     st.markdown("---")
@@ -80,6 +101,21 @@ def _render_sidebar_pipeline_controls(root_dir: str) -> None:
         use_container_width=True,
         on_click=start_pipeline,
     )
+
+    if st.button(
+        "🔄 Restaurar Originais (Reset)",
+        key="btn_reset_baseline_sidebar",
+        disabled=st.session_state.pipeline_running,
+        help="Restaura os datasets originais da CMU e do Zenodo e reexecuta o pipeline.",
+        use_container_width=True,
+    ):
+        with st.spinner("Restaurando datasets oficiais e recalculando os 7 ciclos..."):
+            restore_baseline_data(root_dir)
+            manager = CycleManager(root_dir)
+            manager.run_all()
+            st.cache_data.clear()
+        st.success("✅ Datasets oficiais restaurados com sucesso!")
+        st.rerun()
 
     log_placeholder = st.empty()
 
@@ -196,6 +232,88 @@ def _render_sidebar_downloads(root_dir: str) -> None:
                 mime="application/zip",
                 use_container_width=True,
             )
+
+
+def _render_data_ingestion_and_reset(root_dir: str) -> None:
+    """Renderiza interface para ingestão de novos dados em massa e restauração dos originais."""
+    with st.expander("📥 Ingestão de Novos Dados em Massa & Restauração Oficial", expanded=True):
+        st.markdown(
+            "Carregue novas séries temporais para alimentar e retreinar os modelos de IA, "
+            "ou restaure os dados oficiais originais dos desafios acadêmicos a qualquer instante."
+        )
+        col_up, col_reset = st.columns([3, 2])
+
+        with col_up:
+            st.markdown("##### 📤 Ingestão de Novos Dados (Treinamento em Massa)")
+            dataset_choice = st.radio(
+                "Selecione o Dataset Alvo:",
+                options=["Zenodo Smart Building (.xlsx)", "CMU Q5 / Q6 (.txt)"],
+                horizontal=True,
+            )
+
+            if "Zenodo" in dataset_choice:
+                new_file = st.file_uploader(
+                    "Envie novo arquivo Excel do Smart Building (substitui data_v1.0.xlsx):",
+                    type=["xlsx"],
+                    key="uploader_zenodo",
+                )
+                if new_file is not None:
+                    if st.button("💾 Ingerir Zenodo & Recalcular Modelos", key="btn_save_zenodo"):
+                        dest_path = os.path.join(root_dir, "data", "zenodo", "data_v1.0.xlsx")
+                        with open(dest_path, "wb") as f:
+                            f.write(new_file.getbuffer())
+                        with st.spinner("Processando novo dataset e retreinando modelos..."):
+                            manager = CycleManager(root_dir)
+                            manager.run_all()
+                            st.cache_data.clear()
+                        st.success("✅ Novo dataset Zenodo ingerido e modelos retreinados!")
+                        st.rerun()
+            else:
+                target_cmu = st.selectbox(
+                    "Selecione o arquivo da CMU a atualizar:",
+                    options=[
+                        "q5_max_temp.txt",
+                        "q5_max_demand.txt",
+                        "q6_weather.txt",
+                        "q6_demand.txt",
+                    ],
+                )
+                new_file = st.file_uploader(
+                    f"Envie o novo arquivo para {target_cmu}:",
+                    type=["txt", "csv"],
+                    key="uploader_cmu",
+                )
+                if new_file is not None:
+                    if st.button(f"💾 Ingerir {target_cmu} & Recalcular", key="btn_save_cmu"):
+                        dest_path = os.path.join(root_dir, "data", "cmu", target_cmu)
+                        with open(dest_path, "wb") as f:
+                            f.write(new_file.getbuffer())
+                        with st.spinner("Processando dados CMU e retreinando pipeline..."):
+                            manager = CycleManager(root_dir)
+                            manager.run_all()
+                            st.cache_data.clear()
+                        st.success(f"✅ {target_cmu} ingerido e pipeline recalculado!")
+                        st.rerun()
+
+        with col_reset:
+            st.markdown("##### 🔄 Reset de Fábrica (Dados Originais)")
+            st.markdown(
+                "Restaura integralmente os arquivos originais dos desafios acadêmicos "
+                "(**CMU 15-884 2012** e **Zenodo Smart Building 2025**) e reexecuta os 7 ciclos."
+            )
+            if st.button(
+                "🔄 Restaurar Datasets Originais (Reset)",
+                key="btn_reset_baseline_tab4",
+                help="Sobrescreve os dados com os arquivos oficiais e recalcula os 7 ciclos.",
+                use_container_width=True,
+            ):
+                with st.spinner("Restaurando datasets oficiais e recalculando os 7 ciclos..."):
+                    restore_baseline_data(root_dir)
+                    manager = CycleManager(root_dir)
+                    manager.run_all()
+                    st.cache_data.clear()
+                st.success("✅ Datasets oficiais restaurados com sucesso!")
+                st.rerun()
 
 
 def main() -> None:
@@ -532,6 +650,8 @@ def main() -> None:
             "Todos os ciclos de ingestão, higienização, engenharia e predição persistidos "
             "em arquivos JSON estruturados em `data/cycles/`."
         )
+
+        _render_data_ingestion_and_reset(project_root)
 
         cycle_keys = [
             ("cycle_01", "Ciclo 01: Dados Brutos CMU Q5 (Temperatura & Demanda)"),
