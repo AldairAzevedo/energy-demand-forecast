@@ -117,6 +117,11 @@ def _render_sidebar_pipeline_controls(root_dir: str) -> None:
         st.success("✅ Datasets oficiais restaurados com sucesso!")
         st.rerun()
 
+    st.caption(
+        "💡 Para upload de novos dados (.xlsx / .txt), acesse a aba "
+        "**Auditoria dos 7 Ciclos (JSON)**."
+    )
+
     log_placeholder = st.empty()
 
     if st.session_state.pipeline_running:
