@@ -1,8 +1,10 @@
 """Aplicação Monolítica Full Stack em Python (Streamlit) para Análise de Demanda de Energia."""
 
+import io
 import os
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
+import zipfile
 
 import pandas as pd
 import streamlit as st
@@ -107,7 +109,93 @@ def _render_sidebar_pipeline_controls(root_dir: str) -> None:
         with st.expander("📋 Logs da Execução", expanded=True):
             st.code("\n".join(st.session_state.pipeline_logs), language="bash")
 
-    st.caption("Arquitetura Monolítica 100% Python | POO & SOLID")
+
+@st.cache_data
+def _build_zip_archive(base_dir: str, file_list: List[str]) -> bytes:
+    """Compacta uma lista de arquivos em um arquivo ZIP em memória."""
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for fname in file_list:
+            fpath = os.path.join(base_dir, fname)
+            if os.path.exists(fpath):
+                zf.write(fpath, arcname=fname)
+    return buf.getvalue()
+
+
+def _render_sidebar_downloads(root_dir: str) -> None:
+    """Renderiza a Central de Downloads com slides e bases de dados."""
+    st.markdown("---")
+    st.markdown("**📥 Central de Downloads:**")
+    with st.expander("📦 Baixar Apresentação e Dados", expanded=False):
+        # 1. Slide em PDF
+        pdf_path = os.path.join(root_dir, "presentation", "slides_apresentacao.pdf")
+        if os.path.exists(pdf_path):
+            with open(pdf_path, "rb") as f:
+                st.download_button(
+                    "📄 Slides em PDF",
+                    data=f.read(),
+                    file_name="slides_apresentacao_PGENE585_AldairAzevedo.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+
+        # 2. Slide em PPTX
+        pptx_path = os.path.join(root_dir, "presentation", "slides_apresentacao.pptx")
+        if os.path.exists(pptx_path):
+            with open(pptx_path, "rb") as f:
+                st.download_button(
+                    "📊 Slides em PPTX",
+                    data=f.read(),
+                    file_name="slides_apresentacao_PGENE585_AldairAzevedo.pptx",
+                    mime=(
+                        "application/vnd.openxmlformats-officedocument."
+                        "presentationml.presentation"
+                    ),
+                    use_container_width=True,
+                )
+
+        # 3. Pacote CMU Q5 e Q6 (ZIP)
+        cmu_dir = os.path.join(root_dir, "data", "cmu")
+        cmu_files = [
+            "q5_max_temp.txt",
+            "q5_max_demand.txt",
+            "q6_weather.txt",
+            "q6_demand.txt",
+            "q6_weather_conditions.txt",
+        ]
+        cmu_zip_data = _build_zip_archive(cmu_dir, cmu_files)
+        st.download_button(
+            "📁 Pacote de Dados CMU (ZIP)",
+            data=cmu_zip_data,
+            file_name="dados_cmu_15_884_PGENE585.zip",
+            mime="application/zip",
+            use_container_width=True,
+        )
+
+        # 4. Dados Smart Building Zenodo (XLSX)
+        zenodo_path = os.path.join(root_dir, "data", "zenodo", "data_v1.0.xlsx")
+        if os.path.exists(zenodo_path):
+            with open(zenodo_path, "rb") as f:
+                st.download_button(
+                    "🏢 Dados Zenodo (XLSX)",
+                    data=f.read(),
+                    file_name="dados_zenodo_smart_building.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    use_container_width=True,
+                )
+
+        # 5. Trilha dos 7 Ciclos (ZIP)
+        cycles_dir = os.path.join(root_dir, "data", "cycles")
+        if os.path.exists(cycles_dir):
+            cycle_files = [f for f in os.listdir(cycles_dir) if f.endswith(".json")]
+            cycles_zip_data = _build_zip_archive(cycles_dir, cycle_files)
+            st.download_button(
+                "📋 Trilha dos 7 Ciclos (ZIP)",
+                data=cycles_zip_data,
+                file_name="trilha_auditoria_7_ciclos_json.zip",
+                mime="application/zip",
+                use_container_width=True,
+            )
 
 
 def main() -> None:
@@ -141,6 +229,9 @@ def main() -> None:
         )
 
         _render_sidebar_pipeline_controls(project_root)
+        _render_sidebar_downloads(project_root)
+        st.markdown("---")
+        st.caption("Arquitetura Monolítica 100% Python | POO & SOLID")
 
     # Módulo 1: Laboratório de Modelos (CMU Item 5)
     if navigation == "Laboratório de Modelos (CMU Item 5)":
