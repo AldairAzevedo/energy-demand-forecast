@@ -172,7 +172,7 @@ def main() -> None:
             residual_target = st.selectbox(
                 "Modelo Inspecionado:",
                 options=model_options,
-                index=1,
+                index=0,
                 format_func=lambda x: {
                     "Linear": "1. Linear Simples",
                     "Polinomial_d5": "2. Polinomial (Grau 5)",
