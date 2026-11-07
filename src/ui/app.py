@@ -161,6 +161,10 @@ def main() -> None:
         st.dataframe(df_metrics, use_container_width=True, hide_index=True)
 
         # Painel de Resíduos
+        st.markdown(
+            "#### 📉 Distribuição de Resíduos "
+            "(Resíduo = Demanda Real − Demanda Prevista pelo Modelo)"
+        )
         fig_res = build_residuals_chart(c1_data, c2_data, residual_target, loss_type=loss_choice)
         st.plotly_chart(fig_res, use_container_width=True)
 

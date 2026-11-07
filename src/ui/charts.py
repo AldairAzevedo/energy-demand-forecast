@@ -137,7 +137,13 @@ def build_residuals_chart(
         fig.add_hline(y=0.0, line_dash="dash", line_color="red", line_width=1.5)
 
     fig.update_layout(
-        title=f"Distribuição de Resíduos: {model_key} ({loss_type})",
+        title=dict(
+            text=(
+                "Distribuição de Resíduos (Resíduo = Demanda Real − Demanda Prevista): "
+                f"{model_key} ({loss_type})"
+            ),
+            font=dict(size=13, family="Arial, sans-serif"),
+        ),
         xaxis_title="Temperatura Máxima Diária (°C)",
         yaxis_title="Resíduo de Demanda (GW)",
         template="plotly_white",
