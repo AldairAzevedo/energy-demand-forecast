@@ -239,86 +239,63 @@ def _render_sidebar_downloads(root_dir: str) -> None:
             )
 
 
-def _render_data_ingestion_and_reset(root_dir: str) -> None:
-    """Renderiza interface para ingestão de novos dados em massa e restauração dos originais."""
-    with st.expander("📥 Ingestão de Novos Dados em Massa & Restauração Oficial", expanded=True):
+def _render_data_ingestion(root_dir: str) -> None:
+    """Renderiza interface para ingestão de novos dados em massa."""
+    with st.expander("📥 Ingestão de Novos Dados em Massa (Retreinar Modelos)", expanded=False):
         st.markdown(
-            "Carregue novas séries temporais para alimentar e retreinar os modelos de IA, "
-            "ou restaure os dados oficiais originais dos desafios acadêmicos a qualquer instante."
+            "Carregue novas séries temporais para alimentar e retreinar os modelos de IA "
+            "(Zenodo Smart Building ou CMU)."
         )
-        col_up, col_reset = st.columns([3, 2])
 
-        with col_up:
-            st.markdown("##### 📤 Ingestão de Novos Dados (Treinamento em Massa)")
-            dataset_choice = st.radio(
-                "Selecione o Dataset Alvo:",
-                options=["Zenodo Smart Building (.xlsx)", "CMU Q5 / Q6 (.txt)"],
-                horizontal=True,
+        dataset_choice = st.radio(
+            "Selecione o Dataset Alvo:",
+            options=["Zenodo Smart Building (.xlsx)", "CMU Q5 / Q6 (.txt)"],
+            horizontal=True,
+        )
+
+        if "Zenodo" in dataset_choice:
+            new_file = st.file_uploader(
+                "Envie novo arquivo Excel do Smart Building (substitui data_v1.0.xlsx):",
+                type=["xlsx"],
+                key="uploader_zenodo",
             )
-
-            if "Zenodo" in dataset_choice:
-                new_file = st.file_uploader(
-                    "Envie novo arquivo Excel do Smart Building (substitui data_v1.0.xlsx):",
-                    type=["xlsx"],
-                    key="uploader_zenodo",
-                )
-                if new_file is not None:
-                    if st.button("💾 Ingerir Zenodo & Recalcular Modelos", key="btn_save_zenodo"):
-                        dest_path = os.path.join(root_dir, "data", "zenodo", "data_v1.0.xlsx")
-                        with open(dest_path, "wb") as f:
-                            f.write(new_file.getbuffer())
-                        with st.spinner("Processando novo dataset e retreinando modelos..."):
-                            manager = CycleManager(root_dir)
-                            manager.run_all()
-                            st.cache_data.clear()
-                        st.success("✅ Novo dataset Zenodo ingerido e modelos retreinados!")
-                        st.rerun()
-            else:
-                target_cmu = st.selectbox(
-                    "Selecione o arquivo da CMU a atualizar:",
-                    options=[
-                        "q5_max_temp.txt",
-                        "q5_max_demand.txt",
-                        "q6_weather.txt",
-                        "q6_demand.txt",
-                    ],
-                )
-                new_file = st.file_uploader(
-                    f"Envie o novo arquivo para {target_cmu}:",
-                    type=["txt", "csv"],
-                    key="uploader_cmu",
-                )
-                if new_file is not None:
-                    if st.button(f"💾 Ingerir {target_cmu} & Recalcular", key="btn_save_cmu"):
-                        dest_path = os.path.join(root_dir, "data", "cmu", target_cmu)
-                        with open(dest_path, "wb") as f:
-                            f.write(new_file.getbuffer())
-                        with st.spinner("Processando dados CMU e retreinando pipeline..."):
-                            manager = CycleManager(root_dir)
-                            manager.run_all()
-                            st.cache_data.clear()
-                        st.success(f"✅ {target_cmu} ingerido e pipeline recalculado!")
-                        st.rerun()
-
-        with col_reset:
-            st.markdown("##### 🔄 Reset de Fábrica (Dados Originais)")
-            st.markdown(
-                "Restaura integralmente os arquivos originais dos desafios acadêmicos "
-                "(**CMU 15-884 2012** e **Zenodo Smart Building 2025**) e reexecuta os 7 ciclos."
+            if new_file is not None:
+                if st.button("💾 Ingerir Zenodo & Recalcular Modelos", key="btn_save_zenodo"):
+                    dest_path = os.path.join(root_dir, "data", "zenodo", "data_v1.0.xlsx")
+                    with open(dest_path, "wb") as f:
+                        f.write(new_file.getbuffer())
+                    with st.spinner("Processando novo dataset e retreinando modelos..."):
+                        manager = CycleManager(root_dir)
+                        manager.run_all()
+                        st.cache_data.clear()
+                    st.success("✅ Novo dataset Zenodo ingerido e modelos retreinados!")
+                    st.rerun()
+        else:
+            target_cmu = st.selectbox(
+                "Selecione o arquivo da CMU a atualizar:",
+                options=[
+                    "q5_max_temp.txt",
+                    "q5_max_demand.txt",
+                    "q6_weather.txt",
+                    "q6_demand.txt",
+                ],
             )
-            if st.button(
-                "🔄 Restaurar Datasets Originais (Reset)",
-                key="btn_reset_baseline_tab4",
-                help="Sobrescreve os dados com os arquivos oficiais e recalcula os 7 ciclos.",
-                use_container_width=True,
-            ):
-                with st.spinner("Restaurando datasets oficiais e recalculando os 7 ciclos..."):
-                    restore_baseline_data(root_dir)
-                    manager = CycleManager(root_dir)
-                    manager.run_all()
-                    st.cache_data.clear()
-                st.success("✅ Datasets oficiais restaurados com sucesso!")
-                st.rerun()
+            new_file = st.file_uploader(
+                f"Envie o novo arquivo para {target_cmu}:",
+                type=["txt", "csv"],
+                key="uploader_cmu",
+            )
+            if new_file is not None:
+                if st.button(f"💾 Ingerir {target_cmu} & Recalcular", key="btn_save_cmu"):
+                    dest_path = os.path.join(root_dir, "data", "cmu", target_cmu)
+                    with open(dest_path, "wb") as f:
+                        f.write(new_file.getbuffer())
+                    with st.spinner("Processando dados CMU e retreinando pipeline..."):
+                        manager = CycleManager(root_dir)
+                        manager.run_all()
+                        st.cache_data.clear()
+                    st.success(f"✅ {target_cmu} ingerido e pipeline recalculado!")
+                    st.rerun()
 
 
 def main() -> None:
@@ -656,7 +633,7 @@ def main() -> None:
             "em arquivos JSON estruturados em `data/cycles/`."
         )
 
-        _render_data_ingestion_and_reset(project_root)
+        _render_data_ingestion(project_root)
 
         cycle_keys = [
             ("cycle_01", "Ciclo 01: Dados Brutos CMU Q5 (Temperatura & Demanda)"),
