@@ -13,6 +13,7 @@ project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
+from src.pipelines.cycle_manager import CycleManager  # noqa: E402
 from src.ui.charts import (  # noqa: E402
     build_cmu_q5_chart,
     build_cmu_q6_comparison_chart,
@@ -81,6 +82,20 @@ def main() -> None:
         )
 
         st.markdown("---")
+        st.markdown("**Governança de Dados (MLOps):**")
+        if st.button(
+            "⚡ Executar Pipeline (7 Ciclos)",
+            key="btn_run_pipeline_sidebar",
+            help="Executa o pipeline completo em lote e atualiza todos os JSONs e gráficos.",
+            use_container_width=True,
+        ):
+            with st.spinner("Executando os 7 ciclos em lote (CMU Q5, CMU Q6 e Zenodo)..."):
+                manager = CycleManager(project_root)
+                manager.run_all()
+                st.cache_data.clear()
+            st.success("✅ Pipeline executado com sucesso!")
+            st.rerun()
+
         st.caption("Arquitetura Monolítica 100% Python | POO & SOLID")
 
     # Módulo 1: Laboratório de Modelos (CMU Item 5)
@@ -377,11 +392,29 @@ def main() -> None:
 
     # Módulo 4: Auditoria dos 7 Ciclos (JSON)
     elif navigation == "Auditoria dos 7 Ciclos (JSON)":
-        st.title("📋 Trilha de Auditoria: Os 7 Ciclos de Refinamento em JSON")
-        st.markdown(
-            "Todos os ciclos de ingestão, higienização, engenharia e predição persistidos "
-            "em arquivos JSON estruturados em `data/cycles/`."
-        )
+        col_head, col_btn = st.columns([2.2, 1.2])
+        with col_head:
+            st.title("📋 Trilha de Auditoria: Os 7 Ciclos em JSON")
+            st.markdown(
+                "Todos os ciclos de ingestão, higienização, engenharia e predição persistidos "
+                "em arquivos JSON estruturados em `data/cycles/`."
+            )
+        with col_btn:
+            st.write("")
+            st.write("")
+            if st.button(
+                "🔄 Reprocessar Todos os 7 Ciclos",
+                key="btn_run_pipeline_tab4",
+                type="primary",
+                help="Executa o pipeline completo em lote e atualiza todos os JSONs e gráficos.",
+                use_container_width=True,
+            ):
+                with st.spinner("Executando os 7 ciclos em lote (CMU Q5, CMU Q6 e Zenodo)..."):
+                    manager = CycleManager(project_root)
+                    manager.run_all()
+                    st.cache_data.clear()
+                st.success("✅ Todos os 7 ciclos foram reprocessados e validados com sucesso!")
+                st.rerun()
 
         cycle_keys = [
             ("cycle_01", "Ciclo 01: Dados Brutos CMU Q5 (Temperatura & Demanda)"),
