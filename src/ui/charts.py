@@ -152,39 +152,54 @@ def build_cmu_q6_comparison_chart(cycle_06_data: Dict[str, Any]) -> go.Figure:
     m_uni = cycle_06_data["univariate_model"]["metrics"]
     m_multi = cycle_06_data["multivariate_model"]["metrics"]
 
-    categories = ["RMSE (MW)", "MAE (MW)"]
+    categories = [
+        "RMSE [Erro Quadrático Médio] (MW)",
+        "MAE [Erro Médio Absoluto] (MW)",
+    ]
     uni_values = [m_uni["rmse"], m_uni["mae"]]
     multi_values = [m_multi["rmse"], m_multi["mae"]]
 
     fig.add_trace(
         go.Bar(
-            name="Univariado (Apenas T_max)",
+            name="Univariado (Apenas Temperatura)",
             x=categories,
             y=uni_values,
             marker_color="#3B82F6",
             text=[f"{v:.1f} MW" for v in uni_values],
             textposition="auto",
+            hovertemplate="<b>%{x}</b><br>Univariado: <b>%{y:.1f} MW</b><extra></extra>",
         )
     )
     fig.add_trace(
         go.Bar(
-            name="Multivariado (+ Clima Completo)",
+            name="Multivariado (Clima Completo: 6 Variáveis)",
             x=categories,
             y=multi_values,
             marker_color="#10B981",
             text=[f"{v:.1f} MW" for v in multi_values],
             textposition="auto",
+            hovertemplate="<b>%{x}</b><br>Multivariado: <b>%{y:.1f} MW</b><extra></extra>",
         )
     )
 
     reduction = cycle_06_data["comparison"]["mse_reduction_percentage"]
     fig.update_layout(
-        title=f"CMU Item 6: Prova Empírica da Redução de Erro (Redução de MSE: {reduction}%)",
+        title=(
+            f"CMU Item 6: Prova Empírica da Redução de Erro "
+            f"(Queda no MSE: {reduction}%)"
+        ),
         barmode="group",
         template="plotly_white",
         yaxis_title="Magnitude do Erro (MW)",
         margin=dict(l=50, r=30, t=60, b=50),
         height=400,
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+        ),
     )
     return fig
 

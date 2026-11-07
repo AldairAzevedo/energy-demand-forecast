@@ -138,6 +138,7 @@ class CMUQ6Pipeline:
         # Agregação Diária (24 horas por dia)
         daily_peak_demand = FeatureEngineer.aggregate_daily_max(demand_raw[:, 1])
         daily_max_temp = FeatureEngineer.aggregate_daily_max(interp_cols[0])
+        daily_min_temp = FeatureEngineer.aggregate_daily_min(interp_cols[0])
         daily_mean_dewpoint = FeatureEngineer.aggregate_daily_mean(interp_cols[1])
         daily_mean_humidity = FeatureEngineer.aggregate_daily_mean(interp_cols[2])
         daily_mean_pressure = FeatureEngineer.aggregate_daily_mean(interp_cols[3])
@@ -147,6 +148,7 @@ class CMUQ6Pipeline:
         features_matrix = np.column_stack(
             [
                 daily_max_temp,
+                daily_min_temp,
                 daily_mean_dewpoint,
                 daily_mean_humidity,
                 daily_mean_pressure,
@@ -156,7 +158,14 @@ class CMUQ6Pipeline:
 
         # Matriz de correlação linear com a demanda de pico
         correlations = {}
-        names = ["temp_max", "dewpoint_mean", "humidity_mean", "pressure_mean", "wind_mean"]
+        names = [
+            "temp_max",
+            "temp_min",
+            "dewpoint_mean",
+            "humidity_mean",
+            "pressure_mean",
+            "wind_mean",
+        ]
         for idx, name in enumerate(names):
             corr = float(np.corrcoef(features_matrix[:, idx], daily_peak_demand)[0, 1])
             correlations[name] = round(corr, 4)
@@ -171,6 +180,7 @@ class CMUQ6Pipeline:
                     "day": d + 1,
                     "peak_demand_mw": round(float(daily_peak_demand[d]), 2),
                     "temp_max_f": round(float(daily_max_temp[d]), 2),
+                    "temp_min_f": round(float(daily_min_temp[d]), 2),
                     "dewpoint_mean_f": round(float(daily_mean_dewpoint[d]), 2),
                     "humidity_mean_pct": round(float(daily_mean_humidity[d]), 2),
                     "pressure_mean_inhg": round(float(daily_mean_pressure[d]), 2),

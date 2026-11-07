@@ -83,6 +83,18 @@ class FeatureEngineer:
         return np.max(matrix, axis=1)
 
     @staticmethod
+    def aggregate_daily_min(
+        hourly_series: np.ndarray,
+        hours_per_day: int = 24,
+    ) -> np.ndarray:
+        """Calcula o valor mínimo diário de uma grandeza física (ex: temperatura mínima)."""
+        arr = np.asarray(hourly_series, dtype=float).ravel()
+        n_days = len(arr) // hours_per_day
+        trimmed = arr[: n_days * hours_per_day]
+        matrix = trimmed.reshape((n_days, hours_per_day))
+        return np.min(matrix, axis=1)
+
+    @staticmethod
     def aggregate_daily_mean(
         hourly_series: np.ndarray,
         hours_per_day: int = 24,

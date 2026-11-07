@@ -50,3 +50,8 @@ def test_feature_engineer_daily_aggregation():
     assert len(daily_max_demand) == 2
     assert daily_max_demand[0] == 23.0  # max do dia 1 (0 a 23)
     assert daily_max_demand[1] == 47.0  # max do dia 2 (24 a 47)
+
+    daily_min_demand = FeatureEngineer.aggregate_daily_min(demand, hours_per_day=24)
+    assert len(daily_min_demand) == 2
+    assert daily_min_demand[0] == 0.0  # min do dia 1 (0 a 23)
+    assert daily_min_demand[1] == 24.0  # min do dia 2 (24 a 47)
