@@ -98,34 +98,39 @@ def main() -> None:
             st.error("Dados do Ciclo 02 não encontrados. Execute o pipeline primeiro.")
             return
 
-        col_ctrl1, col_ctrl2, col_ctrl3 = st.columns([1.5, 2.5, 1.5])
-        with col_ctrl1:
-            loss_choice = st.radio(
-                "Função de Perda:",
-                options=["L2", "L1"],
-                format_func=lambda x: (
-                    "L2 (Squared Loss - OLS)" if x == "L2" else "L1 (Absolute Loss - LAD)"
-                ),
-                horizontal=False,
-            )
-        with col_ctrl2:
-            model_options = ["Linear", "Polinomial_d5", "RBF", "Kernel_Gaussiano"]
-            selected_models = st.multiselect(
-                "Modelos a Exibir (Sobreposição):",
-                options=model_options,
-                default=["Linear", "Polinomial_d5", "Kernel_Gaussiano"],
-                format_func=lambda x: {
-                    "Linear": "1. Linear Simples",
-                    "Polinomial_d5": "2. Polinomial (Grau 5)",
-                    "RBF": "3. RBF (5 Centros, σ=20)",
-                    "Kernel_Gaussiano": "4. Kernel Gaussiano Ridge (σ=20, λ=1e-4)",
-                }.get(x, x),
-            )
-        with col_ctrl3:
-            show_scatter = st.checkbox("Exibir Demanda Observada", value=True)
-            residual_target = st.selectbox(
-                "Inspecionar Resíduos do Modelo:", options=model_options, index=1
-            )
+        model_options = ["Linear", "Polinomial_d5", "RBF", "Kernel_Gaussiano"]
+
+        # Painel Superior: Controles do Gráfico Principal
+        with st.container(border=True):
+            col_ctrl1, col_ctrl2, col_ctrl3 = st.columns([1.4, 2.5, 1.1])
+            with col_ctrl1:
+                loss_choice = st.radio(
+                    "Função de Perda:",
+                    options=["L2", "L1"],
+                    format_func=lambda x: (
+                        "L2 (Squared Loss - OLS)" if x == "L2" else "L1 (Absolute Loss - LAD)"
+                    ),
+                    horizontal=False,
+                )
+            with col_ctrl2:
+                selected_models = st.multiselect(
+                    "Modelos a Exibir (Sobreposição):",
+                    options=model_options,
+                    default=["Linear", "Polinomial_d5", "Kernel_Gaussiano"],
+                    format_func=lambda x: {
+                        "Linear": "1. Linear Simples",
+                        "Polinomial_d5": "2. Polinomial (Grau 5)",
+                        "RBF": "3. RBF (5 Centros)",
+                        "Kernel_Gaussiano": "4. Kernel Gaussiano Ridge",
+                    }.get(x, x),
+                )
+            with col_ctrl3:
+                st.write("**Demanda Real:**")
+                show_scatter = st.checkbox(
+                    "Exibir 1.460 Pontos",
+                    value=True,
+                    help="Exibe as medições reais de consumo em GW da Duquesne Light.",
+                )
 
         # Gráfico Principal
         fig_main = build_cmu_q5_chart(
@@ -160,11 +165,30 @@ def main() -> None:
         df_metrics = pd.DataFrame(rows)
         st.dataframe(df_metrics, use_container_width=True, hide_index=True)
 
-        # Painel de Resíduos
-        st.markdown(
-            "#### 📉 Distribuição de Resíduos "
-            "(Resíduo = Demanda Real − Demanda Prevista pelo Modelo)"
-        )
+        # Painel de Resíduos Contextualizado
+        st.markdown("---")
+        col_res_header, col_res_select = st.columns([2.8, 1.2])
+        with col_res_header:
+            st.markdown(
+                "#### 📉 Distribuição de Resíduos "
+                "(Resíduo = Demanda Real − Demanda Prevista pelo Modelo)"
+            )
+            st.caption(
+                "Avalia a dispersão dos erros em torno de zero e identifica o impacto de feriados."
+            )
+        with col_res_select:
+            residual_target = st.selectbox(
+                "Modelo Inspecionado:",
+                options=model_options,
+                index=1,
+                format_func=lambda x: {
+                    "Linear": "1. Linear Simples",
+                    "Polinomial_d5": "2. Polinomial (Grau 5)",
+                    "RBF": "3. RBF (5 Centros)",
+                    "Kernel_Gaussiano": "4. Kernel Gaussiano Ridge",
+                }.get(x, x),
+            )
+
         fig_res = build_residuals_chart(c1_data, c2_data, residual_target, loss_type=loss_choice)
         st.plotly_chart(fig_res, use_container_width=True)
 
