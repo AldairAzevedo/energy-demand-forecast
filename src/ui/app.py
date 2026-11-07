@@ -168,14 +168,6 @@ def main() -> None:
         # Painel de Resíduos Contextualizado
         st.markdown("---")
         col_res_header, col_res_select = st.columns([2.8, 1.2])
-        with col_res_header:
-            st.markdown(
-                "#### 📉 Distribuição de Resíduos "
-                "(Resíduo = Demanda Real − Demanda Prevista pelo Modelo)"
-            )
-            st.caption(
-                "Avalia a dispersão dos erros em torno de zero e identifica o impacto de feriados."
-            )
         with col_res_select:
             residual_target = st.selectbox(
                 "Modelo Inspecionado:",
@@ -187,6 +179,21 @@ def main() -> None:
                     "RBF": "3. RBF (5 Centros)",
                     "Kernel_Gaussiano": "4. Kernel Gaussiano Ridge",
                 }.get(x, x),
+            )
+
+        model_label_map = {
+            "Linear": "1. Linear Simples",
+            "Polinomial_d5": "2. Polinomial (Grau 5)",
+            "RBF": "3. RBF (5 Centros)",
+            "Kernel_Gaussiano": "4. Kernel Gaussiano Ridge",
+        }
+        selected_model_name = model_label_map.get(residual_target, residual_target)
+
+        with col_res_header:
+            st.markdown("#### 📉 Distribuição de Resíduos")
+            st.markdown(
+                f"Fórmula: `Resíduo = Demanda Real − Demanda Prevista` &nbsp;•&nbsp; "
+                f"Modelo em análise: **:blue[{selected_model_name}]** ({loss_choice})"
             )
 
         fig_res = build_residuals_chart(c1_data, c2_data, residual_target, loss_type=loss_choice)
