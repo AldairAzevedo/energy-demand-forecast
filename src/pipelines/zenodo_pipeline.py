@@ -136,14 +136,19 @@ class ZenodoPipeline:
 
         # Exporta figura de alta qualidade (300 DPI) para os slides de sábado
         self._export_figure(
-            y_test[:168], preds_rf[:168], solar_generation_test[:168], net_test[:168]
+            y_test[:168],
+            preds_ridge[:168],
+            preds_rf[:168],
+            solar_generation_test[:168],
+            net_test[:168],
         )
         return cycle_07_data
 
     def _export_figure(
         self,
         y_real: np.ndarray,
-        y_pred: np.ndarray,
+        y_pred_ridge: np.ndarray,
+        y_pred_rf: np.ndarray,
         solar_gen: np.ndarray,
         net_demand: np.ndarray,
     ) -> None:
@@ -152,13 +157,21 @@ class ZenodoPipeline:
         fig, axes = plt.subplots(2, 1, figsize=(15, 8), sharex=True)
         hours = np.arange(len(y_real))
 
-        # Painel 1: Previsão de Consumo (Real vs Random Forest)
+        # Painel 1: Previsão de Consumo (Real vs Ridge vs Random Forest)
         axes[0].plot(hours, y_real, label="Consumo Real (W)", color="#1E293B", linewidth=2.0)
         axes[0].plot(
             hours,
-            y_pred,
+            y_pred_ridge,
+            label="Previsão Ridge Linear (W)",
+            color="#6366F1",
+            linestyle=":",
+            linewidth=1.6,
+        )
+        axes[0].plot(
+            hours,
+            y_pred_rf,
             label="Previsão Random Forest (W)",
-            color="#2563EB",
+            color="#059669",
             linestyle="--",
             linewidth=1.8,
         )

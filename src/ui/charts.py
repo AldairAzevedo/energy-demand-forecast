@@ -206,6 +206,8 @@ def build_cmu_q6_comparison_chart(cycle_06_data: Dict[str, Any]) -> go.Figure:
 
 def build_zenodo_chart(
     cycle_07_data: Dict[str, Any],
+    show_ridge: bool = True,
+    show_rf: bool = True,
     show_solar: bool = True,
     show_net: bool = True,
 ) -> go.Figure:
@@ -217,7 +219,8 @@ def build_zenodo_chart(
 
     hours = [s["hour"] for s in samples]
     real_power = [s["real_power_w"] for s in samples]
-    pred_rf = [s["pred_rf_w"] for s in samples]
+    pred_ridge = [s.get("pred_ridge_w", 0.0) for s in samples]
+    pred_rf = [s.get("pred_rf_w", 0.0) for s in samples]
     solar_pv = [s["solar_pv_w"] for s in samples]
     net_demand = [s["net_demand_w"] for s in samples]
 
@@ -230,15 +233,28 @@ def build_zenodo_chart(
             line=dict(color="#1E293B", width=2.0),
         )
     )
-    fig.add_trace(
-        go.Scatter(
-            x=hours,
-            y=pred_rf,
-            mode="lines",
-            name="Previsão Random Forest (W)",
-            line=dict(color=COLOR_PALETTE["Linear"], dash="dash", width=2.0),
+
+    if show_ridge:
+        fig.add_trace(
+            go.Scatter(
+                x=hours,
+                y=pred_ridge,
+                mode="lines",
+                name="Previsão Ridge Linear (W)",
+                line=dict(color="#6366F1", dash="dot", width=1.8),
+            )
         )
-    )
+
+    if show_rf:
+        fig.add_trace(
+            go.Scatter(
+                x=hours,
+                y=pred_rf,
+                mode="lines",
+                name="Previsão Random Forest (W)",
+                line=dict(color="#059669", dash="dash", width=2.0),
+            )
+        )
 
     if show_solar:
         fig.add_trace(

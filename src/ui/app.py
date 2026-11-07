@@ -333,13 +333,24 @@ def main() -> None:
                 "Parcela do consumo atendida pela energia solar",
             )
 
-        col_opt1, col_opt2 = st.columns(2)
-        with col_opt1:
-            show_solar = st.checkbox("Exibir Geração Solar Fotovoltaica", value=True)
-        with col_opt2:
-            show_net = st.checkbox("Exibir Curva de Demanda Líquida (Curva do Pato)", value=True)
+        with st.container(border=True):
+            col_opt1, col_opt2, col_opt3, col_opt4 = st.columns(4)
+            with col_opt1:
+                show_ridge = st.checkbox("Previsão Ridge Linear", value=True)
+            with col_opt2:
+                show_rf = st.checkbox("Previsão Random Forest", value=True)
+            with col_opt3:
+                show_solar = st.checkbox("Geração Solar Fotovoltaica", value=True)
+            with col_opt4:
+                show_net = st.checkbox("Demanda Líquida (Curva do Pato)", value=True)
 
-        fig_zen = build_zenodo_chart(c7_data, show_solar=show_solar, show_net=show_net)
+        fig_zen = build_zenodo_chart(
+            c7_data,
+            show_ridge=show_ridge,
+            show_rf=show_rf,
+            show_solar=show_solar,
+            show_net=show_net,
+        )
         st.plotly_chart(fig_zen, use_container_width=True)
 
         st.markdown("#### 🎯 Avaliação Multi-critério dos Modelos de Previsão")
