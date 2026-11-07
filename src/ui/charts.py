@@ -54,7 +54,10 @@ def build_cmu_q5_chart(
             color = COLOR_PALETTE.get(model_key, "#000000")
             r2_val = m_info["metrics"]["r2"]
             rmse_val = m_info["metrics"]["rmse"]
-            name_label = f"{m_info['model_name']} (R²: {r2_val:.3f} | RMSE: {rmse_val:.3f} GW)"
+            name_label = (
+                f"{m_info['model_name']} (R²: {r2_val:.3f} [{r2_val * 100:.1f}%] | "
+                f"RMSE: {rmse_val:.3f} GW [{rmse_val * 1000:.0f} MW])"
+            )
 
             fig.add_trace(
                 go.Scatter(

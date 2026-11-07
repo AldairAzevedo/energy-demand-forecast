@@ -83,7 +83,7 @@ def build_presentation(base_dir: str) -> str:
 
         p_hl1 = tf_hl.add_paragraph()
         p_hl1.text = highlight_text
-        p_hl1.font.size = Pt(10)
+        p_hl1.font.size = Pt(9)
         p_hl1.font.color.rgb = DARK
         p_hl1.space_before = Pt(3)
 
@@ -337,26 +337,27 @@ def build_presentation(base_dir: str) -> str:
     points_s4 = [
         (
             "1. Linear Simples [φ(x) = [1, x]]:",
-            " Linha reta rígida com pesos θ ∈ ℝ². Falha na física do problema (R² = 0.116), "
-            "pois supõe erroneamente que frio e calor agem na mesma direção sobre o consumo.",
+            " Linha reta rígida com pesos θ ∈ ℝ². Falha na física do problema "
+            "(R² = 0.116 [11,6%]), pois supõe erroneamente que frio e calor agem na mesma "
+            "direção sobre o consumo.",
         ),
         (
             "2. Polinomial [φ(x) = [1, x, x², x³, x⁴, x⁵]]:",
             " Curva contínua suave com pesos θ ∈ ℝ⁶. Modela a elevação no frio e no calor "
-            "(R² salta para 0.715). Ponto fraco: vulnerabilidade a oscilações em extremos "
+            "(R² salta para 0.715 [71,5%]). Ponto fraco: vulnerabilidade a oscilações em extremos "
             "térmicos.",
         ),
         (
             "3. Funções de Base Radial (RBF Local):",
             " 5 centros fixos distribuídos na faixa térmica μ = [-6,7; 4,4; 15,6; 26,7; 37,8]°C "
             "com dispersão σ ≈ 11,1°C. φ_j(x) = exp(-(x - μ_j)² / (2σ²)). Sinos gaussianos que "
-            "capturam comportamentos locais sem instabilidade nas bordas (R² = 0.713).",
+            "capturam comportamentos locais sem instabilidade nas bordas (R² = 0.713 [71,3%]).",
         ),
         (
             "4. Kernel Gaussiano com Ridge (Dual, λ = 10⁻⁴):",
             " Formulação dual via matriz de Gram K ∈ ℝ¹⁴⁶⁰ˣ¹⁴⁶⁰, comparando cada dia contra "
-            "todo o histórico. Atingiu a maior acurácia global do estudo (R² = 0.717 e menor "
-            "RMSE = 0.157 GW).",
+            "todo o histórico. Maior acurácia global (R² = 0.717 [71,7%] e menor RMSE = "
+            "0.157 GW [157 MW]).",
         ),
     ]
     for idx, (title, desc) in enumerate(points_s4):
@@ -405,16 +406,28 @@ def build_presentation(base_dir: str) -> str:
     ]
     hl_title_s5 = "Métricas de Acurácia Calculadas no Sistema em Python:"
     hl_desc_s5 = (
-        "• Métricas: R² = Acurácia/Explicação (0 a 1) | RMSE = Erro quadrático (GW) | "
-        "MAE = Desvio médio absoluto (GW)\n"
-        "• Linear Simples (L2): RMSE = 0.278 GW | MAE = 0.226 GW | R² = 0.116 (Insuficiente)\n"
-        "• Polinomial d=5 (L2): RMSE = 0.158 GW | MAE = 0.120 GW | R² = 0.715 (Excelente em U)\n"
-        "• RBF 5 centros (L2): RMSE = 0.158 GW | MAE = 0.121 GW | R² = 0.713 (Estável local)\n"
-        "• Kernel Gaussiano (L2): RMSE = 0.157 GW | MAE = 0.120 GW | R² = 0.717 (Campeão global)\n"
-        "• Kernel Gaussiano (L1): Menor MAE de toda a suíte (0.118 GW) com máxima robustez."
+        "• Métricas: R² = Acurácia/Explicação (0 a 1 e %) | RMSE = Erro quadrático (GW e MW) | "
+        "MAE = Desvio médio absoluto (GW e MW)\n"
+        "• Linear Simples (L2): RMSE = 0.278 GW (278 MW) | MAE = 0.226 GW (226 MW) | "
+        "R² = 0.116 (11,6%)\n"
+        "• Polinomial d=5 (L2): RMSE = 0.158 GW (158 MW) | MAE = 0.120 GW (120 MW) | "
+        "R² = 0.715 (71,5%)\n"
+        "• RBF 5 centros (L2): RMSE = 0.158 GW (158 MW) | MAE = 0.121 GW (121 MW) | "
+        "R² = 0.713 (71,3%)\n"
+        "• Kernel Gaussiano (L2): RMSE = 0.157 GW (157 MW) | MAE = 0.120 GW (120 MW) | "
+        "R² = 0.717 (71,7% - Campeão L2)\n"
+        "• Kernel Gaussiano (L1): RMSE = 0.159 GW (159 MW) | MAE = 0.118 GW (118 MW) | "
+        "R² = 0.712 (71,2% - Menor MAE)."
     )
     add_chart_with_notes(
-        s5, img_q5, notes_s5, "Roteiro de Leitura Física", hl_title_s5, hl_desc_s5
+        s5,
+        img_q5,
+        notes_s5,
+        "Roteiro de Leitura Física",
+        hl_title_s5,
+        hl_desc_s5,
+        highlight_top_in=4.70,
+        highlight_h_in=2.25,
     )
 
     # =========================================================================
@@ -499,8 +512,8 @@ def build_presentation(base_dir: str) -> str:
     ]
     hl_title_s7 = "Evidência Empírica Calculada no Pipeline em Python:"
     hl_desc_s7 = (
-        "• Modelo Univariado (T_max isolada): MSE = 19.866,54 MW² | R² = 0.509\n"
-        "• Modelo Multivariado (6 Variáveis Climáticas): MSE = 18.131,88 MW² | R² = 0.552\n"
+        "• Modelo Univariado (T_max isolada): MSE = 19.866,54 MW² | R² = 0.509 (50,9%)\n"
+        "• Modelo Multivariado (6 Variáveis Climáticas): MSE = 18.131,88 MW² | R² = 0.552 (55,2%)\n"
         "➔ GANHO REAL DE ACURÁCIA: REDUÇÃO DE 8.73% NO ERRO QUADRÁTICO MÉDIO (MSE).\n"
         "Comprova a tese de que a atmosfera atua de forma multivariada sobre a demanda da rede."
     )
@@ -540,8 +553,9 @@ def build_presentation(base_dir: str) -> str:
         ),
         (
             "Resultados Comparativos dos Modelos:",
-            " Ridge Linear: RMSE = 398,35 W | MAE = 221,67 W | R² = 0.871 | Latência: 17,5 ms.\n"
-            " Random Forest (50 árvores): RMSE = 349,45 W | MAE = 184,12 W | R² = 0.900 | "
+            " Ridge Linear: RMSE = 398,35 W | MAE = 221,67 W | R² = 0.871 (87,1%) | "
+            "Latência: 17,5 ms.\n"
+            " Random Forest (50 árvores): RMSE = 349,45 W | MAE = 184,12 W | R² = 0.900 (90,0%) | "
             "Tempo: 134,1 ms (Campeão em acurácia e capacidade de generalização).",
         ),
     ]

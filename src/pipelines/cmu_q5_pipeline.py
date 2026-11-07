@@ -160,7 +160,8 @@ class CMUQ5Pipeline:
             )
             for model_key, style_color in colors.items():
                 m_info = fitted_results[loss_key][model_key]
-                label_txt = f"{m_info['model_name']} (R²: {m_info['metrics']['r2']:.3f})"
+                r2_v = m_info["metrics"]["r2"]
+                label_txt = f"{m_info['model_name']} (R²: {r2_v:.3f} [{r2_v * 100:.1f}%])"
                 ax.plot(
                     t_grid_c,
                     m_info["grid_predictions"],

@@ -145,13 +145,16 @@ def main() -> None:
             if m_key in models_dict:
                 info = models_dict[m_key]
                 m = info["metrics"]
+                r2_val = m["r2"]
+                rmse_val = m["rmse"]
+                mae_val = m["mae"]
                 rows.append(
                     {
                         "Modelo": info["model_name"],
-                        "RMSE (GW)": m["rmse"],
-                        "MAE (GW)": m["mae"],
-                        "R² Score": m["r2"],
-                        "Tempo de Ajuste (ms)": m["runtime_ms"],
+                        "R² Score (Acurácia)": f"{r2_val:.3f} ({r2_val * 100:.1f}%)",
+                        "RMSE [Erro Quadrático]": f"{rmse_val:.3f} GW ({rmse_val * 1000:.0f} MW)",
+                        "MAE [Erro Médio Diário]": f"{mae_val:.3f} GW ({mae_val * 1000:.0f} MW)",
+                        "Tempo de Ajuste": f"{m['runtime_ms']:.1f} ms",
                     }
                 )
         df_metrics = pd.DataFrame(rows)
