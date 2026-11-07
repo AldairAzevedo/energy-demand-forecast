@@ -116,7 +116,7 @@ def main() -> None:
                 selected_models = st.multiselect(
                     "Modelos a Exibir (Sobreposição):",
                     options=model_options,
-                    default=["Linear", "Polinomial_d5", "Kernel_Gaussiano"],
+                    default=model_options,
                     format_func=lambda x: {
                         "Linear": "1. Linear Simples",
                         "Polinomial_d5": "2. Polinomial (Grau 5)",
