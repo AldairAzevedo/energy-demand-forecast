@@ -6,7 +6,7 @@ import numpy as np
 
 
 class MetricsCalculator:
-    """Calculadora de métricas de avaliação multi-critério (CMU e Zenodo 2025)."""
+    """Calculadora de métricas de avaliação multi-critério para o desafio Zenodo 2025."""
 
     @staticmethod
     def mse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
