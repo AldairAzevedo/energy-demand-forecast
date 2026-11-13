@@ -5,10 +5,11 @@
 
 ---
 
-## 🚨 REGRAS CRÍTICAS & INVIOLÁVEIS DE GIT
+## 🚨 REGRAS CRÍTICAS & INVIOLÁVEIS (GIT & MEMÓRIA)
 
 1. **A IA NUNCA DEVE EXECUTAR `git push`**: O envio para o repositório remoto (`origin` / GitHub) é **terminantemente proibido** para qualquer IA. Somente o usuário humano (`AldairAzevedo`) pode fazer o push.
 2. **A IA SÓ PODE EXECUTAR `git commit` QUANDO SOLICITADA**: A IA está **proibida de fazer commits por iniciativa própria**. Ela só deve criar commits quando o usuário pedir expressamente (ex: *"faça o commit"*, *"pode comitar"*). Caso contrário, as alterações devem permanecer apenas na *working tree*.
+3. **O ARQUIVO `MEMORY.md` É UM DOCUMENTO VIVO E OBRIGATÓRIO**: Toda IA deve ter a consciência de que o [`MEMORY.md`](MEMORY.md) **não é estático**. Ele **DEVE ser lido no início de cada sessão** e **DEVE ser obrigatoriamente atualizado ao término de cada tarefa** realizada no projeto (registrando o que foi feito, arquivos alterados e atualizando "Onde Parou"), respeitando a janela deslizante de 3 a 5 itens e limite de ~120 linhas. Finalizar uma tarefa sem atualizar a memória viva viola a governança do repositório.
 
 ---
 
@@ -31,6 +32,10 @@ Antes de executar qualquer tarefa, consulte os manuais específicos em `rules/`:
    * **Aprovação de 100%:** Nenhuma alteração é aceita sem a suíte do `pytest` passando integralmente. Uso obrigatório de `tmp_path` para testes de arquivo.
 5. [**`rules/05_GIT_AND_COMMIT_POLICY.md`**](rules/05_GIT_AND_COMMIT_POLICY.md):
    * **Controle Estrito de Commits:** Commits apenas sob demanda expressa do usuário, com Conventional Commits em português e proibição total de push.
+6. [**`rules/06_DOCUMENTATION_EVOLUTION.md`**](rules/06_DOCUMENTATION_EVOLUTION.md):
+   * **Evolução Contínua do README.md:** Obrigação mandatória de avaliar e atualizar a documentação no `README.md` sempre que houver qualquer mudança no projeto.
+7. [**`rules/07_AGENT_MEMORY_POLICY.md`**](rules/07_AGENT_MEMORY_POLICY.md):
+   * **Memória de Trabalho (`MEMORY.md`):** Leitura obrigatória no início e atualização no fim da tarefa (rolling buffer, últimas 3 a 5 atividades, <= 120 linhas).
 
 ---
 

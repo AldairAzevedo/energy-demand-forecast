@@ -1,0 +1,16 @@
+#!/bin/sh
+# Git Pre-Commit Hook: Garante 100% de conformidade com SonarQube, Lint, Formatação e Testes.
+
+echo "🔍 [Pre-Commit Hook] Iniciando validação de qualidade pré-commit..."
+python scripts/verify_quality.py
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+    echo "\n❌ [Pre-Commit Hook] COMMIT BLOQUEADO! Falha nos critérios de qualidade."
+    echo "💡 Corrija os problemas apontados acima antes de tentar commitar novamente."
+    echo "💡 Dica: execute 'python scripts/format_code.py' para formatar o código automaticamente.\n"
+    exit 1
+fi
+
+echo "✅ [Pre-Commit Hook] Qualidade 100% validada! Commit autorizado.\n"
+exit 0

@@ -8,7 +8,10 @@
 # 4. rules/03_SONARQUBE_AND_QUALITY.md (SonarQube, Flake8, Tipagem, Complexidade <= 15)
 # 5. rules/04_TESTING_STANDARDS.md (Testes unitários e integração via pytest)
 # 6. rules/05_GIT_AND_COMMIT_POLICY.md (Conventional Commits)
+# 7. rules/06_DOCUMENTATION_EVOLUTION.md (Evolução mandatória do README.md)
+# 8. rules/07_AGENT_MEMORY_POLICY.md (Memória rolling buffer em MEMORY.md)
 
-# REGRAS CRÍTICAS DE GIT:
+# REGRAS CRÍTICAS (GIT & MEMÓRIA):
 # 1. A IA está TERMINANTEMENTE PROIBIDA de executar `git push`. Apenas o usuário (AldairAzevedo) faz push.
 # 2. A IA só pode executar `git commit` quando o usuário solicitar expressamente. Proibido comitar por iniciativa própria.
+# 3. O `MEMORY.md` É UM DOCUMENTO VIVO: Atualização mandatória ao término de CADA tarefa com a nova atividade e onde parou, respeitando o limite de 3 a 5 registros (<= 120 linhas).

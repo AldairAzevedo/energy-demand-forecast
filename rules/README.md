@@ -20,6 +20,8 @@ Este diretório contém o conjunto oficial de regras, convenções arquiteturais
 | [**03_SONARQUBE_AND_QUALITY.md**](03_SONARQUBE_AND_QUALITY.md) | **SonarQube Compliance** | Diretrizes para garantir nota máxima no SonarQube (sem smells, bugs ou vulnerabilidades). |
 | [**04_TESTING_STANDARDS.md**](04_TESTING_STANDARDS.md) | **Padrões de Testes (Pytest)** | Requisitos obrigatórios de testes unitários e de integração antes de qualquer alteração. |
 | [**05_GIT_AND_COMMIT_POLICY.md**](05_GIT_AND_COMMIT_POLICY.md) | **Política de Git & Commit** | **PROIBIÇÃO TOTAL de `git push`** e **commits apenas quando expressamente solicitados**. |
+| [**06_DOCUMENTATION_EVOLUTION.md**](06_DOCUMENTATION_EVOLUTION.md) | **Evolução do README.md** | **Obrigatoriedade de atualizar o README** sempre que houver qualquer mudança no projeto. |
+| [**07_AGENT_MEMORY_POLICY.md**](07_AGENT_MEMORY_POLICY.md) | **Memória Viva do Agente (MEMORY.md)** | **Documento vivo**: leitura no início e **atualização obrigatória a cada tarefa** (rolling buffer, 3 a 5 itens, <= 120 linhas). |
 
 ---
 
@@ -27,6 +29,8 @@ Este diretório contém o conjunto oficial de regras, convenções arquiteturais
 
 1. **PROIBIDO FAZER `git push`:** A IA está **terminantemente proibida** de executar `git push`. Apenas o usuário (`AldairAzevedo`) pode enviar alterações ao remoto.
 2. **COMMITS APENAS QUANDO SOLICITADOS:** A IA está **proibida de fazer commits por conta própria**. Ela só executa `git commit` quando o usuário pedir expressamente.
-3. **SONARQUBE ZERO WARNINGS:** Nenhum código gerado pela IA pode conter complexidade ciclomática elevada (> 15), variáveis sem uso, exceções genéricas vazias ou tipagem ausente.
-4. **100% DOS TESTES PASSANDO:** Antes de concluir qualquer tarefa ou gerar commits, a IA deve executar `pytest` e `flake8`, garantindo 0 erros e 0 avisos.
-5. **ZERO TRASH:** Nunca deixar arquivos `.tmp`, pastas vazias, cópias de segurança desnecessárias ou código comentado no repositório.
+3. **MEMÓRIA VIVA (`MEMORY.md` OBRIGATÓRIO A CADA TAREFA):** Toda IA deve saber que o `MEMORY.md` é um **organismo vivo**. A IA deve lê-lo no início de cada sessão e é **MANDATÓRIO atualizá-lo ao término de cada tarefa** realizada, adicionando o novo registro no topo, atualizando onde parou e rotacionando os itens antigos na janela deslizante.
+4. **EVOLUÇÃO CONTÍNUA DO README:** Toda alteração de código, ferramentas ou arquitetura deve sincronizar e evoluir o `README.md` imediatamente.
+5. **SONARQUBE ZERO WARNINGS:** Nenhum código gerado pela IA pode conter complexidade ciclomática elevada (> 15), variáveis sem uso, exceções genéricas vazias ou tipagem ausente.
+6. **100% DOS TESTES PASSANDO:** Antes de concluir qualquer tarefa ou gerar commits, a IA deve executar `pytest` e `flake8`, garantindo 0 erros e 0 avisos.
+7. **ZERO TRASH:** Nunca deixar arquivos `.tmp`, pastas vazias, cópias de segurança desnecessárias ou código comentado no repositório.

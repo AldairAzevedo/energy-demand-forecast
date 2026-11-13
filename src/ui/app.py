@@ -89,8 +89,7 @@ def _render_sidebar_pipeline_controls(root_dir: str) -> None:
         st.rerun()
 
     st.caption(
-        "💡 Para upload de novos dados (.xlsx), acesse a aba "
-        "**Auditoria do Pipeline (JSON)**."
+        "💡 Para upload de novos dados (.xlsx), acesse a aba " "**Auditoria do Pipeline (JSON)**."
     )
 
     log_placeholder = st.empty()
@@ -166,9 +165,7 @@ def _render_sidebar_downloads(root_dir: str) -> None:
                 )
 
         # 4. Resultado JSON do Pipeline Zenodo
-        cycle_json = os.path.join(
-            root_dir, "data", "cycles", "cycle_07_zenodo_smart_building.json"
-        )
+        cycle_json = os.path.join(root_dir, "data", "cycles", "cycle_07_zenodo_smart_building.json")
         if os.path.exists(cycle_json):
             with open(cycle_json, "rb") as f:
                 st.download_button(

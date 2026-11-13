@@ -24,11 +24,10 @@ def mock_zenodo_env(tmp_path):
     np.random.seed(42)
     df = pd.DataFrame(
         {
-            "active_power": 1500.0 + 300.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))
+            "active_power": 1500.0
+            + 300.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))
             + np.random.normal(0, 50, n_samples),
-            "pv_generation": np.maximum(
-                0, 1000.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))
-            ),
+            "pv_generation": np.maximum(0, 1000.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))),
             "temperature": 25.0 + 5.0 * np.cos(np.linspace(0, 4 * np.pi, n_samples)),
         }
     )
