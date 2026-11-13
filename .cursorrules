@@ -1,0 +1,14 @@
+# Cursor Rules for energy-demand-forecast
+
+# LEITURA OBRIGATÓRIA ANTES DE QUALQUER OPERAÇÃO:
+# Consulte e siga estritamente as regras detalhadas em:
+# 1. AGENTS.md (Diretiva Geral)
+# 2. rules/01_ARCHITECTURE_SOLID.md (Monólito, POO, SOLID)
+# 3. rules/02_CLEAN_CODE_ZERO_TRASH.md (Clean Code, Zero Trash, Escopo Zenodo)
+# 4. rules/03_SONARQUBE_AND_QUALITY.md (SonarQube, Flake8, Tipagem, Complexidade <= 15)
+# 5. rules/04_TESTING_STANDARDS.md (Testes unitários e integração via pytest)
+# 6. rules/05_GIT_AND_COMMIT_POLICY.md (Conventional Commits)
+
+# REGRA INVIOLÁVEL:
+# A IA está TERMINANTEMENTE PROIBIDA de executar `git push`. Apenas commits locais (`git commit`) são permitidos.
+# O envio para o remoto é exclusivo do usuário (AldairAzevedo).
