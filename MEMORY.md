@@ -9,26 +9,32 @@
 
 ## 📌 1. Estado Atual do Sistema
 * **Escopo Único:** Zenodo 2025 Smart Building (Previsão de Carga, Geração Solar FV, Curva do Pato / Demanda Líquida).
-* **Branch Git Ativa:** `main` (Branch de backup completa com CMU: `versao-completa-cmu-zenodo`).
+* **Branch Git Ativa:** `main` (Sincronizada com `origin/main` após push do usuário).
 * **Deploy Online:** [energy-demand-forecast-ufam.streamlit.app](https://energy-demand-forecast-ufam.streamlit.app/)
 * **Quality Gate:** Flake8 (0 erros, complexidade $\le 12$), Black + isort (100% formatado), Pytest (8/8 testes passando).
-* **Git Pre-Commit Hook:** Ativo via `.githooks/pre-commit` executando `scripts/verify_quality.py`.
+* **Git Hooks Ativos:** `.githooks/pre-commit` e `.githooks/pre-push` executando `scripts/verify_quality.py`.
 * **Regras de Git:** A IA está **PROIBIDA de fazer push** e **só faz commit quando o usuário pedir expressamente**.
 
 ---
 
 ## 🕒 2. Últimas Atividades Realizadas (Janela Deslizante: Últimas 3)
 
-### [Atividade 1] — Governança de Memória Viva, Pre-Commit Hook e Qualidade
+### [Atividade 1] — Implementação do Git Pre-Push Hook e Atualização do README
 * **Data:** 13/11/2026
 * **O que foi feito:**
-  - Criado o arquivo `MEMORY.md` (documento vivo de janela deslizante) e formalizada a regra `rules/07_AGENT_MEMORY_POLICY.md`.
-  - Criados os scripts `scripts/format_code.py` e `scripts/verify_quality.py` com Quality Gate automatizado (flake8, black, isort, pytest).
-  - Implementado Git Pre-Commit Hook (`.githooks/pre-commit`) e configurado `git config core.hooksPath .githooks`.
-  - Criada a regra `rules/06_DOCUMENTATION_EVOLUTION.md` e sincronizado o `README.md`.
-* **Arquivos Chave:** `MEMORY.md`, `rules/06_*`, `rules/07_*`, `scripts/verify_quality.py`, `scripts/format_code.py`, `.githooks/pre-commit`, `README.md`.
+  - Criado o hook `.githooks/pre-push` espelhando a validação de qualidade completa antes de qualquer `git push`.
+  - Atualizada a Seção 5.3 do `README.md` documentando o fluxo duplo de proteção (Pre-Commit + Pre-Push).
+  - Testada a execução do hook via `sh .githooks/pre-push` com 100% de sucesso.
+* **Arquivos Chave:** `.githooks/pre-push`, `README.md`, `MEMORY.md`.
 
-### [Atividade 2] — Criação da Governança de Regras e Diretivas de IA
+### [Atividade 2] — Commit da Governança de Memória Viva e Pre-Commit Hook
+* **Data:** 13/11/2026
+* **O que foi feito:**
+  - Efetuado o commit `a16f606` sob solicitação expressa do usuário após interceptação e aprovação pelo pre-commit hook.
+  - Implementada a política de Living Memory em `rules/07_AGENT_MEMORY_POLICY.md`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules` e `rules/README.md`.
+* **Arquivos Chave:** `MEMORY.md`, `rules/*`, `scripts/*`, `AGENTS.md`.
+
+### [Atividade 3] — Criação da Governança de Regras e Diretivas de IA
 * **Data:** 13/11/2026
 * **O que foi feito:**
   - Criado o diretório `rules/` com manuais de SOLID, Clean Code & Zero Trash, SonarQube, Testes e Git Policy.
@@ -36,16 +42,8 @@
   - Definida a proibição de `git push` pela IA e restrição de commits apenas sob autorização direta do usuário.
 * **Arquivos Chave:** `rules/*`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`.
 
-### [Atividade 3] — Limpeza Completa e Zero Trash dos Desafios CMU
-* **Data:** 12/11/2026 - 13/11/2026
-* **O que foi feito:**
-  - Backup preservado na branch `versao-completa-cmu-zenodo`.
-  - Removidos todos os 28 arquivos e pastas legadas da CMU (Q5 e Q6) e código morto (`models.py`, `losses.py`, `preprocessor.py`).
-  - Slides e documentação reestruturados em 7 slides focados 100% no Zenodo Smart Building.
-* **Arquivos Chave:** `src/pipelines/zenodo_pipeline.py`, `src/ui/app.py`, `presentation/gerar_slides.py`.
-
 ---
 
 ## 🎯 3. Próximos Passos & Onde Parou
-* **Onde parou:** Governança completa implementada, ferramentas de qualidade prontas, pre-commit hook ativo e política de memória viva (`MEMORY.md`) formalizada em todos os pontos de entrada de IA.
-* **Pronto para:** Receber novas demandas de modelagem, novos experimentos ou requisitos solicitados pelo professor para o desafio Zenodo Smart Building.
+* **Onde parou:** Duplo Git Hook configurado (`pre-commit` e `pre-push`). Todas as validações automatizadas tanto ao commitar quanto ao enviar com `git push`.
+* **Pronto para:** O usuário testar localmente em seu terminal executando `git push` ou receber novas tarefas de negócio/modelagem para o projeto Zenodo.

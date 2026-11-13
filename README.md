@@ -18,7 +18,7 @@ O sistema implementa uma arquitetura **monolítica moderna 100% em Python**, com
 
 ```
 energy-demand-forecast/
-├── .githooks/                # Hook pré-commit automatizado para garantia de qualidade
+├── .githooks/                # Hooks pré-commit e pré-push para garantia de qualidade
 ├── data/
 │   ├── baseline/zenodo/      # Cópia protegida do dataset original oficial
 │   ├── zenodo/               # Datasets da Competição Zenodo 2025
@@ -127,20 +127,29 @@ python -m flake8 src/ tests/ presentation/ scripts/ streamlit_app.py
 
 ---
 
-### 5.3. Automação Pré-Commit (Git Hook)
+### 5.3. Automação de Qualidade no Git (Pre-Commit & Pre-Push Hooks)
 
-Para garantir que nenhum código com erro de sintaxe, complexidade excessiva ou falha em testes entre no repositório, configuramos um **Git Pre-Commit Hook**:
+Para garantir que nenhum código com erro de sintaxe, complexidade excessiva ou falha em testes seja gravado ou enviado ao GitHub, configuramos dois **Git Hooks automatizados**:
 
 ```mermaid
-flowchart LR
-    COMMIT["git commit"] --> HOOK[".githooks/pre-commit"]
-    HOOK --> CHECK["python scripts/verify_quality.py"]
-    CHECK -->|Falha em Lint / Teste| BLOCK["❌ Commit Cancelado"]
-    CHECK -->|100% Aprovado| ALLOW["✅ Commit Realizado"]
+flowchart TD
+    subgraph CommitFlow ["Fluxo Local: git commit"]
+        COMMIT["git commit"] --> HOOK_C[".githooks/pre-commit"]
+        HOOK_C --> CHECK_C["python scripts/verify_quality.py"]
+        CHECK_C -->|Falha| BLOCK_C["❌ Commit Cancelado"]
+        CHECK_C -->|100% OK| ALLOW_C["✅ Commit Realizado"]
+    end
+
+    subgraph PushFlow ["Fluxo Remoto: git push"]
+        PUSH["git push"] --> HOOK_P[".githooks/pre-push"]
+        HOOK_P --> CHECK_P["python scripts/verify_quality.py"]
+        CHECK_P -->|Falha| BLOCK_P["❌ Push Cancelado"]
+        CHECK_P -->|100% OK| ALLOW_P["🚀 Envio ao GitHub Autorizado"]
+    end
 ```
 
-* **Como Funciona:** Toda vez que um commit for disparado (`git commit`), o Git executa automaticamente o script `scripts/verify_quality.py`.
-* **Bloqueio Automático:** Se o `flake8`, `black`, `isort` ou qualquer teste do `pytest` falhar, o commit é **cancelado imediatamente**, exibindo a causa do problema e orientações de correção.
+* **Pre-Commit Hook (`.githooks/pre-commit`):** Executa automaticamente a cada `git commit`, validando `isort`, `black`, `flake8` e `pytest`. Se houver falha, o commit é abortado imediatamente.
+* **Pre-Push Hook (`.githooks/pre-push`):** Executa automaticamente a cada `git push`, servindo como segunda barreira de proteção antes do código atingir o repositório remoto no GitHub.
 * **Ativação dos Hooks:**
   ```bash
   git config core.hooksPath .githooks

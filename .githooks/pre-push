@@ -1,0 +1,16 @@
+#!/bin/sh
+# Git Pre-Push Hook: Garante 100% de conformidade com SonarQube, Lint, Formatação e Testes antes do envio remoto.
+
+echo "🚀 [Pre-Push Hook] Iniciando validação de qualidade pré-push antes do envio..."
+python scripts/verify_quality.py
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+    echo "\n❌ [Pre-Push Hook] PUSH BLOQUEADO! Falha nos critérios de qualidade."
+    echo "💡 Corrija os problemas apontados acima antes de tentar fazer push novamente."
+    echo "💡 Dica: execute 'python scripts/format_code.py' para formatar o código automaticamente.\n"
+    exit 1
+fi
+
+echo "✅ [Pre-Push Hook] Qualidade 100% validada! Push autorizado para o repositório remoto.\n"
+exit 0
