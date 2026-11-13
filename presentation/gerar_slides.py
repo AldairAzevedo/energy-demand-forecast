@@ -411,7 +411,39 @@ def build_presentation(base_dir: str) -> str:
             "com central de downloads para slides, dados e JSON de auditoria.",
         ),
     ]
-    add_bullet_list(s6, points_s6, top_in=1.85, font_size=13.5)
+    add_bullet_list(s6, points_s6, top_in=1.75, font_size=13)
+
+    card_app = s6.shapes.add_shape(
+        MSO_SHAPE.ROUNDED_RECTANGLE,
+        Inches(0.8),
+        Inches(5.5),
+        Inches(11.7),
+        Inches(1.25),
+    )
+    card_app.fill.solid()
+    card_app.fill.fore_color.rgb = RGBColor(240, 253, 244)
+    card_app.line.color.rgb = GREEN
+    card_app.line.width = Pt(1.5)
+
+    tf_app = card_app.text_frame
+    tf_app.word_wrap = True
+    tf_app.margin_top = Inches(0.14)
+    tf_app.margin_left = Inches(0.22)
+
+    p_app1 = tf_app.paragraphs[0]
+    p_app1.text = "Acesso Direto à Aplicação Online (Streamlit Community Cloud):"
+    p_app1.font.bold = True
+    p_app1.font.size = Pt(12.5)
+    p_app1.font.color.rgb = NAVY
+
+    p_app2 = tf_app.add_paragraph()
+    run_app_link = p_app2.add_run()
+    run_app_link.text = "🌐 https://energy-demand-forecast-ufam.streamlit.app/"
+    run_app_link.font.bold = True
+    run_app_link.font.size = Pt(15)
+    run_app_link.font.color.rgb = GREEN
+    run_app_link.hyperlink.address = "https://energy-demand-forecast-ufam.streamlit.app/"
+    p_app2.space_before = Pt(4)
 
     # =========================================================================
     # SLIDE 7: Conclusões & Repositório GitHub
@@ -439,15 +471,15 @@ def build_presentation(base_dir: str) -> str:
             "energético autônomo (HEMS) voltado ao Mercado Livre de Energia.",
         ),
     ]
-    add_bullet_list(s7, points_s7, top_in=1.7, font_size=13)
+    add_bullet_list(s7, points_s7, top_in=1.65, font_size=12.5)
 
-    # Card do Repositório GitHub
+    # Card do Aplicativo Online e Repositório GitHub
     card_gh = s7.shapes.add_shape(
         MSO_SHAPE.ROUNDED_RECTANGLE,
         Inches(0.8),
-        Inches(5.25),
+        Inches(4.95),
         Inches(11.7),
-        Inches(1.65),
+        Inches(2.0),
     )
     card_gh.fill.solid()
     card_gh.fill.fore_color.rgb = RGBColor(241, 245, 249)
@@ -456,21 +488,40 @@ def build_presentation(base_dir: str) -> str:
 
     tf_gh = card_gh.text_frame
     tf_gh.word_wrap = True
-    tf_gh.margin_top = Inches(0.14)
+    tf_gh.margin_top = Inches(0.12)
     tf_gh.margin_left = Inches(0.22)
     tf_gh.margin_right = Inches(0.22)
 
     p_gh1 = tf_gh.paragraphs[0]
-    p_gh1.text = "Repositório no GitHub (Código-Fonte, Dados, Testes e Aplicação Web):"
+    p_gh1.text = "Acesso à Plataforma Online e Código-Fonte Aberto:"
     p_gh1.font.bold = True
-    p_gh1.font.size = Pt(12.5)
+    p_gh1.font.size = Pt(12)
     p_gh1.font.color.rgb = NAVY
 
+    p_app_s7 = tf_gh.add_paragraph()
+    run_app_lbl = p_app_s7.add_run()
+    run_app_lbl.text = "🌐 Aplicação Web:  "
+    run_app_lbl.font.bold = True
+    run_app_lbl.font.size = Pt(13)
+    run_app_lbl.font.color.rgb = NAVY
+    run_app_url = p_app_s7.add_run()
+    run_app_url.text = "https://energy-demand-forecast-ufam.streamlit.app/"
+    run_app_url.font.bold = True
+    run_app_url.font.size = Pt(13)
+    run_app_url.font.color.rgb = GREEN
+    run_app_url.hyperlink.address = "https://energy-demand-forecast-ufam.streamlit.app/"
+    p_app_s7.space_before = Pt(4)
+
     p_gh2 = tf_gh.add_paragraph()
+    run_gh_lbl = p_gh2.add_run()
+    run_gh_lbl.text = "💻 Repositório Git:  "
+    run_gh_lbl.font.bold = True
+    run_gh_lbl.font.size = Pt(13)
+    run_gh_lbl.font.color.rgb = NAVY
     run_gh_link = p_gh2.add_run()
-    run_gh_link.text = "👉 https://github.com/AldairAzevedo/energy-demand-forecast"
+    run_gh_link.text = "https://github.com/AldairAzevedo/energy-demand-forecast"
     run_gh_link.font.bold = True
-    run_gh_link.font.size = Pt(14)
+    run_gh_link.font.size = Pt(13)
     run_gh_link.font.color.rgb = BLUE
     run_gh_link.hyperlink.address = "https://github.com/AldairAzevedo/energy-demand-forecast"
     p_gh2.space_before = Pt(4)
@@ -481,9 +532,9 @@ def build_presentation(base_dir: str) -> str:
         "https://github.com/AldairAzevedo/energy-demand-forecast.git  &&  "
         "python -m streamlit run streamlit_app.py"
     )
-    p_gh3.font.size = Pt(10.5)
+    p_gh3.font.size = Pt(10)
     p_gh3.font.color.rgb = DARK
-    p_gh3.space_before = Pt(4)
+    p_gh3.space_before = Pt(5)
 
     out_file = os.path.join(base_dir, "presentation", "slides_apresentacao.pptx")
     prs.save(out_file)
