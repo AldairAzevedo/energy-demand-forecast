@@ -1,102 +1,105 @@
-"""Módulo de gráficos interativos Plotly para o desafio Zenodo Smart Building."""
+"""Módulo de gráficos interativos Plotly com alto contraste e codificação por cores."""
 
 from typing import Any, Dict
 
 import plotly.graph_objects as go
 
 COLOR_PALETTE = {
-    "Observado": "#1E293B",  # Ardósia Escura
-    "Ridge_Linear": "#6366F1",  # Índigo
-    "Random_Forest": "#059669",  # Verde Floresta
-    "Solar": "#EAB308",  # Âmbar Solar
-    "Demanda_Liquida": "#059669",  # Verde Floresta
+    "Observado": "#8B5CF6",  # Violeta Vivo (Contraste alto no Light e Dark)
+    "Hist_Gradient_Boosting": "#0284C7",  # Azul Cobalto (Campeão)
+    "Random_Forest": "#059669",  # Verde Esmeralda (Árvores)
+    "Ridge_Linear": "#EA580C",  # Laranja Âmbar (Baseline Linear)
 }
 
 
 def build_zenodo_chart(
-    cycle_07_data: Dict[str, Any],
+    forecast_data: Dict[str, Any],
     show_ridge: bool = True,
     show_rf: bool = True,
-    show_solar: bool = True,
-    show_net: bool = True,
+    show_hgb: bool = True,
 ) -> go.Figure:
-    """Constrói o gráfico de série temporal de carga do Smart Building e impacto solar."""
+    """Constrói gráfico de série temporal com cores de alto contraste e legenda colorida."""
     fig = go.Figure()
-    samples = cycle_07_data.get("recent_predictions_sample", [])
+    samples = forecast_data.get("recent_predictions_sample", [])
     if not samples:
         return fig
 
     hours = [s["hour"] for s in samples]
     real_power = [s["real_power_w"] for s in samples]
-    pred_ridge = [s.get("pred_ridge_w", 0.0) for s in samples]
-    pred_rf = [s.get("pred_rf_w", 0.0) for s in samples]
-    solar_pv = [s["solar_pv_w"] for s in samples]
-    net_demand = [s["net_demand_w"] for s in samples]
 
     fig.add_trace(
         go.Scatter(
             x=hours,
             y=real_power,
             mode="lines",
-            name="Consumo Real Medido (W)",
-            line=dict(color=COLOR_PALETTE["Observado"], width=2.0),
+            name=(
+                f"<span style='color:{COLOR_PALETTE['Observado']}'>"
+                "<b>Consumo Real Medido (W)</b></span>"
+            ),
+            line=dict(color=COLOR_PALETTE["Observado"], width=2.8),
+            fill="tozeroy",
+            fillcolor="rgba(139, 92, 246, 0.08)",
+            hovertemplate="Consumo Real: <b>%{y:.0f} W</b><extra></extra>",
         )
     )
 
-    if show_ridge:
+    if show_hgb:
+        c_hgb = COLOR_PALETTE["Hist_Gradient_Boosting"]
         fig.add_trace(
             go.Scatter(
                 x=hours,
-                y=pred_ridge,
+                y=[s.get("pred_hgb_w", 0.0) for s in samples],
                 mode="lines",
-                name="Previsão Ridge Linear (W)",
-                line=dict(color=COLOR_PALETTE["Ridge_Linear"], dash="dot", width=1.8),
+                name=f"<span style='color:{c_hgb}'><b>HistGradientBoosting</b></span>",
+                line=dict(color=c_hgb, width=2.4),
+                hovertemplate="HistGradientBoosting: <b>%{y:.0f} W</b><extra></extra>",
             )
         )
 
     if show_rf:
+        c_rf = COLOR_PALETTE["Random_Forest"]
         fig.add_trace(
             go.Scatter(
                 x=hours,
-                y=pred_rf,
+                y=[s.get("pred_rf_w", 0.0) for s in samples],
                 mode="lines",
-                name="Previsão Random Forest (W)",
-                line=dict(color=COLOR_PALETTE["Random_Forest"], dash="dash", width=2.0),
+                name=f"<span style='color:{c_rf}'><b>Random Forest</b></span>",
+                line=dict(color=c_rf, dash="dash", width=2.2),
+                hovertemplate="Random Forest: <b>%{y:.0f} W</b><extra></extra>",
             )
         )
 
-    if show_solar:
+    if show_ridge:
+        c_ridge = COLOR_PALETTE["Ridge_Linear"]
         fig.add_trace(
             go.Scatter(
                 x=hours,
-                y=solar_pv,
+                y=[s.get("pred_ridge_w", 0.0) for s in samples],
                 mode="lines",
-                name="Geração Solar FV (W)",
-                line=dict(color=COLOR_PALETTE["Solar"], width=1.8),
-                fill="tozeroy",
-                fillcolor="rgba(234, 179, 8, 0.15)",
-            )
-        )
-
-    if show_net:
-        fig.add_trace(
-            go.Scatter(
-                x=hours,
-                y=net_demand,
-                mode="lines",
-                name="Demanda Líquida da Rede (W)",
-                line=dict(color=COLOR_PALETTE["Demanda_Liquida"], width=2.0),
+                name=f"<span style='color:{c_ridge}'><b>Ridge Linear (Baseline)</b></span>",
+                line=dict(color=c_ridge, dash="dot", width=2.2),
+                hovertemplate="Ridge Linear: <b>%{y:.0f} W</b><extra></extra>",
             )
         )
 
     fig.update_layout(
-        title="Curva de Carga Smart Building: Previsão vs. Impacto Solar Fotovoltaico",
-        xaxis_title="Hora da Amostra (Semana de Teste)",
-        yaxis_title="Potência Elétrica (W)",
-        template="plotly_white",
+        title="Consumo Real vs. Previsões dos Modelos (Semana de Teste — 168h)",
+        xaxis_title="Hora da Semana de Teste (h)",
+        yaxis_title="Potência Elétrica Consumida (W)",
+        paper_bgcolor="rgba(0, 0, 0, 0)",
+        plot_bgcolor="rgba(0, 0, 0, 0)",
+        xaxis=dict(gridcolor="rgba(148, 163, 184, 0.22)"),
+        yaxis=dict(gridcolor="rgba(148, 163, 184, 0.22)"),
         hovermode="x unified",
-        legend=dict(orientation="h", y=1.05, x=0.5, xanchor="center"),
-        margin=dict(l=50, r=30, t=80, b=50),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.03,
+            xanchor="center",
+            x=0.5,
+            font=dict(size=13),
+        ),
+        margin=dict(l=55, r=25, t=85, b=50),
         height=500,
     )
     return fig

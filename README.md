@@ -1,4 +1,4 @@
-# Sistema Monolítico Full Stack de Previsão de Carga e Demanda Líquida (Zenodo Smart Building)
+# Sistema Monolítico Full Stack de Previsão de Consumo Elétrico (Zenodo 2025)
 
 [![Python](https://img.shields.io/badge/Python-3.12-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -46,11 +46,11 @@ energy-demand-forecast/
 
 ## 2. Pipeline Zenodo Smart Building
 
-Todos os resultados de predição e análise solar são persistidos em `data/cycles/cycle_07_zenodo_smart_building.json` e consumidos diretamente pela interface web:
+Todos os resultados de predição são persistidos em `data/cycles/zenodo_forecast_results.json` e consumidos diretamente pela interface web:
 
-- **Ingestão e Limpeza:** Leituras de consumo elétrico, geração solar fotovoltaica e temperatura em intervalos de 5 minutos, agregados em base horária.
-- **Engenharia de Atributos:** Criação de lags temporais ($t-1$ e $t-24$) e cálculo de **Demanda Líquida** ($\text{Consumo} - \text{Geração Solar FV}$).
-- **Modelos Avaliados:** Regressão Ridge Linear vs. Random Forest Regressor (50 árvores), avaliados com RMSE, MAE, $R^2$ Score e tempo de execução.
+- **Ingestão e Limpeza:** Leituras de consumo elétrico (`power (W)`), tensão (`voltage (V)`), corrente (`amperage (A)`), geração fotovoltaica e temperatura em intervalos de 5 minutos, agregados em base horária.
+- **Engenharia de Atributos Causais:** Codificação cíclica da hora (`sin/cos`), temperatura, geração FV, lags autoregressivos de consumo ($t-1, t-2, t-3, t-24, t-48, t-168$), estatísticas móveis (6h e 24h) e lags ($t-1$) de tensão e corrente.
+- **Modelos Avaliados:** Ridge Linear (baseline), Random Forest (100 árvores) e HistGradientBoosting, avaliados com RMSE, MAE, $R^2$, tempo de treino e tempo de inferência.
 
 ---
 
@@ -71,7 +71,7 @@ python -m streamlit run streamlit_app.py
 ```
 
 A interface carregará com 2 módulos de navegação:
-1. **Smart Building & Energia Solar (Zenodo):** Acompanhe a previsão horária do edifício inteligente (Ridge vs. Random Forest), indicadores de energia solar e a Curva do Pato.
+1. **Previsão de Consumo (Zenodo 2025):** Acompanhe a previsão horária do edifício inteligente (Ridge vs. Random Forest vs. HistGradientBoosting) e a tabela multi-critério (RMSE, MAE, R², treino e inferência).
 2. **Auditoria do Pipeline (JSON):** Faça upload de novas séries temporais `.xlsx` para retreinar os modelos e inspecione o arquivo JSON completo.
 
 ### 4.2. Executar via Terminal (CLI)

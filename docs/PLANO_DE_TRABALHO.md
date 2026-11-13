@@ -15,8 +15,8 @@ A atividade é focada exclusivamente no desafio **"2025 Competition on Electric 
 
 1. **Base de Telemetria Real:** 1 ano de monitoramento a cada 5 minutos (105.120 leituras) de um Edifício Inteligente (Smart Building).
 2. **Grandezas Monitoradas:** Potência Ativa (W), Tensão (V), Corrente (A), Temperatura externa (°C) e Geração Fotovoltaica em telhado (W).
-3. **Objetivo Preditivo:** Previsão horária de consumo predial e análise de Demanda Líquida (Net Load = Consumo − Solar), identificando a formação da Curva do Pato e viabilizando estratégias de autoconsumo e sistemas de baterias (BESS).
-4. **Métricas Multi-critério:** RMSE, MAE, R² Score e Tempo de Processamento Computacional (ms).
+3. **Objetivo Preditivo:** Previsão horária da potência ativa consumida (`power (W)`) no edifício inteligente, utilizando atributos causais (sazonalidade horária, temperatura, geração FV e lags históricos) sem *data leakage*.
+4. **Métricas Multi-critério:** RMSE (W), MAE (W), R² Score, Tempo de Treinamento (ms) e Tempo de Inferência (ms).
 
 ---
 
@@ -46,12 +46,11 @@ energy-demand-forecast/
 
 ---
 
-## 3. Roteiro da Apresentação Executiva (7 Slides / 10 Minutos)
+## 3. Roteiro da Apresentação Executiva (Slides)
 
 - **Slide 1:** Capa Oficial (UFAM / PPGEE / PGENE585 / Prof. Dr. Kenny Vinente / Aldair Azevedo).
-- **Slide 2:** Contexto do Desafio Zenodo: Telemetria de Smart Building e Transição Energética.
-- **Slide 3:** Arquitetura da Solução: Ingestão, agregação horária e engenharia de lags temporais (t-1 e t-24).
-- **Slide 4:** Benchmarking Multi-critério: Ridge Linear vs. Random Forest (R² = 0.900, campeão em acurácia).
-- **Slide 5:** Análise Visual da Curva de Carga e Demanda Líquida (Curva do Pato com 13,53% de cobertura solar).
-- **Slide 6:** Plataforma Web Online (Streamlit Cloud): Retreinamento ao vivo, upload em massa e reset de fábrica.
-- **Slide 7:** Conclusões, Integração com HEMS (Dissertação de Mestrado) e Links Oficiais (App e GitHub).
+- **Slide 2:** O Desafio Oficial (Zenodo 2025): Objetivo único de prever `power (W)` e critérios multi-critério.
+- **Slide 3:** Engenharia de Atributos Causais: Sazonalidade horária, variáveis exógenas, lags autoregressivos e estatísticas móveis.
+- **Slide 4:** Benchmarking Multi-critério: Ridge Linear vs. Random Forest vs. HistGradientBoosting (RMSE, MAE, Treino e Inferência).
+- **Slide 5:** Análise Visual: Consumo Real vs. Previsões Horárias na semana de teste (168h).
+- **Slide 6:** Conclusões & Ecossistema Online (Streamlit Cloud e GitHub).

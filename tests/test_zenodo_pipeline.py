@@ -19,16 +19,19 @@ def mock_zenodo_env(tmp_path):
     cycles_dir.mkdir(parents=True)
     results_dir.mkdir(parents=True)
 
-    # 48 horas de dados (amostras a cada 5 min = 12 * 48 = 576 leituras)
     n_samples = 576
     np.random.seed(42)
+    times = [f"{(i * 5 // 60) % 24:02d}:{(i * 5) % 60:02d}:00" for i in range(n_samples)]
     df = pd.DataFrame(
         {
-            "active_power": 1500.0
+            "time": times,
+            "power (W)": 1500.0
             + 300.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))
             + np.random.normal(0, 50, n_samples),
-            "pv_generation": np.maximum(0, 1000.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))),
-            "temperature": 25.0 + 5.0 * np.cos(np.linspace(0, 4 * np.pi, n_samples)),
+            "voltage (V)": np.full(n_samples, 230.0),
+            "amperage (A)": np.full(n_samples, 6.5),
+            "generation (w)": np.maximum(0, 1000.0 * np.sin(np.linspace(0, 4 * np.pi, n_samples))),
+            "temperature (ºC)": 25.0 + 5.0 * np.cos(np.linspace(0, 4 * np.pi, n_samples)),
         }
     )
     excel_path = data_dir / "data_v1.0.xlsx"
@@ -38,27 +41,25 @@ def mock_zenodo_env(tmp_path):
 
 
 def test_zenodo_pipeline_run(mock_zenodo_env):
-    """Verifica a execução completa do ZenodoPipeline e geração de métricas."""
+    """Verifica a execução completa do ZenodoPipeline e geração de métricas multi-critério."""
     data_dir, cycles_dir, results_dir = mock_zenodo_env
     pipeline = ZenodoPipeline(data_dir, cycles_dir, results_dir)
 
-    result = pipeline.run_cycle_07()
+    result = pipeline.run()
 
-    assert result["cycle_id"] == 7
+    assert result["target_variable"] == "power (W)"
     assert "models_benchmarking" in result
     assert "Ridge_Linear" in result["models_benchmarking"]
     assert "Random_Forest" in result["models_benchmarking"]
+    assert "Hist_Gradient_Boosting" in result["models_benchmarking"]
 
-    metrics_rf = result["models_benchmarking"]["Random_Forest"]["metrics"]
-    assert metrics_rf["rmse"] > 0.0
-    assert metrics_rf["mae"] > 0.0
-    assert "r2" in metrics_rf
+    metrics_hgb = result["models_benchmarking"]["Hist_Gradient_Boosting"]["metrics"]
+    assert metrics_hgb["rmse"] > 0.0
+    assert metrics_hgb["mae"] > 0.0
+    assert "train_time_ms" in metrics_hgb
+    assert "inference_time_ms" in metrics_hgb
 
-    solar = result["solar_energy_impact"]
-    assert solar["mean_consumption_w"] > 0.0
-    assert "solar_coverage_ratio_pct" in solar
-
-    json_path = os.path.join(cycles_dir, "cycle_07_zenodo_smart_building.json")
+    json_path = os.path.join(cycles_dir, "zenodo_forecast_results.json")
     assert os.path.exists(json_path)
 
     fig_path = os.path.join(results_dir, "zenodo_forecast.png")

@@ -1,13 +1,13 @@
-"""Pipeline de previsão de consumo energético para Smart Buildings (Competição Zenodo 2025)."""
+"""Pipeline de previsão de consumo elétrico em Smart Buildings (Competição Zenodo 2025)."""
 
 import os
 import time
-from typing import Any, Dict
+from typing import Any, Dict, List, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
 from sklearn.linear_model import Ridge
 
 from src.core.metrics import MetricsCalculator
@@ -15,7 +15,7 @@ from src.utils.json_io import save_json
 
 
 class ZenodoPipeline:
-    """Orquestra o treinamento e avaliação multi-critério de previsão em Smart Buildings."""
+    """Orquestra o treinamento e avaliação multi-critério de previsão de consumo elétrico."""
 
     def __init__(self, data_dir: str, output_dir: str, results_dir: str) -> None:
         self.data_dir = data_dir
@@ -23,196 +23,230 @@ class ZenodoPipeline:
         self.results_dir = results_dir
         self.main_file = os.path.join(data_dir, "data_v1.0.xlsx")
 
-    def run_cycle_07(self) -> Dict[str, Any]:
-        """Ciclo 07: Previsão em Smart Building, Demanda Líquida e Métricas Multi-critério."""
+    @staticmethod
+    def _find_col(columns: List[str], keyword: str, exclude: str = "") -> str | None:
+        for col in columns:
+            if keyword in col and (not exclude or exclude not in col):
+                return col
+        return None
+
+    @staticmethod
+    def _extract_hours(df: pd.DataFrame, time_col: str | None) -> np.ndarray:
+        if time_col is None:
+            return np.arange(len(df)) % 24
+        parsed = pd.to_datetime(df[time_col].astype(str), format="%H:%M:%S", errors="coerce")
+        if parsed.notna().all():
+            return parsed.dt.hour.to_numpy(dtype=float)
+        return np.arange(len(df)) % 24
+
+    def _prepare_hourly_dataset(self) -> Tuple[np.ndarray, np.ndarray, int]:
+        """Lê a telemetria de 5 min, agrega em base horária e cria atributos causais."""
         df = pd.read_excel(self.main_file)
-
-        # Padroniza nomes das colunas
         df.columns = [c.strip().lower() for c in df.columns]
-        power_col = [c for c in df.columns if "power" in c and "gen" not in c][0]
-        gen_col = [c for c in df.columns if "gen" in c][0]
-        temp_col = [c for c in df.columns if "temp" in c][0]
+        cols = list(df.columns)
 
-        df_clean = df.dropna(subset=[power_col, gen_col, temp_col]).copy()
+        power_col = self._find_col(cols, "power", exclude="gen")
+        gen_col = self._find_col(cols, "gen")
+        temp_col = self._find_col(cols, "temp")
+        volt_col = self._find_col(cols, "volt")
+        amp_col = self._find_col(cols, "amp")
+        time_col = self._find_col(cols, "time")
 
-        # Calcula a Demanda Líquida (Consumo - Geração Solar Fotovoltaica)
-        df_clean["net_power"] = df_clean[power_col] - df_clean[gen_col]
+        required = [c for c in [power_col, gen_col, temp_col] if c is not None]
+        df_clean = df.dropna(subset=required).copy()
+        total_5min_samples = len(df_clean)
 
-        # Amostragem horária (agregação de 12 amostras de 5 min) para treino e validação robustos
-        df_clean["hour_index"] = np.arange(len(df_clean)) // 12
-        hourly = (
-            df_clean.groupby("hour_index")
-            .agg(
-                {
-                    power_col: "mean",
-                    gen_col: "mean",
-                    temp_col: "mean",
-                    "net_power": "mean",
-                }
-            )
-            .reset_index()
+        agg_map: Dict[str, str] = {power_col: "mean"}
+        if gen_col:
+            agg_map[gen_col] = "mean"
+        if temp_col:
+            agg_map[temp_col] = "mean"
+        if volt_col:
+            agg_map[volt_col] = "mean"
+        if amp_col:
+            agg_map[amp_col] = "mean"
+
+        df_clean["hour_bucket"] = np.arange(len(df_clean)) // 12
+        df_clean["hour_of_day"] = self._extract_hours(df_clean, time_col)
+        agg_map["hour_of_day"] = "first"
+
+        hourly = df_clean.groupby("hour_bucket").agg(agg_map).reset_index(drop=True)
+
+        features = pd.DataFrame(index=hourly.index)
+        y_series = hourly[power_col].astype(float)
+
+        hours = hourly["hour_of_day"].astype(float)
+        features["hour_sin"] = np.sin(2.0 * np.pi * hours / 24.0)
+        features["hour_cos"] = np.cos(2.0 * np.pi * hours / 24.0)
+
+        if temp_col:
+            features["temp_c"] = hourly[temp_col].astype(float)
+        if gen_col:
+            features["gen_w"] = hourly[gen_col].astype(float)
+
+        fallback_power = float(y_series.mean()) if len(y_series) > 0 else 0.0
+        for lag in (1, 2, 3, 24, 48, 168):
+            features[f"power_lag_{lag}"] = y_series.shift(lag).bfill().fillna(fallback_power)
+
+        features["power_roll_mean_6"] = (
+            y_series.shift(1).rolling(6, min_periods=1).mean().bfill().fillna(fallback_power)
+        )
+        features["power_roll_mean_24"] = (
+            y_series.shift(1).rolling(24, min_periods=1).mean().bfill().fillna(fallback_power)
+        )
+        features["power_roll_std_24"] = (
+            y_series.shift(1).rolling(24, min_periods=1).std().fillna(0.0)
         )
 
-        y = hourly[power_col].to_numpy()
-        x_temp = hourly[temp_col].to_numpy()
-        x_gen = hourly[gen_col].to_numpy()
+        if volt_col:
+            features["voltage_lag_1"] = hourly[volt_col].astype(float).shift(1).bfill().fillna(0.0)
+        if amp_col:
+            features["amperage_lag_1"] = hourly[amp_col].astype(float).shift(1).bfill().fillna(0.0)
 
-        # Criação de Lags temporais (t-1 e t-24) para previsão em séries temporais
-        lag_1 = np.roll(y, 1)
-        lag_1[0] = y[0]
-        lag_24 = np.roll(y, 24)
-        lag_24[:24] = y[:24]
+        return (
+            features.fillna(0.0).to_numpy(dtype=float),
+            y_series.to_numpy(dtype=float),
+            total_5min_samples,
+        )
 
-        x_matrix = np.column_stack([x_temp, x_gen, lag_1, lag_24])
+    @staticmethod
+    def _train_and_evaluate(
+        model: Any,
+        x_train: np.ndarray,
+        y_train: np.ndarray,
+        x_test: np.ndarray,
+        y_test: np.ndarray,
+    ) -> Tuple[np.ndarray, Dict[str, Any]]:
+        t_train_start = time.perf_counter()
+        model.fit(x_train, y_train)
+        train_time_ms = (time.perf_counter() - t_train_start) * 1000.0
 
-        # Divisão Treino (80%) e Teste (20%)
+        t_inf_start = time.perf_counter()
+        preds = model.predict(x_test)
+        inference_time_ms = (time.perf_counter() - t_inf_start) * 1000.0
+
+        metrics = MetricsCalculator.evaluate_all(
+            y_test,
+            preds,
+            train_time_ms=train_time_ms,
+            inference_time_ms=inference_time_ms,
+        )
+        return preds, metrics
+
+    def run(self) -> Dict[str, Any]:
+        """Executa o pipeline completo de previsão de consumo elétrico (Zenodo 2025)."""
+        x_matrix, y, total_5min_samples = self._prepare_hourly_dataset()
+
         split_idx = int(0.8 * len(y))
         x_train, x_test = x_matrix[:split_idx], x_matrix[split_idx:]
         y_train, y_test = y[:split_idx], y[split_idx:]
 
-        # Modelo 1: Regressão Linear Regularizada (Ridge)
-        t0 = time.perf_counter()
-        ridge_model = Ridge(alpha=1.0)
-        ridge_model.fit(x_train, y_train)
-        time_ridge_ms = (time.perf_counter() - t0) * 1000.0
-        preds_ridge = ridge_model.predict(x_test)
-        metrics_ridge = MetricsCalculator.evaluate_all(
-            y_test, preds_ridge, runtime_ms=time_ridge_ms
-        )
+        models_spec = [
+            ("Ridge_Linear", "Ridge Linear (Baseline)", Ridge(alpha=1.0)),
+            (
+                "Random_Forest",
+                "Random Forest (100 árvores)",
+                RandomForestRegressor(n_estimators=100, max_depth=16, random_state=42, n_jobs=-1),
+            ),
+            (
+                "Hist_Gradient_Boosting",
+                "HistGradientBoosting (Tabular)",
+                HistGradientBoostingRegressor(max_iter=200, learning_rate=0.05, random_state=42),
+            ),
+        ]
 
-        # Modelo 2: Floresta Aleatória Não-Linear (Random Forest)
-        t0 = time.perf_counter()
-        rf_model = RandomForestRegressor(n_estimators=50, random_state=42, n_jobs=-1)
-        rf_model.fit(x_train, y_train)
-        time_rf_ms = (time.perf_counter() - t0) * 1000.0
-        preds_rf = rf_model.predict(x_test)
-        metrics_rf = MetricsCalculator.evaluate_all(y_test, preds_rf, runtime_ms=time_rf_ms)
+        benchmarking: Dict[str, Any] = {}
+        predictions: Dict[str, np.ndarray] = {}
 
-        # Análise de Demanda Líquida nos dados de teste
-        net_test = hourly["net_power"].to_numpy()[split_idx:]
-        solar_generation_test = x_gen[split_idx:]
+        for key, display_name, estimator in models_spec:
+            preds, metrics = self._train_and_evaluate(estimator, x_train, y_train, x_test, y_test)
+            benchmarking[key] = {"name": display_name, "metrics": metrics}
+            predictions[key] = preds
 
-        cycle_07_data = {
-            "cycle_id": 7,
-            "title": "Smart Building: Previsão de Carga e Métricas Multi-critério (Zenodo 2025)",
-            "total_5min_samples": len(df_clean),
-            "total_hourly_samples": len(hourly),
+        best_key = min(benchmarking, key=lambda k: benchmarking[k]["metrics"]["rmse"])
+
+        sample_len = min(168, len(y_test))
+        forecast_data = {
+            "competition": "2025 Competition on Electric Energy Consumption Forecast (Zenodo)",
+            "title": "Previsão de Consumo Elétrico em Smart Building (Zenodo 2025)",
+            "target_variable": "power (W)",
+            "total_5min_samples": total_5min_samples,
+            "total_hourly_samples": len(y),
             "train_samples": len(y_train),
             "test_samples": len(y_test),
-            "models_benchmarking": {
-                "Ridge_Linear": {
-                    "name": "Regressão Ridge com Lags Temporais",
-                    "metrics": metrics_ridge,
-                },
-                "Random_Forest": {
-                    "name": "Random Forest Regressor (50 árvores)",
-                    "metrics": metrics_rf,
-                },
-            },
-            "solar_energy_impact": {
-                "mean_consumption_w": float(np.mean(y_test)),
-                "mean_solar_generation_w": float(np.mean(solar_generation_test)),
-                "mean_net_demand_w": float(np.mean(net_test)),
-                "peak_solar_generation_w": float(np.max(solar_generation_test)),
-                "solar_coverage_ratio_pct": round(
-                    float(np.sum(solar_generation_test) / np.sum(y_test)) * 100.0, 2
-                ),
-            },
+            "mean_test_power_w": round(float(np.mean(y_test)), 2),
+            "best_model_key": best_key,
+            "best_model_name": benchmarking[best_key]["name"],
+            "models_benchmarking": benchmarking,
             "recent_predictions_sample": [
                 {
                     "hour": idx + 1,
                     "real_power_w": round(float(y_test[idx]), 1),
-                    "pred_ridge_w": round(float(preds_ridge[idx]), 1),
-                    "pred_rf_w": round(float(preds_rf[idx]), 1),
-                    "solar_pv_w": round(float(solar_generation_test[idx]), 1),
-                    "net_demand_w": round(float(net_test[idx]), 1),
+                    "pred_ridge_w": round(float(predictions["Ridge_Linear"][idx]), 1),
+                    "pred_rf_w": round(float(predictions["Random_Forest"][idx]), 1),
+                    "pred_hgb_w": round(float(predictions["Hist_Gradient_Boosting"][idx]), 1),
                 }
-                for idx in range(min(168, len(y_test)))  # Amostra de 1 semana (168h)
+                for idx in range(sample_len)
             ],
         }
 
-        out_path = os.path.join(self.output_dir, "cycle_07_zenodo_smart_building.json")
-        save_json(cycle_07_data, out_path)
+        out_path = os.path.join(self.output_dir, "zenodo_forecast_results.json")
+        save_json(forecast_data, out_path)
 
-        # Exporta figura de alta qualidade (300 DPI) para os slides de sábado
         self._export_figure(
-            y_test[:168],
-            preds_ridge[:168],
-            preds_rf[:168],
-            solar_generation_test[:168],
-            net_test[:168],
+            y_test[:sample_len],
+            predictions["Ridge_Linear"][:sample_len],
+            predictions["Random_Forest"][:sample_len],
+            predictions["Hist_Gradient_Boosting"][:sample_len],
         )
-        return cycle_07_data
+        return forecast_data
 
     def _export_figure(
         self,
         y_real: np.ndarray,
         y_pred_ridge: np.ndarray,
         y_pred_rf: np.ndarray,
-        solar_gen: np.ndarray,
-        net_demand: np.ndarray,
+        y_pred_hgb: np.ndarray,
     ) -> None:
-        """Gera e salva gráfico da curva de carga do Smart Building e impacto solar."""
+        """Gera e salva gráfico em 300 DPI comparando consumo real vs. modelos preditivos."""
         os.makedirs(self.results_dir, exist_ok=True)
-        fig, axes = plt.subplots(2, 1, figsize=(15, 8), sharex=True)
+        fig, ax = plt.subplots(figsize=(14, 5.5))
         hours = np.arange(len(y_real))
 
-        # Painel 1: Previsão de Consumo (Real vs Ridge vs Random Forest)
-        axes[0].plot(hours, y_real, label="Consumo Real (W)", color="#1E293B", linewidth=2.0)
-        axes[0].plot(
+        ax.plot(hours, y_real, label="Consumo Real Medido (W)", color="#8B5CF6", linewidth=2.4)
+        ax.plot(
             hours,
-            y_pred_ridge,
-            label="Previsão Ridge Linear (W)",
-            color="#6366F1",
-            linestyle=":",
-            linewidth=1.6,
+            y_pred_hgb,
+            label="HistGradientBoosting (W)",
+            color="#0284C7",
+            linewidth=2.0,
         )
-        axes[0].plot(
+        ax.plot(
             hours,
             y_pred_rf,
-            label="Previsão Random Forest (W)",
+            label="Random Forest (W)",
             color="#059669",
             linestyle="--",
             linewidth=1.8,
         )
-        axes[0].set_title(
-            "Previsão de Carga em Edifício Inteligente (Semana de Teste - 168 horas)",
-            fontsize=12,
-            fontweight="bold",
-        )
-        axes[0].set_ylabel("Potência Elétrica (W)", fontsize=11)
-        axes[0].grid(True, linestyle="--", alpha=0.5)
-        axes[0].legend(loc="upper right", framealpha=0.9)
-
-        # Painel 2: Efeito da Geração Fotovoltaica e a Curva do Pato (Demanda Líquida)
-        axes[1].plot(hours, y_real, label="Demanda Bruta Total (W)", color="#64748B", linewidth=1.5)
-        axes[1].plot(
-            hours, solar_gen, label="Geração Solar FV Telhado (W)", color="#EAB308", linewidth=1.8
-        )
-        axes[1].plot(
+        ax.plot(
             hours,
-            net_demand,
-            label="Demanda Líquida da Rede (W)",
-            color="#059669",
-            linewidth=2.0,
+            y_pred_ridge,
+            label="Ridge Linear (W)",
+            color="#EA580C",
+            linestyle=":",
+            linewidth=1.8,
         )
-        axes[1].fill_between(hours, net_demand, y_real, color="#FEF08A", alpha=0.3)
-        axes[1].set_title(
-            "Impacto da Transição Energética: Geração Solar Distribuída e Demanda Líquida",
-            fontsize=12,
-            fontweight="bold",
-        )
-        axes[1].set_xlabel("Hora da Semana", fontsize=11)
-        axes[1].set_ylabel("Potência (W)", fontsize=11)
-        axes[1].grid(True, linestyle="--", alpha=0.5)
-        axes[1].legend(loc="upper right", framealpha=0.9)
 
-        plt.suptitle(
-            "Competição Zenodo 2025: Previsão de Demanda e Integração Solar em Smart Buildings",
-            fontsize=14,
+        ax.set_title(
+            "Competição Zenodo 2025: Previsão Horária de Consumo Elétrico (Semana de Teste - 168h)",
+            fontsize=13,
             fontweight="bold",
-            y=0.98,
         )
+        ax.set_xlabel("Hora da Amostra de Teste", fontsize=11)
+        ax.set_ylabel("Potência Ativa Consumida (W)", fontsize=11)
+        ax.grid(True, linestyle="--", alpha=0.45)
+        ax.legend(loc="upper right", framealpha=0.95)
         plt.tight_layout()
 
         fig_path = os.path.join(self.results_dir, "zenodo_forecast.png")

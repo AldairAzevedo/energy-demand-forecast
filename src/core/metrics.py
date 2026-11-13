@@ -1,4 +1,4 @@
-"""Módulo para cálculo de métricas quantitativas de acurácia e desempenho."""
+"""Módulo para cálculo de métricas quantitativas de acurácia e desempenho computacional."""
 
 from typing import Any, Dict
 
@@ -40,13 +40,18 @@ class MetricsCalculator:
     def evaluate_all(
         y_true: np.ndarray,
         y_pred: np.ndarray,
-        runtime_ms: float = 0.0,
+        train_time_ms: float = 0.0,
+        inference_time_ms: float = 0.0,
+        runtime_ms: float | None = None,
     ) -> Dict[str, Any]:
-        """Calcula simultaneamente todas as métricas multi-critério."""
+        """Calcula simultaneamente acurácia (RMSE, MAE, R²) e desempenho computacional."""
+        total_ms = runtime_ms if runtime_ms is not None else (train_time_ms + inference_time_ms)
         return {
             "mse": round(MetricsCalculator.mse(y_true, y_pred), 4),
             "rmse": round(MetricsCalculator.rmse(y_true, y_pred), 4),
             "mae": round(MetricsCalculator.mae(y_true, y_pred), 4),
             "r2": round(MetricsCalculator.r2_score(y_true, y_pred), 4),
-            "runtime_ms": round(runtime_ms, 2),
+            "train_time_ms": round(train_time_ms, 2),
+            "inference_time_ms": round(inference_time_ms, 2),
+            "runtime_ms": round(total_ms, 2),
         }
