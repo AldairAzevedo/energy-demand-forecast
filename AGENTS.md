@@ -5,11 +5,10 @@
 
 ---
 
-## 🚨 REGRA CRÍTICA & INVIOLÁVEL: PROIBIÇÃO DE `git push`
+## 🚨 REGRAS CRÍTICAS & INVIOLÁVEIS DE GIT
 
-* **A IA NUNCA DEVE EXECUTAR `git push`**: Você tem permissão **exclusiva** para criar commits locais (`git commit`) na máquina de desenvolvimento.
-* O envio para o repositório remoto (`origin` / GitHub) é uma **decisão e prerrogativa exclusiva e soberana do usuário humano (`AldairAzevedo`)**.
-* Mesmo que o usuário diga "suba no git" ou "atualize o deploy", a IA deve apenas realizar o `git commit` local e instruir o usuário de que o commit foi criado e que o comando `git push` está à disposição dele.
+1. **A IA NUNCA DEVE EXECUTAR `git push`**: O envio para o repositório remoto (`origin` / GitHub) é **terminantemente proibido** para qualquer IA. Somente o usuário humano (`AldairAzevedo`) pode fazer o push.
+2. **A IA SÓ PODE EXECUTAR `git commit` QUANDO SOLICITADA**: A IA está **proibida de fazer commits por iniciativa própria**. Ela só deve criar commits quando o usuário pedir expressamente (ex: *"faça o commit"*, *"pode comitar"*). Caso contrário, as alterações devem permanecer apenas na *working tree*.
 
 ---
 
@@ -31,7 +30,7 @@ Antes de executar qualquer tarefa, consulte os manuais específicos em `rules/`:
    * **Testes Automatizados:** Testes unitários para cálculos matemáticos (`test_metrics.py`, `test_zenodo_pipeline.py`) e de integração para orquestração (`test_integration_cycles.py`).
    * **Aprovação de 100%:** Nenhuma alteração é aceita sem a suíte do `pytest` passando integralmente. Uso obrigatório de `tmp_path` para testes de arquivo.
 5. [**`rules/05_GIT_AND_COMMIT_POLICY.md`**](rules/05_GIT_AND_COMMIT_POLICY.md):
-   * **Conventional Commits:** Mensagens claras em português estruturadas como `<tipo>(<escopo>): <descrição>` (`feat`, `fix`, `refactor`, `test`, `docs`, `chore`).
+   * **Controle Estrito de Commits:** Commits apenas sob demanda expressa do usuário, com Conventional Commits em português e proibição total de push.
 
 ---
 

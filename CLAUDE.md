@@ -3,8 +3,9 @@
 > **INSTRUÇÃO PRIMÁRIA:**  
 > Leia e siga estritamente todas as diretrizes definidas em [**`AGENTS.md`**](AGENTS.md) e no diretório [**`rules/`**](rules/README.md).
 
-## 🚨 REGRA INVIOLÁVEL: PROIBIÇÃO DE `git push`
-* **NUNCA EXECUTE `git push`**: Apenas commits locais (`git commit`) são permitidos à IA. O push remoto é exclusivo do usuário (`AldairAzevedo`).
+## 🚨 REGRAS CRÍTICAS & INVIOLÁVEIS DE GIT:
+* **NUNCA EXECUTE `git push`**: O envio remoto é exclusivo do usuário (`AldairAzevedo`).
+* **COMMITS APENAS SOB DEMANDA EXPLÍCITA**: A IA está proibida de fazer commits por conta própria; só commite quando o usuário pedir expressamente.
 
 ## 📚 Arquivos de Regras Obrigatórios:
 - `rules/01_ARCHITECTURE_SOLID.md`: Arquitetura Monolítica em camadas e POO com SOLID.

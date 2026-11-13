@@ -1,26 +1,36 @@
-# 🛑 05. Política de Git, Commits e Regra Inviolável de Push
+# 🛑 05. Política de Git, Commits e Regras Invioláveis de Controle de Versão
 
 Este documento estabelece as regras estritas de controle de versão para qualquer modelo de Inteligência Artificial ou ferramenta de desenvolvimento operando neste repositório.
 
 ---
 
-## 🚨 REGRA INVIOLÁVEL: PROIBIÇÃO ABSOLUTA DE `git push` PELA IA
+## 🚨 REGRAS INVIOLÁVEIS DE GIT PARA A IA
 
 > [!CAUTION]
-> **A IA (QUALQUER MODELO OU AGENTE) ESTÁ TERMINANTEMENTE PROIBIDA DE EXECUTAR `git push` PARA QUALQUER REMOTO (`origin`, `upstream`, ETC.).**
+> **1. PROIBIÇÃO TOTAL DE `git push` PELA IA:**  
+> A IA (qualquer modelo ou agente) está **TERMINANTEMENTE PROIBIDA** de executar `git push` para qualquer repositório remoto (`origin`, `upstream`, etc.). Apenas o usuário humano (`AldairAzevedo`) tem permissão de realizar o push.
 
-1. **Permissão Restrita a Commits Locais:**  
-   A IA tem autorização **exclusivamente** para preparar o *stage* (`git add`) e criar commits locais (`git commit`) na máquina de desenvolvimento.
-2. **Soberania do Usuário:**  
-   O envio das alterações para o GitHub (`git push`) é uma decisão **exclusiva do usuário humano (`AldairAzevedo`)**. Ele é quem revisa, julga o momento oportuno e dispara o push.
-3. **Comportamento em Falhas ou Dúvidas:**  
-   Mesmo que o usuário diga "salve no git" ou "suba as alterações", a IA deve apenas realizar o `git commit` local e informar ao usuário que o commit foi criado com sucesso e que o comando `git push` está à disposição para quando ele desejar executar.
+> [!CAUTION]
+> **2. PROIBIÇÃO DE `git commit` SEM ORDEM EXPLÍCITA:**  
+> A IA está **PROIBIDA DE FAZER COMMITS POR INICIATIVA PRÓPRIA**.  
+> A IA só pode executar `git commit` quando o usuário pedir de forma **direta e explícita** (ex: *"faça o commit"*, *"pode comitar as alterações"*). Caso o usuário não tenha pedido expressamente o commit, as alterações devem permanecer apenas no ambiente de trabalho (*working tree*), prontas para inspeção.
 
 ---
 
-## 📝 Padrões de Mensagens de Commit (Conventional Commits)
+## 📋 Resumo das Permissões de Git da IA
 
-Todas as mensagens de commit devem ser escritas de forma clara, contextualizada e seguindo o padrão **Conventional Commits**:
+| Operação | IA pode executar? | Condição |
+| :--- | :---: | :--- |
+| `git status` / `git diff` / `git log` | ✅ **SIM** | Livremente para inspeção do estado do repositório. |
+| `git add` | ⚠️ **CONDICIONADO** | Apenas quando preparando o commit expressamente solicitado pelo usuário. |
+| `git commit` | 🛑 **RESTRITO** | **SOMENTE quando o usuário solicitar explicitamente**. Nunca por iniciativa própria. |
+| `git push` | ❌ **PROIBIDO** | **TERMINANTEMENTE PROIBIDO EM QUALQUER HIPÓTESE**. Somente o usuário faz push. |
+
+---
+
+## 📝 Padrões de Mensagens de Commit (Quando Solicitado pelo Usuário)
+
+Quando o usuário autorizar/solicitar a criação do commit, a mensagem deve ser clara, contextualizada e seguir o padrão **Conventional Commits**:
 
 ### Estrutura Obrigatória:
 ```text

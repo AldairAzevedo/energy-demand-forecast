@@ -9,6 +9,6 @@
 # 5. rules/04_TESTING_STANDARDS.md (Testes unitários e integração via pytest)
 # 6. rules/05_GIT_AND_COMMIT_POLICY.md (Conventional Commits)
 
-# REGRA INVIOLÁVEL:
-# A IA está TERMINANTEMENTE PROIBIDA de executar `git push`. Apenas commits locais (`git commit`) são permitidos.
-# O envio para o remoto é exclusivo do usuário (AldairAzevedo).
+# REGRAS CRÍTICAS DE GIT:
+# 1. A IA está TERMINANTEMENTE PROIBIDA de executar `git push`. Apenas o usuário (AldairAzevedo) faz push.
+# 2. A IA só pode executar `git commit` quando o usuário solicitar expressamente. Proibido comitar por iniciativa própria.
