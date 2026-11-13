@@ -25,6 +25,7 @@ energy-demand-forecast/
 ├── docs/                     # Documentação e enunciado (zenodo.pdf)
 ├── results/                  # Figuras renderizadas em 300 DPI para publicação
 ├── presentation/             # Apresentação em slides
+├── rules/                    # Diretrizes obrigatórias de governança para IAs (SOLID, Clean Code, Git)
 ├── src/
 │   ├── core/                 # Domínio e matemática: perdas, modelos e métricas
 │   ├── pipelines/            # Orquestrador ZenodoPipeline e CLI CycleManager
