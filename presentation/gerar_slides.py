@@ -196,7 +196,7 @@ def build_presentation(base_dir: str) -> str:
         (
             "Definição de Demanda Líquida (Net Load):",
             " Representa a energia efetivamente demandada da concessionária, calculada como "
-            "P_líquida = P_consumo − P_solar.",
+            "P_líquida = P_consumo - P_solar.",
         ),
         (
             "Impacto nos Mercados de Energia:",
