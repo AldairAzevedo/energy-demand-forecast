@@ -184,13 +184,15 @@ def _build_learning_summary_rows(bench: Dict[str, Any]) -> List[Dict[str, Any]]:
         rows.append(
             {
                 "Posição": format_rank_badge(idx),
-                "Modelo": info.get("name", key),
+                "Modelo": charts_module.MODEL_UI_META.get(key, {}).get(
+                    "short", info.get("name", key)
+                ),
                 "Nota Multi-Critério": f"{te.get('multi_criteria_score', 0.0):.1f}/100",
                 "RMSE Treino (W)": tr.get("rmse", "-"),
                 "RMSE Teste (W)": te.get("rmse", "-"),
                 "R² Treino": f"{float(tr.get('r2', 0.0)) * 100:.1f}%",
                 "R² Teste": f"{float(te.get('r2', 0.0)) * 100:.1f}%",
-                "Acerto ≤ 200W": f"{err.get('hit_rate_200w_pct', 0.0):.1f}%",
+                "Acerto ≤ 200 W": f"{err.get('hit_rate_200w_pct', 0.0):.1f}%",
                 "Diagnóstico": diag.get("status", "-"),
             }
         )
@@ -224,7 +226,7 @@ def _render_diagnostics_tab(zenodo_data: Dict[str, Any]) -> None:
 
     summary_rows = _build_learning_summary_rows(bench)
     if summary_rows:
-        st.dataframe(pd.DataFrame(summary_rows), width="stretch", hide_index=True)
+        components_module.render_explained_dataframe(pd.DataFrame(summary_rows))
 
     with st.expander("🔎 Ver Top 5 Maiores Acertos e Maiores Erros no Teste (Por Modelo)"):
         diag_model = st.selectbox(
@@ -239,12 +241,12 @@ def _render_diagnostics_tab(zenodo_data: Dict[str, Any]) -> None:
             st.markdown("**✅ Top 5 Maiores Acertos (Menor Desvio)**")
             best_cases = err_diag.get("top_best_hours", [])
             if best_cases:
-                st.dataframe(pd.DataFrame(best_cases), width="stretch", hide_index=True)
+                components_module.render_explained_dataframe(pd.DataFrame(best_cases))
         with c_worst:
             st.markdown("**⚠️ Top 5 Maiores Erros (Maior Desvio)**")
             worst_cases = err_diag.get("top_worst_hours", [])
             if worst_cases:
-                st.dataframe(pd.DataFrame(worst_cases), width="stretch", hide_index=True)
+                components_module.render_explained_dataframe(pd.DataFrame(worst_cases))
 
 
 def _render_essential_hyperparams(
@@ -497,7 +499,7 @@ def _render_model_form(
         with st.expander("🧭 Guia Rápido: Hiperparâmetros de ML vs. Covariáveis"):
             df_tax = pd.DataFrame(get_parameter_taxonomy())[["variavel", "escopo", "mutabilidade"]]
             df_tax.columns = ["Variável / Hiperparâmetro", "Classificação", "Controle"]
-            st.dataframe(df_tax, width="stretch", hide_index=True)
+            components_module.render_explained_dataframe(df_tax)
 
     return sanitize_model_config(
         model_key,
@@ -657,7 +659,9 @@ def _format_best_rows(champions_map: Dict[str, Any]) -> List[Dict[str, Any]]:
         rows.append(
             {
                 "Posição": format_rank_badge(idx),
-                "Modelo": entry.get("display_name", key),
+                "Modelo": charts_module.MODEL_UI_META.get(key, {}).get(
+                    "short", entry.get("display_name", key)
+                ),
                 "Nota Multi-Critério": f"{metrics.get('multi_criteria_score', 0.0):.1f}/100",
                 "RMSE Treino (W)": tr_metrics.get("rmse", "-"),
                 "RMSE Teste (W)": metrics.get("rmse", "-"),
@@ -702,14 +706,16 @@ def _format_history_rows(runs: List[Dict[str, Any]], active_run_id: str) -> List
                 {
                     "Run ID": rid_label,
                     "Cenário": SCENARIO_SHORT_LABELS.get(sc, sc),
-                    "Modelo": MODEL_DISPLAY_NAMES[key],
-                    "Nota Multi": f"{metrics.get('multi_criteria_score', 0.0):.1f}",
+                    "Modelo": charts_module.MODEL_UI_META.get(key, {}).get(
+                        "short", MODEL_DISPLAY_NAMES[key]
+                    ),
+                    "Nota Multi-Critério": f"{metrics.get('multi_criteria_score', 0.0):.1f}/100",
                     "RMSE Treino (W)": tr_metrics.get("rmse", "-"),
                     "RMSE Teste (W)": metrics.get("rmse", "-"),
                     "Δ vs Anterior": _format_delta_label(m_info.get("delta_vs_prev_rmse_w")),
-                    "Acerto ≤200W": f"{err_diag.get('hit_rate_200w_pct', 0.0):.1f}%",
+                    "Acerto ≤ 200 W": f"{err_diag.get('hit_rate_200w_pct', 0.0):.1f}%",
                     "Diagnóstico": diag.get("status", "-"),
-                    "Lags": str(feat.get("power_lags", [])),
+                    "Lags (h)": str(feat.get("power_lags", [])),
                     "Recorde?": "🏆 Sim" if m_info.get("new_record") else "Não",
                 }
             )
@@ -737,13 +743,13 @@ def _render_history_tab(
     st.markdown(f"#### 🏆 Campeões em `{sc_label}` — {SELECTION_CRITERIA[criterion]}")
     best_rows = _format_best_rows(champions_map)
     if best_rows:
-        st.dataframe(pd.DataFrame(best_rows), width="stretch", hide_index=True)
+        components_module.render_explained_dataframe(pd.DataFrame(best_rows))
 
     runs = manager.db.load_experiment_runs()
     st.markdown("#### 🧪 Histórico de Rodadas (`experiment_runs.json`)")
     history_rows = _format_history_rows(runs, active_run_id=active_run_id)
     if history_rows:
-        st.dataframe(pd.DataFrame(history_rows), width="stretch", hide_index=True)
+        components_module.render_explained_dataframe(pd.DataFrame(history_rows))
 
         run_ids = [str(r.get("run_id")) for r in runs if r.get("run_id")]
         if run_ids:

@@ -261,14 +261,14 @@ def _render_forecast_page(zenodo_data: Dict[str, Any], root_dir: str) -> None:
         )
     with col3:
         components_module.render_kpi_card(
-            "Aderência Global (R²)",
+            "Aderência Global — R² (Maior = Melhor)",
             f"{best_metrics.get('r2', 0) * 100:.1f}%",
             f"Consumo médio real: {zenodo_data.get('mean_test_power_w', 0):.0f} W",
             accent_color=palette.get(best_key, palette["Hist_Gradient_Boosting"]),
         )
     with col4:
         components_module.render_kpi_card(
-            "Velocidade Total (Treino + Previsão)",
+            "Velocidade — Tempo Total (Menor = Melhor)",
             f"{best_metrics.get('runtime_ms', 0):.1f} ms",
             (
                 f"Treino: {best_metrics.get('train_time_ms', 0):.1f} ms · "
@@ -328,17 +328,17 @@ def _render_forecast_page(zenodo_data: Dict[str, Any], root_dir: str) -> None:
         b_rows.append(
             {
                 "Posição": diagnostics_module.format_rank_badge(idx),
-                "Modelo Preditivo": f"{meta.get('short', b_info.get('name', m_key))}",
-                "Nota (0–100)": f"{float(bm.get('multi_criteria_score', 0.0)):.2f}",
-                "Erro RMSE (W)": bm["rmse"],
-                "Erro MAE (W)": bm["mae"],
+                "Modelo": f"{meta.get('short', b_info.get('name', m_key))}",
+                "Nota Multi-Critério": f"{float(bm.get('multi_criteria_score', 0.0)):.1f}/100",
+                "RMSE Teste (W)": bm["rmse"],
+                "MAE Teste (W)": bm["mae"],
                 "Aderência (R²)": f"{bm['r2'] * 100:.1f}%",
                 "Treino (ms)": bm["train_time_ms"],
                 "Inferência (ms)": bm["inference_time_ms"],
                 "Tempo Total (ms)": bm["runtime_ms"],
             }
         )
-    st.dataframe(pd.DataFrame(b_rows), width="stretch", hide_index=True)
+    components_module.render_explained_dataframe(pd.DataFrame(b_rows))
     st.caption(
         "💡 **Guia rápido:** Menor **RMSE** e **MAE** indicam previsões mais próximas da "
         "realidade em Watts; menor **Tempo Total** indica maior eficiência computacional."

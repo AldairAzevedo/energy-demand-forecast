@@ -15,6 +15,10 @@ Este documento estabelece as regras estritas de controle de versão para qualque
 > A IA está **PROIBIDA DE FAZER COMMITS POR INICIATIVA PRÓPRIA**.  
 > A IA só pode executar `git commit` quando o usuário pedir de forma **direta e explícita** (ex: *"faça o commit"*, *"pode comitar as alterações"*). Caso o usuário não tenha pedido expressamente o commit, as alterações devem permanecer apenas no ambiente de trabalho (*working tree*), prontas para inspeção.
 
+> [!IMPORTANT]
+> **3. STAGE COMPLETO OBRIGATÓRIO (`git add .`):**  
+> Sempre que o usuário solicitar um commit, a IA **DEVE** executar **`git add .`** para incluir **todas** as alterações e arquivos novos da aplicação no commit (respeitando apenas o que está listado no `.gitignore`), evitando deixar modificações pendentes no *working tree*.
+
 ---
 
 ## 📋 Resumo das Permissões de Git da IA
@@ -22,7 +26,7 @@ Este documento estabelece as regras estritas de controle de versão para qualque
 | Operação | IA pode executar? | Condição |
 | :--- | :---: | :--- |
 | `git status` / `git diff` / `git log` | ✅ **SIM** | Livremente para inspeção do estado do repositório. |
-| `git add` | ⚠️ **CONDICIONADO** | Apenas quando preparando o commit expressamente solicitado pelo usuário. |
+| `git add .` | ⚠️ **CONDICIONADO** | **Obrigatório comitar tudo via `git add .`**, exclusivamente quando preparando o commit expressamente solicitado pelo usuário. |
 | `git commit` | 🛑 **RESTRITO** | **SOMENTE quando o usuário solicitar explicitamente**. Nunca por iniciativa própria. |
 | `git push` | ❌ **PROIBIDO** | **TERMINANTEMENTE PROIBIDO EM QUALQUER HIPÓTESE**. Somente o usuário faz push. |
 

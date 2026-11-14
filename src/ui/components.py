@@ -215,3 +215,198 @@ def render_loading_backdrop(message: str) -> Any:
         unsafe_allow_html=True,
     )
     return slot
+
+
+TABLE_COLUMN_METADATA: Dict[str, Tuple[str, str]] = {
+    "Posição": (
+        "Posição",
+        (
+            "Classificação dinâmica do modelo neste cenário pelo critério Multi-Critério "
+            "(1º Campeão → 3º)."
+        ),
+    ),
+    "Modelo": (
+        "Modelo",
+        "Algoritmo preditivo avaliado (HistGradientBoosting, Random Forest ou Ridge Linear).",
+    ),
+    "Nota Multi-Critério": (
+        "Nota Multi-Critério",
+        (
+            "Pontuação oficial de 0 a 100: Acurácia no teste (80%), Equilíbrio Treino–Teste "
+            "(15%) e Velocidade (5%)."
+        ),
+    ),
+    "RMSE Teste (W)": (
+        "RMSE Teste (W)",
+        (
+            "Raiz do Erro Quadrático Médio no teste (Watts). Penaliza erros grandes; "
+            "menor = melhor."
+        ),
+    ),
+    "RMSE Treino (W)": (
+        "RMSE Treino (W)",
+        (
+            "Raiz do Erro Quadrático Médio no treino (Watts). Muito menor que o RMSE Teste "
+            "indica overfitting."
+        ),
+    ),
+    "MAE Teste (W)": (
+        "MAE Teste (W)",
+        (
+            "Erro Médio Absoluto no teste: desvio médio por hora (Watts) frente ao consumo "
+            "real; menor = melhor."
+        ),
+    ),
+    "Aderência (R²)": (
+        "Aderência (R²)",
+        (
+            "Coeficiente de Determinação R² no teste: percentual da variação real explicado "
+            "pelo modelo; maior = melhor."
+        ),
+    ),
+    "R² Treino": (
+        "R² Treino",
+        "Coeficiente de Determinação R² nos dados de treino (mede o ajuste ao passado).",
+    ),
+    "R² Teste": (
+        "R² Teste",
+        "Coeficiente de Determinação R² nos dados inéditos (mede a generalização real).",
+    ),
+    "Treino (ms)": (
+        "Treino (ms)",
+        (
+            "Tempo computacional em milissegundos gasto para ajustar o modelo nos dados "
+            "históricos."
+        ),
+    ),
+    "Inferência (ms)": (
+        "Inferência (ms)",
+        (
+            "Tempo computacional em milissegundos para gerar todas as previsões 1h no "
+            "conjunto de teste."
+        ),
+    ),
+    "Tempo Total (ms)": (
+        "Tempo Total (ms)",
+        "Soma de treino + inferência em milissegundos; menor = maior eficiência computacional.",
+    ),
+    "Acerto ≤ 200 W": (
+        "Acerto ≤ 200 W",
+        (
+            "Percentual de horas do conjunto de teste em que o erro absoluto ficou dentro "
+            "de ±200 W."
+        ),
+    ),
+    "Diagnóstico": (
+        "Diagnóstico",
+        (
+            "Classificação automática Treino vs. Teste (Bom Ajuste, Leve Sobreajuste, "
+            "Overfitting ou Underfitting)."
+        ),
+    ),
+    "Lags (h)": (
+        "Lags (h)",
+        (
+            "Janelas de memória autoregressiva em horas passadas (ex.: 1 = 1h atrás, "
+            "24 = ontem, 168 = semana passada)."
+        ),
+    ),
+    "Nº Variáveis": (
+        "Nº Variáveis",
+        (
+            "Total de atributos de entrada (temporais + covariáveis) efetivamente usados "
+            "pelo modelo."
+        ),
+    ),
+    "Run ID": (
+        "Run ID",
+        (
+            "Identificador sequencial único da rodada experimental registrada no banco "
+            "JSON (data/db/)."
+        ),
+    ),
+    "Cenário": (
+        "Cenário",
+        (
+            "Protocolo de validação usado na rodada (v1.0 Split Interno, v1 → v2 ou "
+            "v1+v2 → v4 Oficial)."
+        ),
+    ),
+    "Δ vs Anterior": (
+        "Δ vs Anterior",
+        (
+            "Diferença de RMSE Teste (W) frente à rodada anterior; valores negativos "
+            "(verde) indicam melhora."
+        ),
+    ),
+    "Recorde?": (
+        "Recorde?",
+        (
+            "Indica se esta rodada registrou novo recorde Multi-Critério para este modelo "
+            "no cenário."
+        ),
+    ),
+    "test_hour_index": (
+        "Hora Pós-Corte",
+        "Posição sequencial da hora após o Ponto de Corte dentro do conjunto de teste.",
+    ),
+    "hour_of_day": (
+        "Hora do Dia (h)",
+        "Horário do relógio (0h a 23h) correspondente à medição horária.",
+    ),
+    "real_w": (
+        "Consumo Real (W)",
+        "Potência média horária realmente consumida e medida no edifício nessa hora.",
+    ),
+    "pred_w": (
+        "Previsão (W)",
+        "Potência média horária prevista 1h à frente pelo modelo inspecionado.",
+    ),
+    "abs_error_w": (
+        "Erro Absoluto (W)",
+        "Módulo da diferença |Previsão − Real| em Watts nessa hora específica.",
+    ),
+    "Variável / Hiperparâmetro": (
+        "Variável / Hiperparâmetro",
+        (
+            "Nome do atributo de entrada (lag, média móvel, relógio, covariável) ou "
+            "parâmetro de aprendizado."
+        ),
+    ),
+    "Classificação": (
+        "Classificação",
+        (
+            "Separação científica entre Hiperparâmetro de ML / Engenharia Temporal e "
+            "Covariável física real."
+        ),
+    ),
+    "Controle": (
+        "Controle",
+        (
+            "Indica onde na interface (Laboratório ou Gráfico Principal) esse parâmetro "
+            "pode ser ajustado."
+        ),
+    ),
+}
+
+
+def build_table_column_config(columns: Any) -> Dict[str, Any]:
+    """Gera st.column_config com rótulo e tooltip explicativo para cada coluna."""
+    config: Dict[str, Any] = {}
+    for col in columns:
+        col_str = str(col)
+        if col_str in TABLE_COLUMN_METADATA:
+            label, help_text = TABLE_COLUMN_METADATA[col_str]
+            config[col_str] = st.column_config.Column(label=label, help=help_text)
+    return config
+
+
+def render_explained_dataframe(df: Any) -> None:
+    """Renderiza DataFrame Streamlit com tooltips explicativos em todas as colunas."""
+    columns = list(getattr(df, "columns", []))
+    st.dataframe(
+        df,
+        width="stretch",
+        hide_index=True,
+        column_config=build_table_column_config(columns),
+    )

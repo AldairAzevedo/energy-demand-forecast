@@ -1,6 +1,6 @@
 {
   "schema_version": "1.2.0",
-  "updated_at": "2026-11-14T06:11:37+00:00",
+  "updated_at": "2026-11-14T06:18:11+00:00",
   "configs": {
     "Ridge_Linear": {
       "model_key": "Ridge_Linear",
@@ -28,7 +28,7 @@
         "use_electrical_lags": true
       },
       "split": {
-        "evaluation_scenario": "v1_to_v2",
+        "evaluation_scenario": "v1_internal_split",
         "train_ratio": 0.8,
         "random_state": 42,
         "context_hours": 72,
@@ -64,7 +64,7 @@
         "use_electrical_lags": true
       },
       "split": {
-        "evaluation_scenario": "v1_to_v2",
+        "evaluation_scenario": "v1_internal_split",
         "train_ratio": 0.8,
         "random_state": 42,
         "context_hours": 72,
@@ -102,7 +102,7 @@
         "use_electrical_lags": true
       },
       "split": {
-        "evaluation_scenario": "v1_to_v2",
+        "evaluation_scenario": "v1_internal_split",
         "train_ratio": 0.8,
         "random_state": 42,
         "context_hours": 72,

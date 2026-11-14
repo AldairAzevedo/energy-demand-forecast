@@ -396,9 +396,10 @@ def build_train_vs_test_chart(forecast_data: Dict[str, Any]) -> go.Figure:
     train_r2s: list[float] = []
     test_r2s: list[float] = []
 
-    for idx, (_, info) in enumerate(rank_benchmarking_models(bench)):
+    for idx, (m_key, info) in enumerate(rank_benchmarking_models(bench)):
         prefix = "🏆 1º " if idx == 0 else f"{idx + 1}º "
-        model_names.append(f"{prefix}{info.get('name', '-')}")
+        short_name = MODEL_UI_META.get(m_key, {}).get("short", info.get("name", m_key))
+        model_names.append(f"{prefix}{short_name}")
         train_m = info.get("train_metrics", {})
         test_m = info.get("metrics", {})
         train_rmses.append(float(train_m.get("rmse", 0.0)))
@@ -428,9 +429,9 @@ def build_train_vs_test_chart(forecast_data: Dict[str, Any]) -> go.Figure:
     )
 
     fig.update_layout(
-        title="Aprendizado: Erro RMSE no Treino vs. Teste (Menor = Melhor)",
+        title="Aprendizado: Erro no Treino vs. Teste — RMSE (Menor = Melhor)",
         barmode="group",
-        yaxis_title="Erro RMSE (W)",
+        yaxis_title="Erro Típico — RMSE (W)",
         paper_bgcolor="rgba(0, 0, 0, 0)",
         plot_bgcolor="rgba(0, 0, 0, 0)",
         xaxis=dict(gridcolor="rgba(148, 163, 184, 0.22)"),
@@ -454,15 +455,16 @@ def build_period_error_chart(forecast_data: Dict[str, Any]) -> go.Figure:
         if not periods:
             continue
         prefix = "🏆 1º " if idx == 0 else f"{idx + 1}º "
+        short_name = MODEL_UI_META.get(key, {}).get("short", info.get("name", key))
         fig.add_trace(
             go.Bar(
-                name=f"{prefix}{info.get('name', key)}",
+                name=f"{prefix}{short_name}",
                 x=[p["period"] for p in periods],
                 y=[p["mae_w"] for p in periods],
                 marker_color=COLOR_PALETTE.get(key, "#8B5CF6"),
                 customdata=[p["hit_rate_200w_pct"] for p in periods],
                 hovertemplate=(
-                    f"{info.get('name', key)}<br>"
+                    f"{short_name}<br>"
                     "MAE: <b>%{y:.1f} W</b><br>"
                     "Acerto ≤ 200 W: <b>%{customdata:.1f}%</b><extra></extra>"
                 ),
@@ -470,9 +472,9 @@ def build_period_error_chart(forecast_data: Dict[str, Any]) -> go.Figure:
         )
 
     fig.update_layout(
-        title="Onde Cada Modelo Erra Mais por Período do Dia (MAE em W)",
+        title="Erro por Período do Dia — MAE (Menor = Melhor)",
         barmode="group",
-        yaxis_title="Erro Médio Absoluto — MAE (W)",
+        yaxis_title="Erro Médio — MAE (W)",
         paper_bgcolor="rgba(0, 0, 0, 0)",
         plot_bgcolor="rgba(0, 0, 0, 0)",
         xaxis=dict(gridcolor="rgba(148, 163, 184, 0.22)"),
