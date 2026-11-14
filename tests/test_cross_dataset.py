@@ -14,7 +14,7 @@ from src.core.forecasting import (
 )
 from src.core.parameter_schema import get_default_all_configs
 from src.pipelines.cycle_manager import CycleManager
-from src.pipelines.dataset_loader import load_hourly_series, load_v4_days
+from src.pipelines.dataset_loader import clear_dataset_caches, load_hourly_series, load_v4_days
 from src.ui.charts import MODEL_UI_META, build_zenodo_chart
 from src.utils.json_io import load_json
 
@@ -187,3 +187,48 @@ def test_cross_dataset_scenarios_cutoff_charts_and_compact(full_cross_dataset_en
         os.path.join(full_cross_dataset_env, "data", "db", "zenodo_forecast_results.json")
     )
     assert snap["active_run_id"] == "run_0001"
+
+
+def test_hourly_cache_roundtrip_and_invalidation(tmp_path):
+    """Garante paridade total do cache CSV/meta e invalidação via SHA-256 ao alterar o .xlsx."""
+    xlsx_path = tmp_path / "data_v1.0.xlsx"
+    _write_5min_excel(str(xlsx_path), hours=24, temp_col_name="temperature (ºC)", base_power=1200.0)
+
+    clear_dataset_caches()
+    df_xlsx, map_xlsx, count_xlsx = load_hourly_series(str(xlsx_path), dataset_tag="v1")
+    cache_dir = tmp_path / "_hourly_cache"
+    assert (cache_dir / "data_v1.0__v1.csv").exists()
+    assert (cache_dir / "data_v1.0__v1.meta.json").exists()
+
+    clear_dataset_caches()
+    df_csv, map_csv, count_csv = load_hourly_series(str(xlsx_path), dataset_tag="v1")
+    pd.testing.assert_frame_equal(df_xlsx, df_csv, rtol=1e-12, atol=1e-12)
+    assert map_csv == map_xlsx
+    assert count_csv == count_xlsx
+
+    # Alterar conteúdo do .xlsx deve invalidar o cache SHA-256 automaticamente
+    _write_5min_excel(str(xlsx_path), hours=24, temp_col_name="temperature (ºC)", base_power=2500.0)
+    clear_dataset_caches()
+    df_updated, _, _ = load_hourly_series(str(xlsx_path), dataset_tag="v1")
+    assert float(df_updated["power (w)"].mean()) > float(df_csv["power (w)"].mean()) + 900.0
+
+
+def test_pipeline_optional_figure_and_memory_replay(full_cross_dataset_env):
+    """Modo UI (export_figure=False) evita PNG 300 DPI mas preserva resultados e export CLI."""
+    manager = CycleManager(full_cross_dataset_env)
+    fig_path = os.path.join(full_cross_dataset_env, "results", "zenodo_forecast.png")
+    if os.path.exists(fig_path):
+        os.remove(fig_path)
+
+    cfg = get_default_all_configs()
+    res_fast = manager.run_all(model_configs=cfg, export_figure=False)
+    assert not os.path.exists(fig_path)
+
+    res_replay = manager.run_all(model_configs=cfg, export_figure=False)
+    assert (
+        res_replay["forecast"]["models_benchmarking"]["Hist_Gradient_Boosting"]["metrics"]["rmse"]
+        == res_fast["forecast"]["models_benchmarking"]["Hist_Gradient_Boosting"]["metrics"]["rmse"]
+    )
+
+    manager.run_all(model_configs=cfg, export_figure=True)
+    assert os.path.exists(fig_path)

@@ -1,0 +1,1394 @@
+{
+  "competition": "2025 Competition on Electric Energy Consumption Forecast (Zenodo)",
+  "title": "Previsão de Consumo Elétrico em Smart Building (Zenodo 2025)",
+  "target_variable": "power (W)",
+  "evaluation_scenario": "v1_v2_to_v4",
+  "scenario_label": "Cross-Dataset Oficial: Treino v1+v2 → Teste v4",
+  "cutoff_label": "Corte após Dia 1 (24h) de v4 → Teste Dias 2–3 (48h)",
+  "has_generation": false,
+  "active_covariates": {
+    "use_temperature": true,
+    "use_generation": false
+  },
+  "active_run_id": "-",
+  "context_hours": 24,
+  "horizon_hours": 48,
+  "total_5min_samples": 116712,
+  "total_hourly_samples": 9792,
+  "train_samples": 9720,
+  "test_samples": 48,
+  "mean_test_power_w": 2616.56,
+  "best_model_key": "Ridge_Linear",
+  "best_model_name": "Ridge Linear (Baseline)",
+  "parameter_taxonomy": [
+    {
+      "variavel": "power_lags (t-k horas)",
+      "escopo": "Global de ML (Hiperparâmetro · Memória)",
+      "mutabilidade": "Hiperparâmetro Configurável",
+      "origem": "Derivada de power (W) passado",
+      "descricao": "Memória autoregressiva (ex.: 1h, 24h, 168h atrás)."
+    },
+    {
+      "variavel": "rolling_mean_windows",
+      "escopo": "Global de ML (Hiperparâmetro · Memória)",
+      "mutabilidade": "Hiperparâmetro Configurável",
+      "origem": "Derivada de power (W) passado",
+      "descricao": "Média móvel das últimas N horas para capturar patamar."
+    },
+    {
+      "variavel": "rolling_std_windows",
+      "escopo": "Global de ML (Hiperparâmetro · Memória)",
+      "mutabilidade": "Hiperparâmetro Configurável",
+      "origem": "Derivada de power (W) passado",
+      "descricao": "Desvio padrão móvel para medir volatilidade recente."
+    },
+    {
+      "variavel": "hour_sin / hour_cos",
+      "escopo": "Global de ML (Hiperparâmetro · Eng. Cíclica)",
+      "mutabilidade": "Hiperparâmetro (Ativar/Desativar)",
+      "origem": "Derivada de time",
+      "descricao": "Codifica a hora em círculo (23h vizinho de 0h)."
+    },
+    {
+      "variavel": "hour_raw (0..23)",
+      "escopo": "Global de ML (Hiperparâmetro · Eng. Temporal)",
+      "mutabilidade": "Hiperparâmetro (Ativar/Desativar)",
+      "origem": "Derivada de time",
+      "descricao": "Hora numérica linear para comparar com sin/cos."
+    },
+    {
+      "variavel": "evaluation_scenario / train_ratio / cutoff",
+      "escopo": "Global de ML (Protocolo de Validação)",
+      "mutabilidade": "Hiperparâmetro do Experimento",
+      "origem": "Configuração do corte",
+      "descricao": "Cenário cross-dataset, proporção de treino e janela pré/pós-corte."
+    },
+    {
+      "variavel": "Hiperparâmetros do Algoritmo",
+      "escopo": "Global de ML (Modelo Preditivo)",
+      "mutabilidade": "Hiperparâmetro Configurável",
+      "origem": "Algoritmo (Ridge, RF, HGB)",
+      "descricao": "Regularização, nº de árvores, profundidade e taxa de aprendizado."
+    },
+    {
+      "variavel": "temp_c (temperature ºC)",
+      "escopo": "Domínio (Covariável Exógena · Clima)",
+      "mutabilidade": "Covariável Imutável (On/Off)",
+      "origem": "Sensor meteorológico (.xlsx)",
+      "descricao": "Temperatura externa medida; apenas inclui/exclui como entrada."
+    },
+    {
+      "variavel": "gen_w (generation w)",
+      "escopo": "Domínio (Covariável Exógena · Solar FV)",
+      "mutabilidade": "Covariável Imutável (On/Off)",
+      "origem": "Medidor solar FV (.xlsx)",
+      "descricao": "Geração Solar Fotovoltaica medida; indisponível na fase v4."
+    },
+    {
+      "variavel": "voltage_lag_1 / amperage_lag_1",
+      "escopo": "Domínio (Covariável Elétrica · t-1)",
+      "mutabilidade": "Covariável Imutável (On/Off)",
+      "origem": "Medidor elétrico (.xlsx)",
+      "descricao": "Tensão e corrente da hora anterior; indisponíveis na fase v4."
+    },
+    {
+      "variavel": "power (W)",
+      "escopo": "Domínio (Variável Alvo)",
+      "mutabilidade": "Alvo Imutável (y)",
+      "origem": "Medidor principal (.xlsx)",
+      "descricao": "Grandeza física prevista a cada 1h pelo modelo (Watts médios)."
+    }
+  ],
+  "models_benchmarking": {
+    "Ridge_Linear": {
+      "name": "Ridge Linear (Baseline)",
+      "metrics": {
+        "mse": 646539.4301,
+        "rmse": 804.0768,
+        "mae": 497.5269,
+        "r2": 0.8399,
+        "train_time_ms": 1.11,
+        "inference_time_ms": 0.09,
+        "runtime_ms": 1.2,
+        "multi_criteria_score": 66.94
+      },
+      "train_metrics": {
+        "mse": 161437.2022,
+        "rmse": 401.7925,
+        "mae": 236.7464,
+        "r2": 0.8766,
+        "train_time_ms": 0.0,
+        "inference_time_ms": 0.0,
+        "runtime_ms": 0.0
+      },
+      "learning_diagnosis": {
+        "status": "Overfitting (Decorou Treino)",
+        "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+        "gap_r2_pct": 3.67,
+        "overfit_ratio": 2.0
+      },
+      "error_diagnostics": {
+        "hit_rate_100w_pct": 25.0,
+        "hit_rate_200w_pct": 41.7,
+        "high_error_rate_300w_pct": 47.9,
+        "mean_bias_w": 7.83,
+        "p95_abs_error_w": 1629.59,
+        "max_abs_error_w": 3187.61,
+        "period_breakdown": [
+          {
+            "period": "Madrugada (00h–05h)",
+            "samples": 12,
+            "mae_w": 144.84,
+            "rmse_w": 175.68,
+            "hit_rate_200w_pct": 66.7
+          },
+          {
+            "period": "Manhã (06h–11h)",
+            "samples": 12,
+            "mae_w": 602.83,
+            "rmse_w": 1036.07,
+            "hit_rate_200w_pct": 25.0
+          },
+          {
+            "period": "Tarde (12h–17h)",
+            "samples": 12,
+            "mae_w": 653.3,
+            "rmse_w": 902.12,
+            "hit_rate_200w_pct": 33.3
+          },
+          {
+            "period": "Noite (18h–23h)",
+            "samples": 12,
+            "mae_w": 589.14,
+            "rmse_w": 817.33,
+            "hit_rate_200w_pct": 41.7
+          }
+        ],
+        "top_worst_hours": [
+          {
+            "test_hour_index": 35,
+            "hour_of_day": 11,
+            "real_w": 5298.0,
+            "pred_w": 2110.4,
+            "abs_error_w": 3187.6
+          },
+          {
+            "test_hour_index": 15,
+            "hour_of_day": 15,
+            "real_w": 7541.0,
+            "pred_w": 5175.2,
+            "abs_error_w": 2365.8
+          },
+          {
+            "test_hour_index": 43,
+            "hour_of_day": 19,
+            "real_w": 2607.0,
+            "pred_w": 4382.3,
+            "abs_error_w": 1775.3
+          },
+          {
+            "test_hour_index": 21,
+            "hour_of_day": 21,
+            "real_w": 1733.0,
+            "pred_w": 3092.0,
+            "abs_error_w": 1359.0
+          },
+          {
+            "test_hour_index": 36,
+            "hour_of_day": 12,
+            "real_w": 4805.0,
+            "pred_w": 6134.3,
+            "abs_error_w": 1329.3
+          }
+        ],
+        "top_best_hours": [
+          {
+            "test_hour_index": 5,
+            "hour_of_day": 5,
+            "real_w": 1822.0,
+            "pred_w": 1815.1,
+            "abs_error_w": 6.9
+          },
+          {
+            "test_hour_index": 46,
+            "hour_of_day": 22,
+            "real_w": 847.0,
+            "pred_w": 839.5,
+            "abs_error_w": 7.5
+          },
+          {
+            "test_hour_index": 8,
+            "hour_of_day": 8,
+            "real_w": 1915.0,
+            "pred_w": 1906.8,
+            "abs_error_w": 8.2
+          },
+          {
+            "test_hour_index": 47,
+            "hour_of_day": 23,
+            "real_w": 622.0,
+            "pred_w": 611.8,
+            "abs_error_w": 10.2
+          },
+          {
+            "test_hour_index": 6,
+            "hour_of_day": 6,
+            "real_w": 1832.0,
+            "pred_w": 1860.9,
+            "abs_error_w": 28.9
+          }
+        ]
+      },
+      "features_used": [
+        "hour_sin",
+        "hour_cos",
+        "temp_c",
+        "power_lag_1",
+        "power_lag_2",
+        "power_lag_3",
+        "power_lag_24",
+        "power_roll_mean_6",
+        "power_roll_mean_24",
+        "power_roll_std_24"
+      ],
+      "num_features": 10,
+      "train_samples": 9720,
+      "test_samples": 48,
+      "config_used": {
+        "model_key": "Ridge_Linear",
+        "display_name": "Ridge Linear (Baseline)",
+        "features": {
+          "power_lags": [
+            1,
+            2,
+            3,
+            24,
+            48,
+            168
+          ],
+          "rolling_mean_windows": [
+            6,
+            24
+          ],
+          "rolling_std_windows": [
+            24
+          ],
+          "use_cyclical_hour": true,
+          "use_raw_hour": false,
+          "use_temperature": true,
+          "use_generation": true,
+          "use_electrical_lags": true
+        },
+        "split": {
+          "evaluation_scenario": "v1_v2_to_v4",
+          "train_ratio": 0.8,
+          "random_state": 42,
+          "context_hours": 72,
+          "horizon_hours": 168
+        },
+        "hyperparameters": {
+          "alpha": 1.0
+        }
+      },
+      "effective_features": {
+        "power_lags": [
+          1,
+          2,
+          3,
+          24
+        ],
+        "rolling_mean_windows": [
+          6,
+          24
+        ],
+        "rolling_std_windows": [
+          24
+        ],
+        "use_cyclical_hour": true,
+        "use_raw_hour": false,
+        "use_temperature": true,
+        "use_generation": false,
+        "use_electrical_lags": false
+      }
+    },
+    "Random_Forest": {
+      "name": "Random Forest (Árvores)",
+      "metrics": {
+        "mse": 689359.6164,
+        "rmse": 830.2768,
+        "mae": 565.379,
+        "r2": 0.8293,
+        "train_time_ms": 2027.16,
+        "inference_time_ms": 23.01,
+        "runtime_ms": 2050.17,
+        "multi_criteria_score": 52.7
+      },
+      "train_metrics": {
+        "mse": 16130.6795,
+        "rmse": 127.0066,
+        "mae": 63.2527,
+        "r2": 0.9877,
+        "train_time_ms": 0.0,
+        "inference_time_ms": 0.0,
+        "runtime_ms": 0.0
+      },
+      "learning_diagnosis": {
+        "status": "Overfitting (Decorou Treino)",
+        "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+        "gap_r2_pct": 15.84,
+        "overfit_ratio": 6.54
+      },
+      "error_diagnostics": {
+        "hit_rate_100w_pct": 4.2,
+        "hit_rate_200w_pct": 16.7,
+        "high_error_rate_300w_pct": 50.0,
+        "mean_bias_w": -93.83,
+        "p95_abs_error_w": 1663.71,
+        "max_abs_error_w": 3161.45,
+        "period_breakdown": [
+          {
+            "period": "Madrugada (00h–05h)",
+            "samples": 12,
+            "mae_w": 211.75,
+            "rmse_w": 220.49,
+            "hit_rate_200w_pct": 33.3
+          },
+          {
+            "period": "Manhã (06h–11h)",
+            "samples": 12,
+            "mae_w": 679.87,
+            "rmse_w": 1116.77,
+            "hit_rate_200w_pct": 16.7
+          },
+          {
+            "period": "Tarde (12h–17h)",
+            "samples": 12,
+            "mae_w": 776.09,
+            "rmse_w": 982.89,
+            "hit_rate_200w_pct": 8.3
+          },
+          {
+            "period": "Noite (18h–23h)",
+            "samples": 12,
+            "mae_w": 593.79,
+            "rmse_w": 703.97,
+            "hit_rate_200w_pct": 8.3
+          }
+        ],
+        "top_worst_hours": [
+          {
+            "test_hour_index": 35,
+            "hour_of_day": 11,
+            "real_w": 5298.0,
+            "pred_w": 2136.6,
+            "abs_error_w": 3161.4
+          },
+          {
+            "test_hour_index": 15,
+            "hour_of_day": 15,
+            "real_w": 7541.0,
+            "pred_w": 5234.2,
+            "abs_error_w": 2306.8
+          },
+          {
+            "test_hour_index": 9,
+            "hour_of_day": 9,
+            "real_w": 1414.0,
+            "pred_w": 3219.3,
+            "abs_error_w": 1805.3
+          },
+          {
+            "test_hour_index": 16,
+            "hour_of_day": 16,
+            "real_w": 7518.0,
+            "pred_w": 6117.3,
+            "abs_error_w": 1400.7
+          },
+          {
+            "test_hour_index": 19,
+            "hour_of_day": 19,
+            "real_w": 3946.0,
+            "pred_w": 2664.4,
+            "abs_error_w": 1281.6
+          }
+        ],
+        "top_best_hours": [
+          {
+            "test_hour_index": 40,
+            "hour_of_day": 16,
+            "real_w": 5158.0,
+            "pred_w": 5256.0,
+            "abs_error_w": 98.0
+          },
+          {
+            "test_hour_index": 24,
+            "hour_of_day": 0,
+            "real_w": 592.0,
+            "pred_w": 690.6,
+            "abs_error_w": 98.6
+          },
+          {
+            "test_hour_index": 48,
+            "hour_of_day": 0,
+            "real_w": 560.0,
+            "pred_w": 667.5,
+            "abs_error_w": 107.5
+          },
+          {
+            "test_hour_index": 34,
+            "hour_of_day": 10,
+            "real_w": 1438.0,
+            "pred_w": 1570.4,
+            "abs_error_w": 132.4
+          },
+          {
+            "test_hour_index": 11,
+            "hour_of_day": 11,
+            "real_w": 4184.0,
+            "pred_w": 4346.9,
+            "abs_error_w": 162.9
+          }
+        ]
+      },
+      "features_used": [
+        "hour_sin",
+        "hour_cos",
+        "temp_c",
+        "power_lag_1",
+        "power_lag_2",
+        "power_lag_3",
+        "power_lag_24",
+        "power_roll_mean_6",
+        "power_roll_mean_24",
+        "power_roll_std_24"
+      ],
+      "num_features": 10,
+      "train_samples": 9720,
+      "test_samples": 48,
+      "config_used": {
+        "model_key": "Random_Forest",
+        "display_name": "Random Forest (Árvores)",
+        "features": {
+          "power_lags": [
+            1,
+            2,
+            3,
+            24,
+            48,
+            168
+          ],
+          "rolling_mean_windows": [
+            6,
+            24
+          ],
+          "rolling_std_windows": [
+            24
+          ],
+          "use_cyclical_hour": true,
+          "use_raw_hour": false,
+          "use_temperature": true,
+          "use_generation": true,
+          "use_electrical_lags": true
+        },
+        "split": {
+          "evaluation_scenario": "v1_v2_to_v4",
+          "train_ratio": 0.8,
+          "random_state": 42,
+          "context_hours": 72,
+          "horizon_hours": 168
+        },
+        "hyperparameters": {
+          "n_estimators": 100,
+          "max_depth": 16,
+          "min_samples_leaf": 1
+        }
+      },
+      "effective_features": {
+        "power_lags": [
+          1,
+          2,
+          3,
+          24
+        ],
+        "rolling_mean_windows": [
+          6,
+          24
+        ],
+        "rolling_std_windows": [
+          24
+        ],
+        "use_cyclical_hour": true,
+        "use_raw_hour": false,
+        "use_temperature": true,
+        "use_generation": false,
+        "use_electrical_lags": false
+      }
+    },
+    "Hist_Gradient_Boosting": {
+      "name": "HistGradientBoosting (Tabular)",
+      "metrics": {
+        "mse": 996949.5295,
+        "rmse": 998.4736,
+        "mae": 757.484,
+        "r2": 0.7532,
+        "train_time_ms": 327.14,
+        "inference_time_ms": 2.37,
+        "runtime_ms": 329.51,
+        "multi_criteria_score": 40.08
+      },
+      "train_metrics": {
+        "mse": 44865.4349,
+        "rmse": 211.8146,
+        "mae": 115.0415,
+        "r2": 0.9657,
+        "train_time_ms": 0.0,
+        "inference_time_ms": 0.0,
+        "runtime_ms": 0.0
+      },
+      "learning_diagnosis": {
+        "status": "Overfitting (Decorou Treino)",
+        "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+        "gap_r2_pct": 21.25,
+        "overfit_ratio": 4.71
+      },
+      "error_diagnostics": {
+        "hit_rate_100w_pct": 8.3,
+        "hit_rate_200w_pct": 27.1,
+        "high_error_rate_300w_pct": 66.7,
+        "mean_bias_w": 158.57,
+        "p95_abs_error_w": 1875.66,
+        "max_abs_error_w": 3269.39,
+        "period_breakdown": [
+          {
+            "period": "Madrugada (00h–05h)",
+            "samples": 12,
+            "mae_w": 483.9,
+            "rmse_w": 608.43,
+            "hit_rate_200w_pct": 33.3
+          },
+          {
+            "period": "Manhã (06h–11h)",
+            "samples": 12,
+            "mae_w": 1016.55,
+            "rmse_w": 1320.81,
+            "hit_rate_200w_pct": 25.0
+          },
+          {
+            "period": "Tarde (12h–17h)",
+            "samples": 12,
+            "mae_w": 909.55,
+            "rmse_w": 1132.06,
+            "hit_rate_200w_pct": 25.0
+          },
+          {
+            "period": "Noite (18h–23h)",
+            "samples": 12,
+            "mae_w": 619.94,
+            "rmse_w": 769.09,
+            "hit_rate_200w_pct": 25.0
+          }
+        ],
+        "top_worst_hours": [
+          {
+            "test_hour_index": 35,
+            "hour_of_day": 11,
+            "real_w": 5298.0,
+            "pred_w": 2028.6,
+            "abs_error_w": 3269.4
+          },
+          {
+            "test_hour_index": 15,
+            "hour_of_day": 15,
+            "real_w": 7541.0,
+            "pred_w": 5364.4,
+            "abs_error_w": 2176.6
+          },
+          {
+            "test_hour_index": 17,
+            "hour_of_day": 17,
+            "real_w": 6469.0,
+            "pred_w": 4456.5,
+            "abs_error_w": 2012.5
+          },
+          {
+            "test_hour_index": 32,
+            "hour_of_day": 8,
+            "real_w": 597.0,
+            "pred_w": 2218.6,
+            "abs_error_w": 1621.6
+          },
+          {
+            "test_hour_index": 33,
+            "hour_of_day": 9,
+            "real_w": 692.0,
+            "pred_w": 2255.0,
+            "abs_error_w": 1563.0
+          }
+        ],
+        "top_best_hours": [
+          {
+            "test_hour_index": 38,
+            "hour_of_day": 14,
+            "real_w": 4338.0,
+            "pred_w": 4294.4,
+            "abs_error_w": 43.6
+          },
+          {
+            "test_hour_index": 2,
+            "hour_of_day": 2,
+            "real_w": 1839.0,
+            "pred_w": 1901.1,
+            "abs_error_w": 62.1
+          },
+          {
+            "test_hour_index": 8,
+            "hour_of_day": 8,
+            "real_w": 1915.0,
+            "pred_w": 2003.4,
+            "abs_error_w": 88.4
+          },
+          {
+            "test_hour_index": 45,
+            "hour_of_day": 21,
+            "real_w": 1027.0,
+            "pred_w": 1124.5,
+            "abs_error_w": 97.5
+          },
+          {
+            "test_hour_index": 6,
+            "hour_of_day": 6,
+            "real_w": 1832.0,
+            "pred_w": 1940.5,
+            "abs_error_w": 108.5
+          }
+        ]
+      },
+      "features_used": [
+        "hour_sin",
+        "hour_cos",
+        "temp_c",
+        "power_lag_1",
+        "power_lag_2",
+        "power_lag_3",
+        "power_lag_24",
+        "power_roll_mean_6",
+        "power_roll_mean_24",
+        "power_roll_std_24"
+      ],
+      "num_features": 10,
+      "train_samples": 9720,
+      "test_samples": 48,
+      "config_used": {
+        "model_key": "Hist_Gradient_Boosting",
+        "display_name": "HistGradientBoosting (Tabular)",
+        "features": {
+          "power_lags": [
+            1,
+            2,
+            3,
+            24,
+            48,
+            168
+          ],
+          "rolling_mean_windows": [
+            6,
+            24
+          ],
+          "rolling_std_windows": [
+            24
+          ],
+          "use_cyclical_hour": true,
+          "use_raw_hour": false,
+          "use_temperature": true,
+          "use_generation": true,
+          "use_electrical_lags": true
+        },
+        "split": {
+          "evaluation_scenario": "v1_v2_to_v4",
+          "train_ratio": 0.8,
+          "random_state": 42,
+          "context_hours": 72,
+          "horizon_hours": 168
+        },
+        "hyperparameters": {
+          "max_iter": 200,
+          "learning_rate": 0.05,
+          "max_depth": 0,
+          "l2_regularization": 0.0
+        }
+      },
+      "effective_features": {
+        "power_lags": [
+          1,
+          2,
+          3,
+          24
+        ],
+        "rolling_mean_windows": [
+          6,
+          24
+        ],
+        "rolling_std_windows": [
+          24
+        ],
+        "use_cyclical_hour": true,
+        "use_raw_hour": false,
+        "use_temperature": true,
+        "use_generation": false,
+        "use_electrical_lags": false
+      }
+    }
+  },
+  "context_sample": [
+    {
+      "hour": -23,
+      "timestamp": "v4 Dia 1 · 01:00",
+      "real_power_w": 585.0,
+      "temp_c": 8.0,
+      "gen_w": null
+    },
+    {
+      "hour": -22,
+      "timestamp": "v4 Dia 1 · 02:00",
+      "real_power_w": 584.0,
+      "temp_c": 7.8,
+      "gen_w": null
+    },
+    {
+      "hour": -21,
+      "timestamp": "v4 Dia 1 · 03:00",
+      "real_power_w": 582.0,
+      "temp_c": 7.7,
+      "gen_w": null
+    },
+    {
+      "hour": -20,
+      "timestamp": "v4 Dia 1 · 04:00",
+      "real_power_w": 585.0,
+      "temp_c": 8.0,
+      "gen_w": null
+    },
+    {
+      "hour": -19,
+      "timestamp": "v4 Dia 1 · 05:00",
+      "real_power_w": 591.0,
+      "temp_c": 8.1,
+      "gen_w": null
+    },
+    {
+      "hour": -18,
+      "timestamp": "v4 Dia 1 · 06:00",
+      "real_power_w": 586.0,
+      "temp_c": 7.6,
+      "gen_w": null
+    },
+    {
+      "hour": -17,
+      "timestamp": "v4 Dia 1 · 07:00",
+      "real_power_w": 587.0,
+      "temp_c": 7.4,
+      "gen_w": null
+    },
+    {
+      "hour": -16,
+      "timestamp": "v4 Dia 1 · 08:00",
+      "real_power_w": 582.0,
+      "temp_c": 7.8,
+      "gen_w": null
+    },
+    {
+      "hour": -15,
+      "timestamp": "v4 Dia 1 · 09:00",
+      "real_power_w": 648.0,
+      "temp_c": 8.0,
+      "gen_w": null
+    },
+    {
+      "hour": -14,
+      "timestamp": "v4 Dia 1 · 10:00",
+      "real_power_w": 2675.0,
+      "temp_c": 8.6,
+      "gen_w": null
+    },
+    {
+      "hour": -13,
+      "timestamp": "v4 Dia 1 · 11:00",
+      "real_power_w": 7774.0,
+      "temp_c": 9.1,
+      "gen_w": null
+    },
+    {
+      "hour": -12,
+      "timestamp": "v4 Dia 1 · 12:00",
+      "real_power_w": 7779.0,
+      "temp_c": 10.1,
+      "gen_w": null
+    },
+    {
+      "hour": -11,
+      "timestamp": "v4 Dia 1 · 13:00",
+      "real_power_w": 5473.0,
+      "temp_c": 10.1,
+      "gen_w": null
+    },
+    {
+      "hour": -10,
+      "timestamp": "v4 Dia 1 · 14:00",
+      "real_power_w": 6566.0,
+      "temp_c": 11.2,
+      "gen_w": null
+    },
+    {
+      "hour": -9,
+      "timestamp": "v4 Dia 1 · 15:00",
+      "real_power_w": 7079.0,
+      "temp_c": 11.4,
+      "gen_w": null
+    },
+    {
+      "hour": -8,
+      "timestamp": "v4 Dia 1 · 16:00",
+      "real_power_w": 6648.0,
+      "temp_c": 11.6,
+      "gen_w": null
+    },
+    {
+      "hour": -7,
+      "timestamp": "v4 Dia 1 · 17:00",
+      "real_power_w": 5057.0,
+      "temp_c": 10.8,
+      "gen_w": null
+    },
+    {
+      "hour": -6,
+      "timestamp": "v4 Dia 1 · 18:00",
+      "real_power_w": 4434.0,
+      "temp_c": 10.6,
+      "gen_w": null
+    },
+    {
+      "hour": -5,
+      "timestamp": "v4 Dia 1 · 19:00",
+      "real_power_w": 3397.0,
+      "temp_c": 10.3,
+      "gen_w": null
+    },
+    {
+      "hour": -4,
+      "timestamp": "v4 Dia 1 · 20:00",
+      "real_power_w": 2884.0,
+      "temp_c": 9.5,
+      "gen_w": null
+    },
+    {
+      "hour": -3,
+      "timestamp": "v4 Dia 1 · 21:00",
+      "real_power_w": 2362.0,
+      "temp_c": 10.1,
+      "gen_w": null
+    },
+    {
+      "hour": -2,
+      "timestamp": "v4 Dia 1 · 22:00",
+      "real_power_w": 2099.0,
+      "temp_c": 9.9,
+      "gen_w": null
+    },
+    {
+      "hour": -1,
+      "timestamp": "v4 Dia 1 · 23:00",
+      "real_power_w": 2070.0,
+      "temp_c": 10.2,
+      "gen_w": null
+    },
+    {
+      "hour": 0,
+      "timestamp": "v4 Dia 1 · 00:00",
+      "real_power_w": 2035.0,
+      "temp_c": 9.9,
+      "gen_w": null
+    }
+  ],
+  "recent_predictions_sample": [
+    {
+      "hour": 1,
+      "timestamp": "v4 Dia 2 · 01:00",
+      "real_power_w": 1833.0,
+      "pred_ridge_w": 1775.3,
+      "pred_rf_w": 1645.3,
+      "pred_hgb_w": 2141.7,
+      "temp_c": 9.4,
+      "gen_w": null
+    },
+    {
+      "hour": 2,
+      "timestamp": "v4 Dia 2 · 02:00",
+      "real_power_w": 1839.0,
+      "pred_ridge_w": 1620.1,
+      "pred_rf_w": 1532.2,
+      "pred_hgb_w": 1901.1,
+      "temp_c": 9.3,
+      "gen_w": null
+    },
+    {
+      "hour": 3,
+      "timestamp": "v4 Dia 2 · 03:00",
+      "real_power_w": 1827.0,
+      "pred_ridge_w": 1749.5,
+      "pred_rf_w": 1533.1,
+      "pred_hgb_w": 1941.1,
+      "temp_c": 9.7,
+      "gen_w": null
+    },
+    {
+      "hour": 4,
+      "timestamp": "v4 Dia 2 · 04:00",
+      "real_power_w": 1825.0,
+      "pred_ridge_w": 1763.4,
+      "pred_rf_w": 1567.7,
+      "pred_hgb_w": 1953.8,
+      "temp_c": 9.2,
+      "gen_w": null
+    },
+    {
+      "hour": 5,
+      "timestamp": "v4 Dia 2 · 05:00",
+      "real_power_w": 1822.0,
+      "pred_ridge_w": 1815.1,
+      "pred_rf_w": 1657.0,
+      "pred_hgb_w": 1932.5,
+      "temp_c": 8.5,
+      "gen_w": null
+    },
+    {
+      "hour": 6,
+      "timestamp": "v4 Dia 2 · 06:00",
+      "real_power_w": 1832.0,
+      "pred_ridge_w": 1860.9,
+      "pred_rf_w": 1554.9,
+      "pred_hgb_w": 1940.5,
+      "temp_c": 9.4,
+      "gen_w": null
+    },
+    {
+      "hour": 7,
+      "timestamp": "v4 Dia 2 · 07:00",
+      "real_power_w": 1797.0,
+      "pred_ridge_w": 1916.1,
+      "pred_rf_w": 1591.5,
+      "pred_hgb_w": 1985.9,
+      "temp_c": 9.4,
+      "gen_w": null
+    },
+    {
+      "hour": 8,
+      "timestamp": "v4 Dia 2 · 08:00",
+      "real_power_w": 1915.0,
+      "pred_ridge_w": 1906.8,
+      "pred_rf_w": 1599.2,
+      "pred_hgb_w": 2003.4,
+      "temp_c": 9.5,
+      "gen_w": null
+    },
+    {
+      "hour": 9,
+      "timestamp": "v4 Dia 2 · 09:00",
+      "real_power_w": 1414.0,
+      "pred_ridge_w": 2080.2,
+      "pred_rf_w": 3219.3,
+      "pred_hgb_w": 2710.9,
+      "temp_c": 9.7,
+      "gen_w": null
+    },
+    {
+      "hour": 10,
+      "timestamp": "v4 Dia 2 · 10:00",
+      "real_power_w": 2921.0,
+      "pred_ridge_w": 1661.6,
+      "pred_rf_w": 1837.0,
+      "pred_hgb_w": 1870.7,
+      "temp_c": 9.1,
+      "gen_w": null
+    },
+    {
+      "hour": 11,
+      "timestamp": "v4 Dia 2 · 11:00",
+      "real_power_w": 4184.0,
+      "pred_ridge_w": 3913.6,
+      "pred_rf_w": 4346.9,
+      "pred_hgb_w": 4792.6,
+      "temp_c": 9.8,
+      "gen_w": null
+    },
+    {
+      "hour": 12,
+      "timestamp": "v4 Dia 2 · 12:00",
+      "real_power_w": 4841.0,
+      "pred_ridge_w": 4701.0,
+      "pred_rf_w": 5208.2,
+      "pred_hgb_w": 5540.7,
+      "temp_c": 11.2,
+      "gen_w": null
+    },
+    {
+      "hour": 13,
+      "timestamp": "v4 Dia 2 · 13:00",
+      "real_power_w": 4187.0,
+      "pred_ridge_w": 4922.6,
+      "pred_rf_w": 4852.4,
+      "pred_hgb_w": 5232.0,
+      "temp_c": 11.6,
+      "gen_w": null
+    },
+    {
+      "hour": 14,
+      "timestamp": "v4 Dia 2 · 14:00",
+      "real_power_w": 4899.0,
+      "pred_ridge_w": 4138.4,
+      "pred_rf_w": 4547.0,
+      "pred_hgb_w": 4721.5,
+      "temp_c": 11.9,
+      "gen_w": null
+    },
+    {
+      "hour": 15,
+      "timestamp": "v4 Dia 2 · 15:00",
+      "real_power_w": 7541.0,
+      "pred_ridge_w": 5175.2,
+      "pred_rf_w": 5234.2,
+      "pred_hgb_w": 5364.4,
+      "temp_c": 11.8,
+      "gen_w": null
+    },
+    {
+      "hour": 16,
+      "timestamp": "v4 Dia 2 · 16:00",
+      "real_power_w": 7518.0,
+      "pred_ridge_w": 7619.6,
+      "pred_rf_w": 6117.3,
+      "pred_hgb_w": 6203.1,
+      "temp_c": 11.2,
+      "gen_w": null
+    },
+    {
+      "hour": 17,
+      "timestamp": "v4 Dia 2 · 17:00",
+      "real_power_w": 6469.0,
+      "pred_ridge_w": 6550.4,
+      "pred_rf_w": 5400.0,
+      "pred_hgb_w": 4456.5,
+      "temp_c": 11.5,
+      "gen_w": null
+    },
+    {
+      "hour": 18,
+      "timestamp": "v4 Dia 2 · 18:00",
+      "real_power_w": 4406.0,
+      "pred_ridge_w": 5571.8,
+      "pred_rf_w": 4101.3,
+      "pred_hgb_w": 3886.4,
+      "temp_c": 10.6,
+      "gen_w": null
+    },
+    {
+      "hour": 19,
+      "timestamp": "v4 Dia 2 · 19:00",
+      "real_power_w": 3946.0,
+      "pred_ridge_w": 3511.5,
+      "pred_rf_w": 2664.4,
+      "pred_hgb_w": 2666.0,
+      "temp_c": 10.5,
+      "gen_w": null
+    },
+    {
+      "hour": 20,
+      "timestamp": "v4 Dia 2 · 20:00",
+      "real_power_w": 3690.0,
+      "pred_ridge_w": 3503.2,
+      "pred_rf_w": 2759.2,
+      "pred_hgb_w": 2963.2,
+      "temp_c": 11.8,
+      "gen_w": null
+    },
+    {
+      "hour": 21,
+      "timestamp": "v4 Dia 2 · 21:00",
+      "real_power_w": 1733.0,
+      "pred_ridge_w": 3092.0,
+      "pred_rf_w": 2483.6,
+      "pred_hgb_w": 3135.2,
+      "temp_c": 11.7,
+      "gen_w": null
+    },
+    {
+      "hour": 22,
+      "timestamp": "v4 Dia 2 · 22:00",
+      "real_power_w": 651.0,
+      "pred_ridge_w": 1013.7,
+      "pred_rf_w": 1328.2,
+      "pred_hgb_w": 1329.7,
+      "temp_c": 11.7,
+      "gen_w": null
+    },
+    {
+      "hour": 23,
+      "timestamp": "v4 Dia 2 · 23:00",
+      "real_power_w": 594.0,
+      "pred_ridge_w": 543.6,
+      "pred_rf_w": 884.6,
+      "pred_hgb_w": 793.1,
+      "temp_c": 11.6,
+      "gen_w": null
+    },
+    {
+      "hour": 24,
+      "timestamp": "v4 Dia 2 · 00:00",
+      "real_power_w": 592.0,
+      "pred_ridge_w": 717.3,
+      "pred_rf_w": 690.6,
+      "pred_hgb_w": 897.6,
+      "temp_c": 11.9,
+      "gen_w": null
+    },
+    {
+      "hour": 25,
+      "timestamp": "v4 Dia 3 · 01:00",
+      "real_power_w": 588.0,
+      "pred_ridge_w": 672.8,
+      "pred_rf_w": 819.0,
+      "pred_hgb_w": 1564.7,
+      "temp_c": 11.8,
+      "gen_w": null
+    },
+    {
+      "hour": 26,
+      "timestamp": "v4 Dia 3 · 02:00",
+      "real_power_w": 597.0,
+      "pred_ridge_w": 745.5,
+      "pred_rf_w": 819.8,
+      "pred_hgb_w": 1504.6,
+      "temp_c": 11.6,
+      "gen_w": null
+    },
+    {
+      "hour": 27,
+      "timestamp": "v4 Dia 3 · 03:00",
+      "real_power_w": 592.0,
+      "pred_ridge_w": 839.7,
+      "pred_rf_w": 817.5,
+      "pred_hgb_w": 1532.9,
+      "temp_c": 11.3,
+      "gen_w": null
+    },
+    {
+      "hour": 28,
+      "timestamp": "v4 Dia 3 · 04:00",
+      "real_power_w": 594.0,
+      "pred_ridge_w": 885.2,
+      "pred_rf_w": 823.5,
+      "pred_hgb_w": 1456.5,
+      "temp_c": 11.3,
+      "gen_w": null
+    },
+    {
+      "hour": 29,
+      "timestamp": "v4 Dia 3 · 05:00",
+      "real_power_w": 593.0,
+      "pred_ridge_w": 926.1,
+      "pred_rf_w": 808.5,
+      "pred_hgb_w": 1460.0,
+      "temp_c": 11.0,
+      "gen_w": null
+    },
+    {
+      "hour": 30,
+      "timestamp": "v4 Dia 3 · 06:00",
+      "real_power_w": 594.0,
+      "pred_ridge_w": 958.7,
+      "pred_rf_w": 811.0,
+      "pred_hgb_w": 1465.6,
+      "temp_c": 10.9,
+      "gen_w": null
+    },
+    {
+      "hour": 31,
+      "timestamp": "v4 Dia 3 · 07:00",
+      "real_power_w": 594.0,
+      "pred_ridge_w": 986.8,
+      "pred_rf_w": 812.5,
+      "pred_hgb_w": 1482.2,
+      "temp_c": 10.6,
+      "gen_w": null
+    },
+    {
+      "hour": 32,
+      "timestamp": "v4 Dia 3 · 08:00",
+      "real_power_w": 597.0,
+      "pred_ridge_w": 1019.5,
+      "pred_rf_w": 964.4,
+      "pred_hgb_w": 2218.6,
+      "temp_c": 10.7,
+      "gen_w": null
+    },
+    {
+      "hour": 33,
+      "timestamp": "v4 Dia 3 · 09:00",
+      "real_power_w": 692.0,
+      "pred_ridge_w": 995.8,
+      "pred_rf_w": 903.3,
+      "pred_hgb_w": 2255.0,
+      "temp_c": 10.2,
+      "gen_w": null
+    },
+    {
+      "hour": 34,
+      "timestamp": "v4 Dia 3 · 10:00",
+      "real_power_w": 1438.0,
+      "pred_ridge_w": 1227.6,
+      "pred_rf_w": 1570.4,
+      "pred_hgb_w": 2081.1,
+      "temp_c": 10.3,
+      "gen_w": null
+    },
+    {
+      "hour": 35,
+      "timestamp": "v4 Dia 3 · 11:00",
+      "real_power_w": 5298.0,
+      "pred_ridge_w": 2110.4,
+      "pred_rf_w": 2136.6,
+      "pred_hgb_w": 2028.6,
+      "temp_c": 11.5,
+      "gen_w": null
+    },
+    {
+      "hour": 36,
+      "timestamp": "v4 Dia 3 · 12:00",
+      "real_power_w": 4805.0,
+      "pred_ridge_w": 6134.3,
+      "pred_rf_w": 5122.1,
+      "pred_hgb_w": 5645.4,
+      "temp_c": 13.0,
+      "gen_w": null
+    },
+    {
+      "hour": 37,
+      "timestamp": "v4 Dia 3 · 13:00",
+      "real_power_w": 3748.0,
+      "pred_ridge_w": 4242.3,
+      "pred_rf_w": 4772.1,
+      "pred_hgb_w": 5089.1,
+      "temp_c": 13.9,
+      "gen_w": null
+    },
+    {
+      "hour": 38,
+      "timestamp": "v4 Dia 3 · 14:00",
+      "real_power_w": 4338.0,
+      "pred_ridge_w": 3653.5,
+      "pred_rf_w": 4054.0,
+      "pred_hgb_w": 4294.4,
+      "temp_c": 13.8,
+      "gen_w": null
+    },
+    {
+      "hour": 39,
+      "timestamp": "v4 Dia 3 · 15:00",
+      "real_power_w": 5254.0,
+      "pred_ridge_w": 4717.5,
+      "pred_rf_w": 4859.7,
+      "pred_hgb_w": 4916.3,
+      "temp_c": 14.7,
+      "gen_w": null
+    },
+    {
+      "hour": 40,
+      "timestamp": "v4 Dia 3 · 16:00",
+      "real_power_w": 5158.0,
+      "pred_ridge_w": 5291.5,
+      "pred_rf_w": 5256.0,
+      "pred_hgb_w": 5011.3,
+      "temp_c": 14.9,
+      "gen_w": null
+    },
+    {
+      "hour": 41,
+      "timestamp": "v4 Dia 3 · 17:00",
+      "real_power_w": 4276.0,
+      "pred_ridge_w": 4752.5,
+      "pred_rf_w": 5310.6,
+      "pred_hgb_w": 5054.9,
+      "temp_c": 14.3,
+      "gen_w": null
+    },
+    {
+      "hour": 42,
+      "timestamp": "v4 Dia 3 · 18:00",
+      "real_power_w": 4683.0,
+      "pred_ridge_w": 3718.4,
+      "pred_rf_w": 3440.3,
+      "pred_hgb_w": 3364.5,
+      "temp_c": 14.7,
+      "gen_w": null
+    },
+    {
+      "hour": 43,
+      "timestamp": "v4 Dia 3 · 19:00",
+      "real_power_w": 2607.0,
+      "pred_ridge_w": 4382.3,
+      "pred_rf_w": 2924.1,
+      "pred_hgb_w": 2896.8,
+      "temp_c": 13.7,
+      "gen_w": null
+    },
+    {
+      "hour": 44,
+      "timestamp": "v4 Dia 3 · 20:00",
+      "real_power_w": 1217.0,
+      "pred_ridge_w": 1801.9,
+      "pred_rf_w": 1882.0,
+      "pred_hgb_w": 1751.3,
+      "temp_c": 14.2,
+      "gen_w": null
+    },
+    {
+      "hour": 45,
+      "timestamp": "v4 Dia 3 · 21:00",
+      "real_power_w": 1027.0,
+      "pred_ridge_w": 859.0,
+      "pred_rf_w": 1296.7,
+      "pred_hgb_w": 1124.5,
+      "temp_c": 12.5,
+      "gen_w": null
+    },
+    {
+      "hour": 46,
+      "timestamp": "v4 Dia 3 · 22:00",
+      "real_power_w": 847.0,
+      "pred_ridge_w": 839.5,
+      "pred_rf_w": 1025.9,
+      "pred_hgb_w": 1026.4,
+      "temp_c": 11.6,
+      "gen_w": null
+    },
+    {
+      "hour": 47,
+      "timestamp": "v4 Dia 3 · 23:00",
+      "real_power_w": 622.0,
+      "pred_ridge_w": 611.8,
+      "pred_rf_w": 838.6,
+      "pred_hgb_w": 835.4,
+      "temp_c": 11.5,
+      "gen_w": null
+    },
+    {
+      "hour": 48,
+      "timestamp": "v4 Dia 3 · 00:00",
+      "real_power_w": 560.0,
+      "pred_ridge_w": 475.2,
+      "pred_rf_w": 667.5,
+      "pred_hgb_w": 782.2,
+      "temp_c": 11.9,
+      "gen_w": null
+    }
+  ]
+}

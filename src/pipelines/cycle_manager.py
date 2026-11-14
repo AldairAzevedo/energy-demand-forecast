@@ -25,6 +25,7 @@ class CycleManager:
         self,
         callback: Optional[Callable[[str], None]] = None,
         model_configs: Optional[Dict[str, Dict[str, Any]]] = None,
+        export_figure: bool = True,
     ) -> Dict[str, Any]:
         """Executa o pipeline completo e registra o experimento no banco JSON."""
         log = callback if callback is not None else print
@@ -37,7 +38,7 @@ class CycleManager:
 
         log("[CycleManager] Iniciando processamento do desafio Zenodo 2025...")
         log(" -> Construindo atributos configuráveis e avaliando modelos...")
-        forecast_data = self.zenodo_pipe.run(model_configs=configs)
+        forecast_data = self.zenodo_pipe.run(model_configs=configs, export_figure=export_figure)
 
         record_summary = self.db.record_run(forecast_data, configs)
         forecast_data["active_run_id"] = record_summary["run_id"]
@@ -51,7 +52,9 @@ class CycleManager:
         return {"forecast": forecast_data, "experiment": record_summary}
 
     def compact_to_champion(
-        self, callback: Optional[Callable[[str], None]] = None
+        self,
+        callback: Optional[Callable[[str], None]] = None,
+        export_figure: bool = True,
     ) -> Dict[str, Any]:
         """Limpa o histórico mantendo apenas o Campeão (run_0001) e sincroniza o gráfico."""
         log = callback if callback is not None else print
@@ -63,7 +66,10 @@ class CycleManager:
             f"[CycleManager] Histórico compactado para o Campeão "
             f"(origem: {summary['kept_original_run_id']} → run_0001)."
         )
-        forecast_data = self.zenodo_pipe.run(model_configs=summary["configs"])
+        forecast_data = self.zenodo_pipe.run(
+            model_configs=summary["configs"],
+            export_figure=export_figure,
+        )
         forecast_data["active_run_id"] = "run_0001"
         save_json(forecast_data, os.path.join(self.db_dir, "zenodo_forecast_results.json"))
         return {"summary": summary, "forecast": forecast_data}

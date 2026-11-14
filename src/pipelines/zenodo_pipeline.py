@@ -1,7 +1,11 @@
 """Pipeline parametrizável cross-dataset de previsão 1h (Competição Zenodo 2025)."""
 
+import hashlib
+import json
 import os
 import time
+from collections import OrderedDict
+from copy import deepcopy
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
@@ -35,9 +39,17 @@ from src.core.parameter_schema import (
     sanitize_model_config,
 )
 from src.pipelines.dataset_loader import load_hourly_series, load_v4_days
-from src.utils.json_io import save_json
+from src.utils.file_resilience import read_bytes_resilient
+from src.utils.json_io import load_json, save_json
 
 DatasetBundle = Tuple[pd.DataFrame, Dict[str, Optional[str]], int]
+_MAX_FORECAST_CACHE = 16
+_FORECAST_MEMORY_CACHE: "OrderedDict[str, Dict[str, Any]]" = OrderedDict()
+
+
+def clear_pipeline_cache() -> None:
+    """Limpa o cache em memória de execuções completas do pipeline."""
+    _FORECAST_MEMORY_CACHE.clear()
 
 
 class ZenodoPipeline:
@@ -159,7 +171,7 @@ class ZenodoPipeline:
                 max_depth=int(hp["max_depth"]),
                 min_samples_leaf=int(hp["min_samples_leaf"]),
                 random_state=seed,
-                n_jobs=-1,
+                n_jobs=min(2, os.cpu_count() or 1),
             )
 
         hgb_depth = int(hp["max_depth"])
@@ -264,15 +276,68 @@ class ZenodoPipeline:
             "cutoff_label": f"Corte em t={split_idx}h ({int(split_cfg['train_ratio'] * 100)}%)",
         }
 
+    def _scenario_cache_hash(
+        self, scenario: str, resolved_cfgs: Dict[str, Dict[str, Any]], horizon_pref: int
+    ) -> str:
+        """Constrói hash SHA-256 portável entre Windows/Linux por cenário, configs e dados."""
+        files_to_check = [self.main_file]
+        if scenario in ("v1_to_v2", "v1_v2_to_v4"):
+            files_to_check.append(self.v2_file)
+        if scenario == "v1_v2_to_v4":
+            for day_idx in (1, 2, 3):
+                files_to_check.append(
+                    os.path.join(
+                        self.data_dir, f"data_v4.{day_idx}.1_weather_forecast_day_{day_idx}.xlsx"
+                    )
+                )
+                files_to_check.append(
+                    os.path.join(
+                        self.data_dir, f"data_v4.{day_idx}.2_real_consumption_day_{day_idx}.xlsx"
+                    )
+                )
+        file_sigs: Dict[str, Dict[str, Any]] = {}
+        for path in files_to_check:
+            raw = read_bytes_resilient(path)
+            file_sigs[os.path.basename(path)] = {
+                "size": len(raw),
+                "sha256": hashlib.sha256(raw).hexdigest(),
+            }
+        canonical = json.dumps(
+            {
+                "cache_version": "1",
+                "scenario": scenario,
+                "horizon_pref": horizon_pref,
+                "configs": resolved_cfgs,
+                "files": file_sigs,
+            },
+            sort_keys=True,
+        )
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:24]
+
     def _run_single_model(
         self,
         model_key: str,
         cfg: Dict[str, Any],
         scenario: str,
         tables: Dict[str, DatasetBundle],
+        arrays_cache: Optional[Dict[str, Dict[str, Any]]] = None,
     ) -> Tuple[Dict[str, Any], np.ndarray, Dict[str, Any]]:
         eff_feat = resolve_effective_feature_config(scenario, cfg["features"])
-        arrays = self._prepare_scenario_arrays(scenario, eff_feat, cfg["split"], tables)
+        split_cfg = cfg["split"]
+        arrays_key = json.dumps(
+            {
+                "eff_feat": eff_feat,
+                "train_ratio": float(split_cfg.get("train_ratio", 0.8)),
+                "context_hours": int(split_cfg.get("context_hours", 72)),
+            },
+            sort_keys=True,
+        )
+        if arrays_cache is not None and arrays_key in arrays_cache:
+            arrays = arrays_cache[arrays_key]
+        else:
+            arrays = self._prepare_scenario_arrays(scenario, eff_feat, split_cfg, tables)
+            if arrays_cache is not None:
+                arrays_cache[arrays_key] = arrays
         x_train, y_train = arrays["x_train"], arrays["y_train"]
         x_test, y_test = arrays["x_test"], arrays["y_test"]
         test_hours = arrays["test_df"]["hour_of_day"].to_numpy(dtype=float)
@@ -388,7 +453,45 @@ class ZenodoPipeline:
             "recent_predictions_sample": post_sample,
         }
 
-    def run(self, model_configs: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+    def _load_cached_forecast(
+        self,
+        scenario: str,
+        mem_key: str,
+        disk_cache_path: str,
+    ) -> Optional[Dict[str, Any]]:
+        """Recupera previsão em cache (RAM ou JSON em disco) quando idêntica ao pedido."""
+        cached_payload = _FORECAST_MEMORY_CACHE.get(mem_key)
+        if cached_payload is not None:
+            _FORECAST_MEMORY_CACHE.move_to_end(mem_key)
+            return deepcopy(cached_payload)
+
+        if not os.path.exists(disk_cache_path):
+            return None
+        try:
+            disk_payload = load_json(disk_cache_path)
+            is_valid = (
+                isinstance(disk_payload, dict)
+                and "models_benchmarking" in disk_payload
+                and disk_payload.get("evaluation_scenario") == scenario
+            )
+            if is_valid:
+                self._store_memory_forecast(mem_key, disk_payload)
+                return disk_payload
+        except (OSError, ValueError):
+            return None
+        return None
+
+    @staticmethod
+    def _store_memory_forecast(mem_key: str, forecast_data: Dict[str, Any]) -> None:
+        _FORECAST_MEMORY_CACHE[mem_key] = deepcopy(forecast_data)
+        if len(_FORECAST_MEMORY_CACHE) > _MAX_FORECAST_CACHE:
+            _FORECAST_MEMORY_CACHE.popitem(last=False)
+
+    def run(
+        self,
+        model_configs: Optional[Dict[str, Dict[str, Any]]] = None,
+        export_figure: bool = True,
+    ) -> Dict[str, Any]:
         """Executa o pipeline completo no cenário ativo com corte causal e previsão 1h."""
         raw_cfgs = model_configs if model_configs is not None else get_default_all_configs()
         resolved_cfgs = {key: sanitize_model_config(key, raw_cfgs.get(key)) for key in MODEL_KEYS}
@@ -396,14 +499,34 @@ class ZenodoPipeline:
         base_split = resolved_cfgs[MODEL_KEYS[0]]["split"]
         scenario = sanitize_scenario(base_split.get("evaluation_scenario"))
         horizon_pref = int(base_split.get("horizon_hours", 168))
+
+        out_path = os.path.join(self.output_dir, "zenodo_forecast_results.json")
+        cache_hash = self._scenario_cache_hash(scenario, resolved_cfgs, horizon_pref)
+        mem_key = f"{os.path.abspath(self.data_dir)}::{cache_hash}"
+        disk_cache_path = os.path.join(self.output_dir, "_forecast_cache", f"{cache_hash}.json")
+
+        cached_forecast = self._load_cached_forecast(scenario, mem_key, disk_cache_path)
+        if cached_forecast is not None:
+            save_json(cached_forecast, out_path)
+            if export_figure:
+                self._export_figure(cached_forecast)
+            return cached_forecast
+
         tables = self._load_scenario_tables(scenario)
 
         benchmarking: Dict[str, Any] = {}
         predictions: Dict[str, np.ndarray] = {}
         ref_arrays: Optional[Dict[str, Any]] = None
+        arrays_cache: Dict[str, Dict[str, Any]] = {}
 
         for key in MODEL_KEYS:
-            entry, preds, arrays = self._run_single_model(key, resolved_cfgs[key], scenario, tables)
+            entry, preds, arrays = self._run_single_model(
+                key,
+                resolved_cfgs[key],
+                scenario,
+                tables,
+                arrays_cache=arrays_cache,
+            )
             benchmarking[key] = entry
             predictions[key] = preds
             if ref_arrays is None:
@@ -414,9 +537,15 @@ class ZenodoPipeline:
             scenario, tables, benchmarking, predictions, ref_arrays, horizon_pref
         )
 
-        out_path = os.path.join(self.output_dir, "zenodo_forecast_results.json")
+        self._store_memory_forecast(mem_key, forecast_data)
+        try:
+            save_json(forecast_data, disk_cache_path)
+        except OSError:
+            pass
+
         save_json(forecast_data, out_path)
-        self._export_figure(forecast_data)
+        if export_figure:
+            self._export_figure(forecast_data)
         return forecast_data
 
     def _export_figure(self, forecast_data: Dict[str, Any]) -> None:

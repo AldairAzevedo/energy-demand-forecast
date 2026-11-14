@@ -1,0 +1,17 @@
+{
+  "sources": {
+    "data_v2.0.xlsx": {
+      "size": 367335,
+      "sha256": "9ed9e109e79c1450b6db626c5f1b898c72e8abf78bbf2abfb0f1ed65f0721c37"
+    }
+  },
+  "col_map": {
+    "power": "power (w)",
+    "gen": "generation (w)",
+    "temp": "temperature (˚c)",
+    "volt": "voltage (v)",
+    "amp": "amperage (a)",
+    "time": "time"
+  },
+  "total_samples": 11520
+}

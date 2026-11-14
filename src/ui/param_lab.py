@@ -63,7 +63,7 @@ def _run_pipeline_action(
     configs: Dict[str, Dict[str, Any]],
     message: str,
 ) -> str:
-    result = manager.run_all(model_configs=configs)
+    result = manager.run_all(model_configs=configs, export_figure=False)
     run_id = result.get("experiment", {}).get("run_id", "-")
     records = result.get("experiment", {}).get("new_records", [])
     if records:
@@ -142,7 +142,7 @@ def _dispatch_pending_action(
             manager, saved, f"🎛️ Covariáveis atualizadas no gráfico ({state_lbl})!"
         )
 
-    res = manager.compact_to_champion()
+    res = manager.compact_to_champion(export_figure=False)
     _bump_ui_version()
     if res.get("empty"):
         return "ℹ️ Nenhuma rodada encontrada para compactar."
@@ -166,7 +166,6 @@ def process_pending_action(root_dir: str) -> None:
             str(pending.get("type", "")),
             dict(pending.get("payload", {})),
         )
-        st.cache_data.clear()
         st.session_state["lab_feedback"] = feedback
     finally:
         st.session_state.pop("pending_lab_action", None)

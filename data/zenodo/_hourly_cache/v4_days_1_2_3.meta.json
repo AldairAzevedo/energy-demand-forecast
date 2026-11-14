@@ -1,0 +1,37 @@
+{
+  "sources": {
+    "data_v4.1.1_weather_forecast_day_1.xlsx": {
+      "size": 9653,
+      "sha256": "38b192b35d29558b417dfca950a25a6b948a8a1ea5f017bfa5d28cc65c3bce06"
+    },
+    "data_v4.1.2_real_consumption_day_1.xlsx": {
+      "size": 8387,
+      "sha256": "09eab1fa0fade661e83d1f20cbe25c63fbd6393844959b902aff22b4a518be5b"
+    },
+    "data_v4.2.1_weather_forecast_day_2.xlsx": {
+      "size": 6770,
+      "sha256": "d73d530d8b5689de20d59719e9d350fb01c98e2182d5c53d8d03a810a68406dc"
+    },
+    "data_v4.2.2_real_consumption_day_2.xlsx": {
+      "size": 8393,
+      "sha256": "00c2321dacab5583bd7589040ff7deea9d41fc1ac8a838f70326d89643032711"
+    },
+    "data_v4.3.1_weather_forecast_day_3.xlsx": {
+      "size": 6766,
+      "sha256": "34d313701bfdbaae23694c684f8b576ba16cd3ef7859b2ed1f080e217d6b68c9"
+    },
+    "data_v4.3.2_real_consumption_day_3.xlsx": {
+      "size": 11224,
+      "sha256": "d1d4853ab8ae87de69dcd9794312d516fa85c5697337e1111198e88e9f99510e"
+    }
+  },
+  "col_map": {
+    "power": "power (w)",
+    "gen": null,
+    "temp": "temperature (ºc)",
+    "volt": null,
+    "amp": null,
+    "time": null
+  },
+  "total_samples": 72
+}

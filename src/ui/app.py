@@ -44,19 +44,33 @@ def _reload_workspace_modules() -> None:
         importlib.reload(mod)
 
 
-@st.cache_data
-def load_zenodo_results(base_path: str, file_mtime: float = 0.0) -> Dict[str, Any]:
+@st.cache_data(max_entries=4)
+def load_zenodo_results(base_path: str, file_sig: str = "0") -> Dict[str, Any]:
     """Carrega o JSON do pipeline Zenodo em cache, invalidando quando o arquivo muda."""
-    _ = file_mtime
+    _ = file_sig
     fpath = os.path.join(base_path, "data", "db", "zenodo_forecast_results.json")
     return load_json(fpath) if os.path.exists(fpath) else {}
+
+
+@st.cache_data(max_entries=16)
+def _load_download_bytes_cached(path: str, file_sig: str) -> bytes:
+    """Mantém em RAM os bytes dos arquivos de download evitando leitura repetida em disco."""
+    _ = file_sig
+    return read_bytes_resilient(path)
+
+
+def _file_stat_sig(path: str) -> str:
+    if not os.path.exists(path):
+        return "missing"
+    st_info = os.stat(path)
+    return f"{st_info.st_mtime_ns}:{st_info.st_size}"
 
 
 def _render_download_item(path: str, label: str, file_name: str, mime: str) -> None:
     if not os.path.exists(path):
         return
     try:
-        payload = read_bytes_resilient(path)
+        payload = _load_download_bytes_cached(path, _file_stat_sig(path))
     except OSError:
         st.caption(f"⚠️ Arquivo bloqueado em uso no momento: `{file_name}`")
         return
@@ -351,7 +365,8 @@ def _render_forecast_page(zenodo_data: Dict[str, Any], root_dir: str) -> None:
 
 def main() -> None:
     """Função principal de renderização do dashboard Zenodo 2025."""
-    _reload_workspace_modules()
+    if os.environ.get("PGENE585_HOT_RELOAD") == "1":
+        _reload_workspace_modules()
 
     st.set_page_config(
         page_title="PGENE585 - Previsão de Consumo Elétrico (Zenodo 2025)",
@@ -363,8 +378,7 @@ def main() -> None:
     param_lab_module.process_pending_action(project_root)
 
     json_path = os.path.join(project_root, "data", "db", "zenodo_forecast_results.json")
-    mtime = os.path.getmtime(json_path) if os.path.exists(json_path) else 0.0
-    zenodo_data = load_zenodo_results(project_root, mtime)
+    zenodo_data = load_zenodo_results(project_root, _file_stat_sig(json_path))
 
     with st.sidebar:
         st.markdown("### ⚡ PGENE585 - PPGEE / UFAM")
