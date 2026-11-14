@@ -1,49 +1,86 @@
-"""Gerenciador centralizado de execução e validação do pipeline Zenodo Smart Building."""
+"""Gerenciador centralizado de execução e persistência de experimentos Zenodo."""
 
 import argparse
 import os
-from typing import Callable, Dict, Optional
+from typing import Any, Callable, Dict, Optional
 
 from src.pipelines.zenodo_pipeline import ZenodoPipeline
-from src.utils.json_io import load_json
+from src.utils.experiment_db import ExperimentDatabase
+from src.utils.json_io import load_json, save_json
 
 
 class CycleManager:
-    """Orquestra a execução e validação de integridade do pipeline Zenodo."""
+    """Orquestra a execução, histórico e validação de integridade do pipeline Zenodo."""
 
     def __init__(self, base_dir: str) -> None:
         self.base_dir = base_dir
         self.data_zenodo = os.path.join(base_dir, "data", "zenodo")
-        self.cycles_dir = os.path.join(base_dir, "data", "cycles")
         self.results_dir = os.path.join(base_dir, "results")
+        self.db_dir = os.path.join(base_dir, "data", "db")
 
-        self.zenodo_pipe = ZenodoPipeline(self.data_zenodo, self.cycles_dir, self.results_dir)
+        self.db = ExperimentDatabase(self.db_dir)
+        self.zenodo_pipe = ZenodoPipeline(self.data_zenodo, self.db_dir, self.results_dir)
 
-    def run_all(self, callback: Optional[Callable[[str], None]] = None) -> None:
-        """Executa o pipeline completo de previsão de consumo elétrico (Zenodo 2025)."""
+    def run_all(
+        self,
+        callback: Optional[Callable[[str], None]] = None,
+        model_configs: Optional[Dict[str, Dict[str, Any]]] = None,
+    ) -> Dict[str, Any]:
+        """Executa o pipeline completo e registra o experimento no banco JSON."""
         log = callback if callback is not None else print
 
-        log("[CycleManager] Iniciando processamento do desafio Zenodo 2025...")
-        log(
-            " -> Executando Pipeline Zenodo "
-            "(Ingestão, Lags/Sazonalidade e Avaliação Multi-critério)..."
+        configs = (
+            self.db.save_active_configs(model_configs)
+            if model_configs is not None
+            else self.db.load_active_configs()
         )
-        self.zenodo_pipe.run()
+
+        log("[CycleManager] Iniciando processamento do desafio Zenodo 2025...")
+        log(" -> Construindo atributos configuráveis e avaliando modelos...")
+        forecast_data = self.zenodo_pipe.run(model_configs=configs)
+
+        record_summary = self.db.record_run(forecast_data, configs)
+        forecast_data["active_run_id"] = record_summary["run_id"]
+        save_json(forecast_data, os.path.join(self.db_dir, "zenodo_forecast_results.json"))
+
+        log(f"[CycleManager] Experimento {record_summary['run_id']} salvo em data/db/.")
+        if record_summary["new_records"]:
+            recs = ", ".join(record_summary["new_records"])
+            log(f"[CycleManager] 🏆 Novo campeão multi-critério registrado para: {recs}")
         log("[CycleManager] ✅ Pipeline Zenodo gerado e validado com sucesso!")
+        return {"forecast": forecast_data, "experiment": record_summary}
+
+    def compact_to_champion(
+        self, callback: Optional[Callable[[str], None]] = None
+    ) -> Dict[str, Any]:
+        """Limpa o histórico mantendo apenas o Campeão (run_0001) e sincroniza o gráfico."""
+        log = callback if callback is not None else print
+        summary = self.db.compact_history_to_champion()
+        if summary.get("empty"):
+            return summary
+
+        log(
+            f"[CycleManager] Histórico compactado para o Campeão "
+            f"(origem: {summary['kept_original_run_id']} → run_0001)."
+        )
+        forecast_data = self.zenodo_pipe.run(model_configs=summary["configs"])
+        forecast_data["active_run_id"] = "run_0001"
+        save_json(forecast_data, os.path.join(self.db_dir, "zenodo_forecast_results.json"))
+        return {"summary": summary, "forecast": forecast_data}
 
     def check_integrity(self) -> Dict[str, bool]:
-        """Verifica a integridade do arquivo JSON gerado pelo pipeline Zenodo."""
+        """Verifica a integridade do arquivo JSON principal gerado pelo pipeline."""
         output_files = [
             "zenodo_forecast_results.json",
         ]
-        status = {}
+        status: Dict[str, bool] = {}
         for filename in output_files:
-            path = os.path.join(self.cycles_dir, filename)
+            path = os.path.join(self.db_dir, filename)
             if os.path.exists(path) and os.path.getsize(path) > 0:
                 try:
                     data = load_json(path)
                     status[filename] = isinstance(data, dict) and "models_benchmarking" in data
-                except Exception:
+                except (OSError, ValueError):
                     status[filename] = False
             else:
                 status[filename] = False

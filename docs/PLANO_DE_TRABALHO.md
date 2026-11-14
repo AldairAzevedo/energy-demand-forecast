@@ -28,16 +28,16 @@ O projeto adota arquitetura monolítica full stack moderna em Python:
 energy-demand-forecast/
 ├── data/
 │   ├── baseline/zenodo/      # Cópia protegida do dataset oficial de referência
-│   ├── zenodo/               # Planilhas da competição (data_v1.0.xlsx)
-│   └── cycles/               # Persistência auditável em JSON (cycle_07)
+│   ├── db/                   # Banco JSON (active_config, best_models_registry, experiment_runs, zenodo_forecast_results)
+│   └── zenodo/               # Planilhas da competição (data_v1.0.xlsx, data_v2.0.xlsx e data_v4.*.xlsx)
 ├── docs/                     # Enunciado oficial (zenodo.pdf) e plano de trabalho
 ├── results/                  # Figuras e gráficos em alta resolução (300 DPI)
 ├── presentation/             # Apresentação executiva de 7 slides (PPTX e PDF)
 ├── src/
-│   ├── core/                 # Métricas multi-critério (RMSE, MAE, R², tempo)
-│   ├── pipelines/            # ZenodoPipeline e orquestrador CycleManager
-│   ├── ui/                   # Aplicação Streamlit reativa e gráficos Plotly
-│   └── utils/                # I/O atômico de arquivos JSON
+│   ├── core/                 # Métricas multi-critério, cenários de corte e esquema de Hiperparâmetros/Covariáveis
+│   ├── pipelines/            # dataset_loader cross-dataset, ZenodoPipeline (1h) e orquestrador CycleManager
+│   ├── ui/                   # Dashboard Streamlit (Ponto de Corte + Covariáveis), Laboratório e gráficos Plotly
+│   └── utils/                # I/O JSON, banco de experimentos e leitura resiliente .xlsx
 ├── tests/                    # Suíte completa de testes unitários e de integração
 ├── streamlit_app.py          # Ponto de entrada do deploy Streamlit Cloud
 ├── requirements.txt          # Dependências do projeto

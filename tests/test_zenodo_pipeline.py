@@ -13,10 +13,10 @@ from src.pipelines.zenodo_pipeline import ZenodoPipeline
 def mock_zenodo_env(tmp_path):
     """Cria um ambiente temporário com dados sintéticos no formato do Zenodo."""
     data_dir = tmp_path / "data" / "zenodo"
-    cycles_dir = tmp_path / "data" / "cycles"
+    db_dir = tmp_path / "data" / "db"
     results_dir = tmp_path / "results"
     data_dir.mkdir(parents=True)
-    cycles_dir.mkdir(parents=True)
+    db_dir.mkdir(parents=True)
     results_dir.mkdir(parents=True)
 
     n_samples = 576
@@ -37,13 +37,13 @@ def mock_zenodo_env(tmp_path):
     excel_path = data_dir / "data_v1.0.xlsx"
     df.to_excel(excel_path, index=False)
 
-    return str(data_dir), str(cycles_dir), str(results_dir)
+    return str(data_dir), str(db_dir), str(results_dir)
 
 
 def test_zenodo_pipeline_run(mock_zenodo_env):
     """Verifica a execução completa do ZenodoPipeline e geração de métricas multi-critério."""
-    data_dir, cycles_dir, results_dir = mock_zenodo_env
-    pipeline = ZenodoPipeline(data_dir, cycles_dir, results_dir)
+    data_dir, db_dir, results_dir = mock_zenodo_env
+    pipeline = ZenodoPipeline(data_dir, db_dir, results_dir)
 
     result = pipeline.run()
 
@@ -59,7 +59,7 @@ def test_zenodo_pipeline_run(mock_zenodo_env):
     assert "train_time_ms" in metrics_hgb
     assert "inference_time_ms" in metrics_hgb
 
-    json_path = os.path.join(cycles_dir, "zenodo_forecast_results.json")
+    json_path = os.path.join(db_dir, "zenodo_forecast_results.json")
     assert os.path.exists(json_path)
 
     fig_path = os.path.join(results_dir, "zenodo_forecast.png")

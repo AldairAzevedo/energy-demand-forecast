@@ -1,112 +1,174 @@
-"""Pipeline de previsão de consumo elétrico em Smart Buildings (Competição Zenodo 2025)."""
+"""Pipeline parametrizável cross-dataset de previsão 1h (Competição Zenodo 2025)."""
 
 import os
 import time
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+from matplotlib.figure import Figure
 from sklearn.ensemble import HistGradientBoostingRegressor, RandomForestRegressor
 from sklearn.linear_model import Ridge
 
+from src.core.diagnostics import (
+    compute_error_diagnostics,
+    compute_multi_criteria_score,
+    diagnose_learning_status,
+    rank_benchmarking_models,
+)
+from src.core.forecasting import (
+    SCENARIO_LABELS,
+    build_context_records,
+    build_post_cutoff_records,
+    resolve_effective_feature_config,
+    resolve_warmup_length,
+    sanitize_scenario,
+    scenario_supports_generation,
+)
 from src.core.metrics import MetricsCalculator
+from src.core.parameter_schema import (
+    MODEL_DISPLAY_NAMES,
+    MODEL_KEYS,
+    get_default_all_configs,
+    get_parameter_taxonomy,
+    sanitize_model_config,
+)
+from src.pipelines.dataset_loader import load_hourly_series, load_v4_days
 from src.utils.json_io import save_json
+
+DatasetBundle = Tuple[pd.DataFrame, Dict[str, Optional[str]], int]
 
 
 class ZenodoPipeline:
-    """Orquestra o treinamento e avaliação multi-critério de previsão de consumo elétrico."""
+    """Orquestra atributos causais, treino 1h e validação cross-dataset com Ponto de Corte."""
 
     def __init__(self, data_dir: str, output_dir: str, results_dir: str) -> None:
         self.data_dir = data_dir
         self.output_dir = output_dir
         self.results_dir = results_dir
         self.main_file = os.path.join(data_dir, "data_v1.0.xlsx")
+        self.v2_file = os.path.join(data_dir, "data_v2.0.xlsx")
+
+    def _load_scenario_tables(self, scenario: str) -> Dict[str, DatasetBundle]:
+        """Carrega apenas os arquivos Excel exigidos pelo cenário escolhido."""
+        tables: Dict[str, DatasetBundle] = {
+            "v1": load_hourly_series(self.main_file, dataset_tag="v1")
+        }
+        if scenario in ("v1_to_v2", "v1_v2_to_v4"):
+            tables["v2"] = load_hourly_series(self.v2_file, dataset_tag="v2")
+        if scenario == "v1_v2_to_v4":
+            tables["v4"] = load_v4_days(self.data_dir, days=(1, 2, 3))
+        return tables
 
     @staticmethod
-    def _find_col(columns: List[str], keyword: str, exclude: str = "") -> str | None:
-        for col in columns:
-            if keyword in col and (not exclude or exclude not in col):
-                return col
-        return None
-
-    @staticmethod
-    def _extract_hours(df: pd.DataFrame, time_col: str | None) -> np.ndarray:
-        if time_col is None:
-            return np.arange(len(df)) % 24
-        parsed = pd.to_datetime(df[time_col].astype(str), format="%H:%M:%S", errors="coerce")
-        if parsed.notna().all():
-            return parsed.dt.hour.to_numpy(dtype=float)
-        return np.arange(len(df)) % 24
-
-    def _prepare_hourly_dataset(self) -> Tuple[np.ndarray, np.ndarray, int]:
-        """Lê a telemetria de 5 min, agrega em base horária e cria atributos causais."""
-        df = pd.read_excel(self.main_file)
-        df.columns = [c.strip().lower() for c in df.columns]
-        cols = list(df.columns)
-
-        power_col = self._find_col(cols, "power", exclude="gen")
-        gen_col = self._find_col(cols, "gen")
-        temp_col = self._find_col(cols, "temp")
-        volt_col = self._find_col(cols, "volt")
-        amp_col = self._find_col(cols, "amp")
-        time_col = self._find_col(cols, "time")
-
-        required = [c for c in [power_col, gen_col, temp_col] if c is not None]
-        df_clean = df.dropna(subset=required).copy()
-        total_5min_samples = len(df_clean)
-
-        agg_map: Dict[str, str] = {power_col: "mean"}
-        if gen_col:
-            agg_map[gen_col] = "mean"
-        if temp_col:
-            agg_map[temp_col] = "mean"
-        if volt_col:
-            agg_map[volt_col] = "mean"
-        if amp_col:
-            agg_map[amp_col] = "mean"
-
-        df_clean["hour_bucket"] = np.arange(len(df_clean)) // 12
-        df_clean["hour_of_day"] = self._extract_hours(df_clean, time_col)
-        agg_map["hour_of_day"] = "first"
-
-        hourly = df_clean.groupby("hour_bucket").agg(agg_map).reset_index(drop=True)
-
-        features = pd.DataFrame(index=hourly.index)
-        y_series = hourly[power_col].astype(float)
-
+    def _append_time_features(
+        features: pd.DataFrame,
+        hourly: pd.DataFrame,
+        feat_cfg: Dict[str, Any],
+    ) -> None:
         hours = hourly["hour_of_day"].astype(float)
-        features["hour_sin"] = np.sin(2.0 * np.pi * hours / 24.0)
-        features["hour_cos"] = np.cos(2.0 * np.pi * hours / 24.0)
+        if feat_cfg.get("use_cyclical_hour", True):
+            features["hour_sin"] = np.sin(2.0 * np.pi * hours / 24.0)
+            features["hour_cos"] = np.cos(2.0 * np.pi * hours / 24.0)
+        if feat_cfg.get("use_raw_hour", False):
+            features["hour_raw"] = hours
 
-        if temp_col:
-            features["temp_c"] = hourly[temp_col].astype(float)
-        if gen_col:
-            features["gen_w"] = hourly[gen_col].astype(float)
+    @staticmethod
+    def _append_covariate_features(
+        features: pd.DataFrame,
+        hourly: pd.DataFrame,
+        col_map: Dict[str, Optional[str]],
+        feat_cfg: Dict[str, Any],
+    ) -> None:
+        if feat_cfg.get("use_temperature", True) and col_map["temp"]:
+            features["temp_c"] = hourly[col_map["temp"]].astype(float)
+        if feat_cfg.get("use_generation", True) and col_map["gen"]:
+            features["gen_w"] = hourly[col_map["gen"]].astype(float)
+        if feat_cfg.get("use_electrical_lags", True):
+            if col_map["volt"]:
+                features["voltage_lag_1"] = (
+                    hourly[col_map["volt"]].astype(float).shift(1).bfill().fillna(0.0)
+                )
+            if col_map["amp"]:
+                features["amperage_lag_1"] = (
+                    hourly[col_map["amp"]].astype(float).shift(1).bfill().fillna(0.0)
+                )
 
+    @staticmethod
+    def _append_lag_and_rolling_features(
+        features: pd.DataFrame,
+        y_series: pd.Series,
+        feat_cfg: Dict[str, Any],
+    ) -> None:
         fallback_power = float(y_series.mean()) if len(y_series) > 0 else 0.0
-        for lag in (1, 2, 3, 24, 48, 168):
+        for lag in feat_cfg.get("power_lags", []):
             features[f"power_lag_{lag}"] = y_series.shift(lag).bfill().fillna(fallback_power)
 
-        features["power_roll_mean_6"] = (
-            y_series.shift(1).rolling(6, min_periods=1).mean().bfill().fillna(fallback_power)
-        )
-        features["power_roll_mean_24"] = (
-            y_series.shift(1).rolling(24, min_periods=1).mean().bfill().fillna(fallback_power)
-        )
-        features["power_roll_std_24"] = (
-            y_series.shift(1).rolling(24, min_periods=1).std().fillna(0.0)
-        )
+        shifted = y_series.shift(1)
+        for win in feat_cfg.get("rolling_mean_windows", []):
+            features[f"power_roll_mean_{win}"] = (
+                shifted.rolling(win, min_periods=1).mean().bfill().fillna(fallback_power)
+            )
+        for win in feat_cfg.get("rolling_std_windows", []):
+            features[f"power_roll_std_{win}"] = (
+                shifted.rolling(win, min_periods=1).std().fillna(0.0)
+            )
 
-        if volt_col:
-            features["voltage_lag_1"] = hourly[volt_col].astype(float).shift(1).bfill().fillna(0.0)
-        if amp_col:
-            features["amperage_lag_1"] = hourly[amp_col].astype(float).shift(1).bfill().fillna(0.0)
+    def _build_feature_matrix(
+        self,
+        hourly: pd.DataFrame,
+        col_map: Dict[str, Optional[str]],
+        feat_cfg: Dict[str, Any],
+    ) -> Tuple[np.ndarray, np.ndarray, List[str]]:
+        """Constrói matriz causal X e vetor alvo y conforme hiperparâmetros e covariáveis."""
+        power_col = col_map["power"]
+        if not power_col:
+            raise ValueError("Coluna de potência ativa 'power (W)' não encontrada no dataset.")
 
+        y_series = hourly[power_col].astype(float)
+        features = pd.DataFrame(index=hourly.index)
+
+        self._append_time_features(features, hourly, feat_cfg)
+        self._append_covariate_features(features, hourly, col_map, feat_cfg)
+        self._append_lag_and_rolling_features(features, y_series, feat_cfg)
+
+        if features.shape[1] == 0:
+            hours = hourly["hour_of_day"].astype(float)
+            features["hour_sin"] = np.sin(2.0 * np.pi * hours / 24.0)
+            features["hour_cos"] = np.cos(2.0 * np.pi * hours / 24.0)
+
+        feature_names = list(features.columns)
         return (
             features.fillna(0.0).to_numpy(dtype=float),
             y_series.to_numpy(dtype=float),
-            total_5min_samples,
+            feature_names,
+        )
+
+    @staticmethod
+    def _build_estimator(model_key: str, cfg: Dict[str, Any]) -> Any:
+        hp = cfg["hyperparameters"]
+        seed = int(cfg["split"]["random_state"])
+
+        if model_key == "Ridge_Linear":
+            return Ridge(alpha=float(hp["alpha"]))
+
+        if model_key == "Random_Forest":
+            return RandomForestRegressor(
+                n_estimators=int(hp["n_estimators"]),
+                max_depth=int(hp["max_depth"]),
+                min_samples_leaf=int(hp["min_samples_leaf"]),
+                random_state=seed,
+                n_jobs=-1,
+            )
+
+        hgb_depth = int(hp["max_depth"])
+        return HistGradientBoostingRegressor(
+            max_iter=int(hp["max_iter"]),
+            learning_rate=float(hp["learning_rate"]),
+            max_depth=None if hgb_depth == 0 else hgb_depth,
+            l2_regularization=float(hp["l2_regularization"]),
+            random_state=seed,
         )
 
     @staticmethod
@@ -116,139 +178,309 @@ class ZenodoPipeline:
         y_train: np.ndarray,
         x_test: np.ndarray,
         y_test: np.ndarray,
-    ) -> Tuple[np.ndarray, Dict[str, Any]]:
+    ) -> Tuple[np.ndarray, Dict[str, Any], Dict[str, Any]]:
         t_train_start = time.perf_counter()
         model.fit(x_train, y_train)
         train_time_ms = (time.perf_counter() - t_train_start) * 1000.0
 
+        preds_train = model.predict(x_train)
+        train_metrics = MetricsCalculator.evaluate_all(y_train, preds_train)
+
         t_inf_start = time.perf_counter()
-        preds = model.predict(x_test)
+        preds_test = model.predict(x_test)
         inference_time_ms = (time.perf_counter() - t_inf_start) * 1000.0
 
-        metrics = MetricsCalculator.evaluate_all(
+        test_metrics = MetricsCalculator.evaluate_all(
             y_test,
-            preds,
+            preds_test,
             train_time_ms=train_time_ms,
             inference_time_ms=inference_time_ms,
         )
-        return preds, metrics
+        return preds_test, test_metrics, train_metrics
 
-    def run(self) -> Dict[str, Any]:
-        """Executa o pipeline completo de previsão de consumo elétrico (Zenodo 2025)."""
-        x_matrix, y, total_5min_samples = self._prepare_hourly_dataset()
+    def _prepare_scenario_arrays(
+        self,
+        scenario: str,
+        eff_feat: Dict[str, Any],
+        split_cfg: Dict[str, Any],
+        tables: Dict[str, DatasetBundle],
+    ) -> Dict[str, Any]:
+        """Prepara matrizes Treino/Teste, warm-up sem leakage e fatias de contexto/corte."""
+        ctx_hours = int(split_cfg.get("context_hours", 72))
 
-        split_idx = int(0.8 * len(y))
-        x_train, x_test = x_matrix[:split_idx], x_matrix[split_idx:]
-        y_train, y_test = y[:split_idx], y[split_idx:]
+        if scenario == "v1_to_v2":
+            hourly_v1, col_v1, _ = tables["v1"]
+            hourly_v2, col_v2, _ = tables["v2"]
+            x_train, y_train, feat_names = self._build_feature_matrix(hourly_v1, col_v1, eff_feat)
+            x_v2, y_v2, _ = self._build_feature_matrix(hourly_v2, col_v2, eff_feat)
+            warmup = resolve_warmup_length(len(y_v2), ctx_hours)
+            return {
+                "x_train": x_train,
+                "y_train": y_train,
+                "x_test": x_v2[warmup:],
+                "y_test": y_v2[warmup:],
+                "feature_names": feat_names,
+                "context_df": hourly_v2.iloc[max(0, warmup - ctx_hours) : warmup],
+                "context_col_map": col_v2,
+                "test_df": hourly_v2.iloc[warmup:],
+                "test_col_map": col_v2,
+                "cutoff_label": f"Corte em v2.0 após {warmup}h de aquecimento (Treino 100% v1.0)",
+            }
 
-        models_spec = [
-            ("Ridge_Linear", "Ridge Linear (Baseline)", Ridge(alpha=1.0)),
-            (
-                "Random_Forest",
-                "Random Forest (100 árvores)",
-                RandomForestRegressor(n_estimators=100, max_depth=16, random_state=42, n_jobs=-1),
-            ),
-            (
-                "Hist_Gradient_Boosting",
-                "HistGradientBoosting (Tabular)",
-                HistGradientBoostingRegressor(max_iter=200, learning_rate=0.05, random_state=42),
-            ),
-        ]
+        if scenario == "v1_v2_to_v4":
+            hourly_v1, col_v1, _ = tables["v1"]
+            hourly_v2, col_v2, _ = tables["v2"]
+            hourly_v4, col_v4, _ = tables["v4"]
+            x_v1, y_v1, feat_names = self._build_feature_matrix(hourly_v1, col_v1, eff_feat)
+            x_v2, y_v2, _ = self._build_feature_matrix(hourly_v2, col_v2, eff_feat)
+            x_v4, y_v4, _ = self._build_feature_matrix(hourly_v4, col_v4, eff_feat)
+            warmup = min(24, max(1, len(y_v4) // 3))
+            return {
+                "x_train": np.vstack([x_v1, x_v2]),
+                "y_train": np.concatenate([y_v1, y_v2]),
+                "x_test": x_v4[warmup:],
+                "y_test": y_v4[warmup:],
+                "feature_names": feat_names,
+                "context_df": hourly_v4.iloc[:warmup],
+                "context_col_map": col_v4,
+                "test_df": hourly_v4.iloc[warmup:],
+                "test_col_map": col_v4,
+                "cutoff_label": "Corte após Dia 1 (24h) de v4 → Teste Dias 2–3 (48h)",
+            }
 
-        benchmarking: Dict[str, Any] = {}
-        predictions: Dict[str, np.ndarray] = {}
+        hourly_v1, col_v1, _ = tables["v1"]
+        x_mat, y_arr, feat_names = self._build_feature_matrix(hourly_v1, col_v1, eff_feat)
+        split_idx = max(1, min(len(y_arr) - 1, int(float(split_cfg["train_ratio"]) * len(y_arr))))
+        return {
+            "x_train": x_mat[:split_idx],
+            "y_train": y_arr[:split_idx],
+            "x_test": x_mat[split_idx:],
+            "y_test": y_arr[split_idx:],
+            "feature_names": feat_names,
+            "context_df": hourly_v1.iloc[max(0, split_idx - ctx_hours) : split_idx],
+            "context_col_map": col_v1,
+            "test_df": hourly_v1.iloc[split_idx:],
+            "test_col_map": col_v1,
+            "cutoff_label": f"Corte em t={split_idx}h ({int(split_cfg['train_ratio'] * 100)}%)",
+        }
 
-        for key, display_name, estimator in models_spec:
-            preds, metrics = self._train_and_evaluate(estimator, x_train, y_train, x_test, y_test)
-            benchmarking[key] = {"name": display_name, "metrics": metrics}
-            predictions[key] = preds
+    def _run_single_model(
+        self,
+        model_key: str,
+        cfg: Dict[str, Any],
+        scenario: str,
+        tables: Dict[str, DatasetBundle],
+    ) -> Tuple[Dict[str, Any], np.ndarray, Dict[str, Any]]:
+        eff_feat = resolve_effective_feature_config(scenario, cfg["features"])
+        arrays = self._prepare_scenario_arrays(scenario, eff_feat, cfg["split"], tables)
+        x_train, y_train = arrays["x_train"], arrays["y_train"]
+        x_test, y_test = arrays["x_test"], arrays["y_test"]
+        test_hours = arrays["test_df"]["hour_of_day"].to_numpy(dtype=float)
 
-        best_key = min(benchmarking, key=lambda k: benchmarking[k]["metrics"]["rmse"])
+        estimator = self._build_estimator(model_key, cfg)
+        preds_test, test_metrics, train_metrics = self._train_and_evaluate(
+            estimator, x_train, y_train, x_test, y_test
+        )
+        test_metrics["multi_criteria_score"] = compute_multi_criteria_score(
+            test_metrics,
+            train_metrics,
+            mean_ref_power_w=float(np.mean(y_test)) if len(y_test) > 0 else 2000.0,
+        )
 
-        sample_len = min(168, len(y_test))
-        forecast_data = {
+        learning_diagnosis = diagnose_learning_status(
+            train_metrics["r2"],
+            test_metrics["r2"],
+            train_metrics["rmse"],
+            test_metrics["rmse"],
+        )
+        error_diagnostics = compute_error_diagnostics(y_test, preds_test, test_hours)
+
+        bench_entry = {
+            "name": MODEL_DISPLAY_NAMES[model_key],
+            "metrics": test_metrics,
+            "train_metrics": train_metrics,
+            "learning_diagnosis": learning_diagnosis,
+            "error_diagnostics": error_diagnostics,
+            "features_used": arrays["feature_names"],
+            "num_features": len(arrays["feature_names"]),
+            "train_samples": len(y_train),
+            "test_samples": len(y_test),
+            "config_used": cfg,
+            "effective_features": eff_feat,
+        }
+        return bench_entry, preds_test, arrays
+
+    @staticmethod
+    def _extract_col_list(df: pd.DataFrame, col_name: Optional[str]) -> Optional[List[float]]:
+        if not col_name or col_name not in df.columns:
+            return None
+        return df[col_name].astype(float).tolist()
+
+    def _build_forecast_payload(
+        self,
+        scenario: str,
+        tables: Dict[str, DatasetBundle],
+        benchmarking: Dict[str, Any],
+        predictions: Dict[str, np.ndarray],
+        ref_arrays: Dict[str, Any],
+        horizon_pref: int,
+    ) -> Dict[str, Any]:
+        ranked = rank_benchmarking_models(benchmarking)
+        best_key = ranked[0][0]
+        y_test = ref_arrays["y_test"]
+        horizon_len = min(horizon_pref, len(y_test))
+
+        ctx_df: pd.DataFrame = ref_arrays["context_df"]
+        ctx_map: Dict[str, Optional[str]] = ref_arrays["context_col_map"]
+        test_df: pd.DataFrame = ref_arrays["test_df"].iloc[:horizon_len]
+        test_map: Dict[str, Optional[str]] = ref_arrays["test_col_map"]
+
+        context_sample = build_context_records(
+            y_context=self._extract_col_list(ctx_df, ctx_map["power"]) or [],
+            timestamps=ctx_df["timestamp_label"].astype(str).tolist(),
+            temp_values=self._extract_col_list(ctx_df, ctx_map["temp"]),
+            gen_values=self._extract_col_list(ctx_df, ctx_map["gen"]),
+        )
+        post_sample = build_post_cutoff_records(
+            y_test=y_test[:horizon_len],
+            preds_by_model={k: predictions[k][:horizon_len] for k in MODEL_KEYS},
+            timestamps=test_df["timestamp_label"].astype(str).tolist(),
+            horizon_len=horizon_len,
+            temp_values=self._extract_col_list(test_df, test_map["temp"]),
+            gen_values=self._extract_col_list(test_df, test_map["gen"]),
+        )
+
+        total_5min = sum(bundle[2] for bundle in tables.values())
+        total_hourly = sum(len(bundle[0]) for bundle in tables.values())
+        any_temp = any(
+            bool(benchmarking[k].get("effective_features", {}).get("use_temperature", True))
+            for k in benchmarking
+        )
+        any_gen = any(
+            bool(benchmarking[k].get("effective_features", {}).get("use_generation", True))
+            for k in benchmarking
+        )
+        return {
             "competition": "2025 Competition on Electric Energy Consumption Forecast (Zenodo)",
             "title": "Previsão de Consumo Elétrico em Smart Building (Zenodo 2025)",
             "target_variable": "power (W)",
-            "total_5min_samples": total_5min_samples,
-            "total_hourly_samples": len(y),
-            "train_samples": len(y_train),
-            "test_samples": len(y_test),
+            "evaluation_scenario": scenario,
+            "scenario_label": SCENARIO_LABELS[scenario],
+            "cutoff_label": ref_arrays["cutoff_label"],
+            "has_generation": scenario_supports_generation(scenario),
+            "active_covariates": {
+                "use_temperature": any_temp,
+                "use_generation": any_gen and scenario_supports_generation(scenario),
+            },
+            "active_run_id": "-",
+            "context_hours": len(context_sample),
+            "horizon_hours": len(post_sample),
+            "total_5min_samples": total_5min,
+            "total_hourly_samples": total_hourly,
+            "train_samples": benchmarking[best_key]["train_samples"],
+            "test_samples": benchmarking[best_key]["test_samples"],
             "mean_test_power_w": round(float(np.mean(y_test)), 2),
             "best_model_key": best_key,
             "best_model_name": benchmarking[best_key]["name"],
+            "parameter_taxonomy": get_parameter_taxonomy(),
             "models_benchmarking": benchmarking,
-            "recent_predictions_sample": [
-                {
-                    "hour": idx + 1,
-                    "real_power_w": round(float(y_test[idx]), 1),
-                    "pred_ridge_w": round(float(predictions["Ridge_Linear"][idx]), 1),
-                    "pred_rf_w": round(float(predictions["Random_Forest"][idx]), 1),
-                    "pred_hgb_w": round(float(predictions["Hist_Gradient_Boosting"][idx]), 1),
-                }
-                for idx in range(sample_len)
-            ],
+            "context_sample": context_sample,
+            "recent_predictions_sample": post_sample,
         }
+
+    def run(self, model_configs: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+        """Executa o pipeline completo no cenário ativo com corte causal e previsão 1h."""
+        raw_cfgs = model_configs if model_configs is not None else get_default_all_configs()
+        resolved_cfgs = {key: sanitize_model_config(key, raw_cfgs.get(key)) for key in MODEL_KEYS}
+
+        base_split = resolved_cfgs[MODEL_KEYS[0]]["split"]
+        scenario = sanitize_scenario(base_split.get("evaluation_scenario"))
+        horizon_pref = int(base_split.get("horizon_hours", 168))
+        tables = self._load_scenario_tables(scenario)
+
+        benchmarking: Dict[str, Any] = {}
+        predictions: Dict[str, np.ndarray] = {}
+        ref_arrays: Optional[Dict[str, Any]] = None
+
+        for key in MODEL_KEYS:
+            entry, preds, arrays = self._run_single_model(key, resolved_cfgs[key], scenario, tables)
+            benchmarking[key] = entry
+            predictions[key] = preds
+            if ref_arrays is None:
+                ref_arrays = arrays
+
+        assert ref_arrays is not None
+        forecast_data = self._build_forecast_payload(
+            scenario, tables, benchmarking, predictions, ref_arrays, horizon_pref
+        )
 
         out_path = os.path.join(self.output_dir, "zenodo_forecast_results.json")
         save_json(forecast_data, out_path)
-
-        self._export_figure(
-            y_test[:sample_len],
-            predictions["Ridge_Linear"][:sample_len],
-            predictions["Random_Forest"][:sample_len],
-            predictions["Hist_Gradient_Boosting"][:sample_len],
-        )
+        self._export_figure(forecast_data)
         return forecast_data
 
-    def _export_figure(
-        self,
-        y_real: np.ndarray,
-        y_pred_ridge: np.ndarray,
-        y_pred_rf: np.ndarray,
-        y_pred_hgb: np.ndarray,
-    ) -> None:
-        """Gera e salva gráfico em 300 DPI comparando consumo real vs. modelos preditivos."""
+    def _export_figure(self, forecast_data: Dict[str, Any]) -> None:
+        """Gera e salva figura 300 DPI com contexto pré-corte, linha de corte e previsões."""
         os.makedirs(self.results_dir, exist_ok=True)
-        fig, ax = plt.subplots(figsize=(14, 5.5))
-        hours = np.arange(len(y_real))
+        fig = Figure(figsize=(14, 5.5))
+        FigureCanvasAgg(fig)
+        ax = fig.add_subplot(111)
 
-        ax.plot(hours, y_real, label="Consumo Real Medido (W)", color="#8B5CF6", linewidth=2.4)
-        ax.plot(
-            hours,
-            y_pred_hgb,
-            label="HistGradientBoosting (W)",
-            color="#0284C7",
-            linewidth=2.0,
-        )
-        ax.plot(
-            hours,
-            y_pred_rf,
-            label="Random Forest (W)",
-            color="#059669",
-            linestyle="--",
-            linewidth=1.8,
-        )
-        ax.plot(
-            hours,
-            y_pred_ridge,
-            label="Ridge Linear (W)",
-            color="#EA580C",
-            linestyle=":",
-            linewidth=1.8,
-        )
+        ctx = forecast_data.get("context_sample", [])
+        post = forecast_data.get("recent_predictions_sample", [])
 
+        if ctx:
+            x_ctx = [item["hour"] for item in ctx]
+            y_ctx = [item["real_power_w"] for item in ctx]
+            ax.plot(
+                x_ctx,
+                y_ctx,
+                label="Contexto Pré-Corte (Real)",
+                color="#A78BFA",
+                linewidth=2.0,
+                alpha=0.85,
+            )
+
+        x_post = [item["hour"] for item in post]
+        ax.plot(
+            x_post,
+            [item["real_power_w"] for item in post],
+            label="Consumo Real Medido (W)",
+            color="#8B5CF6",
+            linewidth=2.5,
+        )
+        style_map = {
+            "Hist_Gradient_Boosting": ("pred_hgb_w", "HistGradientBoosting", "#0284C7", "-"),
+            "Random_Forest": ("pred_rf_w", "Random Forest", "#059669", "--"),
+            "Ridge_Linear": ("pred_ridge_w", "Ridge Linear", "#EA580C", ":"),
+        }
+        bench = forecast_data.get("models_benchmarking", {})
+        ranked = rank_benchmarking_models(bench) if bench else [(k, {}) for k in style_map]
+        for idx, (m_key, _) in enumerate(ranked):
+            field, short_name, color, lstyle = style_map[m_key]
+            rank_tag = "1º Campeão" if idx == 0 else f"{idx + 1}º"
+            lw = 2.2 if idx == 0 else 1.8
+            ax.plot(
+                x_post,
+                [item[field] for item in post],
+                label=f"[{rank_tag}] {short_name} (W)",
+                color=color,
+                linestyle=lstyle,
+                linewidth=lw,
+            )
+
+        ax.axvline(x=0.5, color="#EF4444", linestyle="--", linewidth=1.6, label="Ponto de Corte")
+        sc_label = forecast_data.get("scenario_label", "Zenodo 2025")
         ax.set_title(
-            "Competição Zenodo 2025: Previsão Horária de Consumo Elétrico (Semana de Teste - 168h)",
+            f"{sc_label} — Previsão 1h com Ponto de Corte",
             fontsize=13,
             fontweight="bold",
         )
-        ax.set_xlabel("Hora da Amostra de Teste", fontsize=11)
+        ax.set_xlabel("Tempo Relativo ao Ponto de Corte (horas)", fontsize=11)
         ax.set_ylabel("Potência Ativa Consumida (W)", fontsize=11)
         ax.grid(True, linestyle="--", alpha=0.45)
         ax.legend(loc="upper right", framealpha=0.95)
-        plt.tight_layout()
+        fig.tight_layout()
 
         fig_path = os.path.join(self.results_dir, "zenodo_forecast.png")
         fig.savefig(fig_path, dpi=300, bbox_inches="tight")
-        plt.close(fig)

@@ -26,7 +26,7 @@ def test_cycle_manager_integrity_check(base_project_dir):
 
 def test_zenodo_forecast_benchmark_structure(base_project_dir):
     """Valida as métricas multi-critério de previsão de consumo no JSON gerado."""
-    path = os.path.join(base_project_dir, "data", "cycles", "zenodo_forecast_results.json")
+    path = os.path.join(base_project_dir, "data", "db", "zenodo_forecast_results.json")
     data = load_json(path)
 
     assert data["target_variable"] == "power (W)"
