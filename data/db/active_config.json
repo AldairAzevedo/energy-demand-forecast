@@ -1,23 +1,13 @@
 {
   "schema_version": "1.2.0",
-  "updated_at": "2026-11-14T06:18:11+00:00",
+  "updated_at": "2026-11-15T22:32:56+00:00",
   "configs": {
     "Ridge_Linear": {
       "model_key": "Ridge_Linear",
       "display_name": "Ridge Linear (Baseline)",
       "features": {
-        "power_lags": [
-          1,
-          2,
-          3,
-          24,
-          48,
-          168
-        ],
-        "rolling_mean_windows": [
-          6,
-          24
-        ],
+        "power_lags": [],
+        "rolling_mean_windows": [],
         "rolling_std_windows": [
           24
         ],
@@ -29,7 +19,7 @@
       },
       "split": {
         "evaluation_scenario": "v1_internal_split",
-        "train_ratio": 0.8,
+        "train_ratio": 0.7,
         "random_state": 42,
         "context_hours": 72,
         "horizon_hours": 168
@@ -42,30 +32,18 @@
       "model_key": "Random_Forest",
       "display_name": "Random Forest (Árvores)",
       "features": {
-        "power_lags": [
-          1,
-          2,
-          3,
-          24,
-          48,
-          168
-        ],
-        "rolling_mean_windows": [
-          6,
-          24
-        ],
-        "rolling_std_windows": [
-          24
-        ],
+        "power_lags": [],
+        "rolling_mean_windows": [],
+        "rolling_std_windows": [],
         "use_cyclical_hour": true,
         "use_raw_hour": false,
-        "use_temperature": true,
-        "use_generation": true,
-        "use_electrical_lags": true
+        "use_temperature": false,
+        "use_generation": false,
+        "use_electrical_lags": false
       },
       "split": {
         "evaluation_scenario": "v1_internal_split",
-        "train_ratio": 0.8,
+        "train_ratio": 0.7,
         "random_state": 42,
         "context_hours": 72,
         "horizon_hours": 168
@@ -98,12 +76,12 @@
         "use_cyclical_hour": true,
         "use_raw_hour": false,
         "use_temperature": true,
-        "use_generation": true,
+        "use_generation": false,
         "use_electrical_lags": true
       },
       "split": {
         "evaluation_scenario": "v1_internal_split",
-        "train_ratio": 0.8,
+        "train_ratio": 0.7,
         "random_state": 42,
         "context_hours": 72,
         "horizon_hours": 168

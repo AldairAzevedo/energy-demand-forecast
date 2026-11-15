@@ -11,5 +11,6 @@ if ROOT_DIR not in sys.path:
 import src.ui.app as app_module  # noqa: E402
 
 if __name__ == "__main__":
-    importlib.reload(app_module)
+    if os.environ.get("PGENE585_HOT_RELOAD") == "1":
+        importlib.reload(app_module)
     app_module.main()

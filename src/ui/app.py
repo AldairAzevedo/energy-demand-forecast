@@ -84,10 +84,19 @@ def _render_download_item(path: str, label: str, file_name: str, mime: str) -> N
 
 
 def _render_sidebar_downloads(root_dir: str) -> None:
-    """Renderiza a Central de Downloads com slides, enunciado e dados Zenodo."""
+    """Renderiza a Central de Downloads sob demanda para evitar tráfego extra em cada clique."""
     st.markdown("---")
     st.markdown("**📥 Central de Downloads:**")
     with st.expander("📦 Baixar Apresentação e Dados", expanded=False):
+        if not st.toggle(
+            "🔓 Preparar arquivos para download",
+            value=False,
+            key="sidebar_load_downloads",
+            help="Carrega os arquivos (PDF, PPTX, XLSX e JSON) apenas quando necessário.",
+        ):
+            st.caption("Ative acima para liberar os botões de download (~5,5 MB).")
+            return
+
         _render_download_item(
             os.path.join(root_dir, "presentation", "slides_apresentacao.pdf"),
             "📊 Slides da Apresentação (PDF)",
@@ -156,19 +165,23 @@ def _render_scenario_bar(active_scenario: str, zenodo_data: Dict[str, Any]) -> N
         label = forecasting_module.SCENARIO_SHORT_LABELS[sc]
         prefix = "✅ " if is_active else "🔀 "
         with col:
-            if st.button(
+            st.button(
                 f"{prefix}{label}",
                 key=f"btn_scenario_{sc}",
                 type="primary" if is_active else "secondary",
                 width="stretch",
                 help=forecasting_module.SCENARIO_DESCRIPTIONS[sc],
-            ):
-                if not is_active:
-                    param_lab_module.queue_lab_action(
+                on_click=None if is_active else param_lab_module.stage_lab_action,
+                args=(
+                    ()
+                    if is_active
+                    else (
                         "switch_scenario",
                         f"Executando cenário **{forecasting_module.SCENARIO_LABELS[sc]}**...",
                         {"scenario": sc},
                     )
+                ),
+            )
     st.caption(
         f"📐 **Protocolo ativo ({forecasting_module.SCENARIO_LABELS[active_scenario]}):** "
         f"{_format_active_protocol_caption(active_scenario, zenodo_data)}"

@@ -44,17 +44,36 @@ def _bump_ui_version() -> None:
     st.session_state.param_ui_version = _get_ui_version() + 1
 
 
+def stage_lab_action(
+    action_type: str,
+    loading_message: str,
+    payload: Optional[Dict[str, Any]] = None,
+) -> None:
+    """Registra ação pendente via callback on_click sem disparar rerun extra redundante."""
+    st.session_state["pending_lab_action"] = {
+        "type": action_type,
+        "loading_message": loading_message,
+        "payload": payload or {},
+    }
+
+
+def _stage_restore_run(scenario: str) -> None:
+    chosen = str(st.session_state.get("hist_restore_run_id", "")).strip()
+    if chosen:
+        stage_lab_action(
+            "restore_run",
+            f"Carregando parâmetros da rodada `{chosen}` e treinando modelos...",
+            {"run_id": chosen, "scenario": scenario},
+        )
+
+
 def queue_lab_action(
     action_type: str,
     loading_message: str,
     payload: Optional[Dict[str, Any]] = None,
 ) -> None:
     """Enfileira uma ação de experimento para rodar no topo do ciclo com backdrop unificado."""
-    st.session_state["pending_lab_action"] = {
-        "type": action_type,
-        "loading_message": loading_message,
-        "payload": payload or {},
-    }
+    stage_lab_action(action_type, loading_message, payload)
     st.rerun()
 
 
@@ -551,13 +570,13 @@ def _render_lab_actions(
                 },
             )
     with b2:
-        if st.button(
+        st.button(
             "🏆 Melhor Deste Modelo",
             width="stretch",
             key="btn_lab_reset_one",
             help="Restaura o campeão Multi-Critério deste modelo no cenário atual.",
-        ):
-            queue_lab_action(
+            on_click=stage_lab_action,
+            args=(
                 "reset_one",
                 f"Restaurando Campeão de {MODEL_DISPLAY_NAMES[selected_model]}...",
                 {
@@ -565,31 +584,34 @@ def _render_lab_actions(
                     "criterion": criterion,
                     "scenario": active_scenario,
                 },
-            )
+            ),
+        )
     with b3:
-        if st.button(
+        st.button(
             "🏆 Melhores de TODOS",
             width="stretch",
             key="btn_lab_reset_all",
             help="Restaura os 3 modelos para seus respectivos campeões do cenário atual.",
-        ):
-            queue_lab_action(
+            on_click=stage_lab_action,
+            args=(
                 "reset_all",
                 "Restaurando os 3 Campeões Multi-Critério e recalculando previsão...",
                 {"criterion": criterion, "scenario": active_scenario},
-            )
+            ),
+        )
     with b4:
-        if st.button(
+        st.button(
             "🔄 Padrão Inicial",
             width="stretch",
             key="btn_lab_reset_factory",
             help="Volta os 3 modelos para os hiperparâmetros iniciais de fábrica (baseline).",
-        ):
-            queue_lab_action(
+            on_click=stage_lab_action,
+            args=(
                 "reset_factory",
                 "Restaurando configuração inicial de fábrica e recalculando modelos...",
                 {"scenario": active_scenario},
-            )
+            ),
+        )
 
 
 def _render_lab_tab(
@@ -754,22 +776,23 @@ def _render_history_tab(
         if run_ids:
             c_r1, c_r2, c_r3 = st.columns([1.6, 1.0, 1.2])
             with c_r1:
-                chosen_run = st.selectbox(
+                st.selectbox(
                     "Reproduzir parâmetros de uma rodada específica:",
                     options=run_ids,
                     key="hist_restore_run_id",
                 )
             with c_r2:
                 st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-                if st.button("⏪ Carregar Rodada", width="stretch", key="btn_restore_run_id"):
-                    queue_lab_action(
-                        "restore_run",
-                        f"Carregando parâmetros da rodada `{chosen_run}` e treinando modelos...",
-                        {"run_id": chosen_run, "scenario": active_scenario},
-                    )
+                st.button(
+                    "⏪ Carregar Rodada",
+                    width="stretch",
+                    key="btn_restore_run_id",
+                    on_click=_stage_restore_run,
+                    args=(active_scenario,),
+                )
             with c_r3:
                 st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-                if st.button(
+                st.button(
                     "🧹 Limpar Histórico (Manter Só Campeão)",
                     width="stretch",
                     key="btn_compact_champion",
@@ -778,12 +801,13 @@ def _render_history_tab(
                         "somente a rodada Campeã Multi-Critério (renumerada para run_0001) e "
                         "sincroniza o gráfico principal."
                     ),
-                ):
-                    queue_lab_action(
+                    on_click=stage_lab_action,
+                    args=(
                         "compact_champion",
                         "Limpando histórico e mantendo somente o Campeão geral (`run_0001`)...",
                         {"scenario": active_scenario},
-                    )
+                    ),
+                )
     else:
         st.info("Nenhum experimento registrado ainda.")
 

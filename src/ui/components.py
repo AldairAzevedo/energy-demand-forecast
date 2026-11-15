@@ -1,5 +1,7 @@
 """Componentes visuais reutilizáveis com foco em clareza cognitiva e UI/UX."""
 
+import html
+import re
 from typing import Any, Dict, List, Tuple
 
 import streamlit as st
@@ -201,14 +203,22 @@ def render_active_status_strip(run_id: str, scenario_label: str, cutoff_label: s
     )
 
 
+def _format_overlay_message(message: str) -> str:
+    """Converte **negrito** e `código` com escape seguro para HTML no overlay."""
+    escaped = html.escape(message)
+    escaped = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", escaped)
+    return re.sub(r"`(.+?)`", r"<code>\1</code>", escaped)
+
+
 def render_loading_backdrop(message: str) -> Any:
     """Exibe overlay escuro translúcido centralizado durante execuções de ações."""
+    safe_msg = _format_overlay_message(message)
     slot = st.empty()
     slot.markdown(
         f'<div class="loading-backdrop">'
         f'<div class="loading-modal">'
         f'<div class="loading-spinner"></div>'
-        f"<div>{message}</div>"
+        f"<div>{safe_msg}</div>"
         f'<div style="font-size:12.5px;color:#94a3b8;margin-top:8px;">'
         f"Aguarde enquanto os modelos são recalculados e salvos em data/db/..."
         f"</div></div></div>",
