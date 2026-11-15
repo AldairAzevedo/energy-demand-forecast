@@ -10,7 +10,7 @@
     "use_temperature": true,
     "use_generation": true
   },
-  "active_run_id": "run_0010",
+  "active_run_id": "run_0001",
   "context_hours": 72,
   "horizon_hours": 168,
   "total_5min_samples": 105120,
