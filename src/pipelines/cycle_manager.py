@@ -38,7 +38,11 @@ class CycleManager:
 
         log("[CycleManager] Iniciando processamento do desafio Zenodo 2025...")
         log(" -> Construindo atributos configuráveis e avaliando modelos...")
-        forecast_data = self.zenodo_pipe.run(model_configs=configs, export_figure=export_figure)
+        forecast_data = self.zenodo_pipe.run(
+            model_configs=configs,
+            export_figure=export_figure,
+            callback=log,
+        )
 
         record_summary = self.db.record_run(forecast_data, configs)
         forecast_data["active_run_id"] = record_summary["run_id"]
@@ -69,6 +73,7 @@ class CycleManager:
         forecast_data = self.zenodo_pipe.run(
             model_configs=summary["configs"],
             export_figure=export_figure,
+            callback=log,
         )
         forecast_data["active_run_id"] = "run_0001"
         save_json(forecast_data, os.path.join(self.db_dir, "zenodo_forecast_results.json"))

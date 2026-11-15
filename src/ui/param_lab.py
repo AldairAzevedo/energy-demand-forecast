@@ -1,5 +1,7 @@
 """Laboratório de Pesquisa organizado em abas (Diagnóstico, Parâmetros e Histórico)."""
 
+import time
+import traceback
 from copy import deepcopy
 from typing import Any, Dict, List, Optional
 
@@ -77,12 +79,20 @@ def queue_lab_action(
     st.rerun()
 
 
+def _terminal_log_callback(message: str) -> None:
+    components_module.append_terminal_log(message)
+
+
 def _run_pipeline_action(
     manager: CycleManager,
     configs: Dict[str, Dict[str, Any]],
     message: str,
 ) -> str:
-    result = manager.run_all(model_configs=configs, export_figure=False)
+    result = manager.run_all(
+        callback=_terminal_log_callback,
+        model_configs=configs,
+        export_figure=False,
+    )
     run_id = result.get("experiment", {}).get("run_id", "-")
     records = result.get("experiment", {}).get("new_records", [])
     if records:
@@ -161,7 +171,7 @@ def _dispatch_pending_action(
             manager, saved, f"🎛️ Covariáveis atualizadas no gráfico ({state_lbl})!"
         )
 
-    res = manager.compact_to_champion(export_figure=False)
+    res = manager.compact_to_champion(callback=_terminal_log_callback, export_figure=False)
     _bump_ui_version()
     if res.get("empty"):
         return "ℹ️ Nenhuma rodada encontrada para compactar."
@@ -175,17 +185,26 @@ def process_pending_action(root_dir: str) -> None:
     if not isinstance(pending, dict):
         return
 
+    action_type = str(pending.get("type", ""))
     backdrop = components_module.render_loading_backdrop(
         str(pending.get("loading_message", "Processando experimento..."))
     )
+    t_start = time.perf_counter()
+    _terminal_log_callback(f"[UI] Executando ação '{action_type}'...")
     try:
         manager = CycleManager(root_dir)
         feedback = _dispatch_pending_action(
             manager,
-            str(pending.get("type", "")),
+            action_type,
             dict(pending.get("payload", {})),
         )
+        elapsed_ms = (time.perf_counter() - t_start) * 1000.0
+        _terminal_log_callback(f"[UI] Ação '{action_type}' concluída em {elapsed_ms:.1f} ms.")
         st.session_state["lab_feedback"] = feedback
+    except Exception as err:  # noqa: BLE001
+        _terminal_log_callback(f"[ERRO] Falha em '{action_type}': {err}")
+        _terminal_log_callback(traceback.format_exc())
+        st.session_state["lab_error"] = f"❌ Erro ao executar `{action_type}`: {err}"
     finally:
         st.session_state.pop("pending_lab_action", None)
         backdrop.empty()
@@ -825,6 +844,9 @@ def render_research_workbench(
     feedback = st.session_state.pop("lab_feedback", None)
     if feedback:
         st.success(feedback)
+    lab_err = st.session_state.pop("lab_error", None)
+    if lab_err:
+        st.error(lab_err)
 
     criterion = "multi_criteria"
     active_scenario = sanitize_scenario(zenodo_data.get("evaluation_scenario"))

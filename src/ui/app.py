@@ -392,6 +392,10 @@ def main() -> None:
 
     json_path = os.path.join(project_root, "data", "db", "zenodo_forecast_results.json")
     zenodo_data = load_zenodo_results(project_root, _file_stat_sig(json_path))
+    components_module.ensure_terminal_initialized(
+        str(zenodo_data.get("active_run_id", "-")),
+        str(zenodo_data.get("evaluation_scenario", "v1_internal_split")),
+    )
 
     with st.sidebar:
         st.markdown("### ⚡ PGENE585 - PPGEE / UFAM")
@@ -408,6 +412,9 @@ def main() -> None:
         )
 
         _render_sidebar_downloads(project_root)
+
+        st.markdown("---")
+        components_module.render_vscode_terminal()
 
         st.markdown("---")
         st.caption(

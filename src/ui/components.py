@@ -2,6 +2,7 @@
 
 import html
 import re
+from datetime import datetime
 from typing import Any, Dict, List, Tuple
 
 import streamlit as st
@@ -141,6 +142,57 @@ def apply_custom_styles() -> None:
         @keyframes spin-action {
             to { transform: rotate(360deg); }
         }
+        .vscode-terminal-box {
+            background: #1e1e1e;
+            border: 1px solid #3c3c3c;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 6px 0 8px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+        }
+        .vscode-terminal-header {
+            background: #252526;
+            border-bottom: 1px solid #333333;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 10.5px;
+            letter-spacing: 0.06em;
+            color: #cccccc;
+        }
+        .vscode-terminal-tab {
+            color: #ffffff;
+            font-weight: 700;
+            border-bottom: 1.5px solid #38bdf8;
+            padding-bottom: 2px;
+        }
+        .vscode-terminal-meta {
+            color: #858585;
+            font-size: 10px;
+        }
+        .vscode-terminal-body {
+            max-height: 210px;
+            overflow-y: auto;
+            overflow-x: auto;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column-reverse;
+            font-size: 11px;
+            line-height: 1.45;
+            color: #d4d4d4;
+        }
+        .vscode-term-line {
+            white-space: pre-wrap;
+            word-break: break-word;
+            margin-bottom: 2px;
+        }
+        .vscode-term-ts { color: #6a9955; }
+        .vscode-term-tag { color: #4ec9b0; font-weight: 600; }
+        .vscode-term-ok { color: #89d185; font-weight: 600; }
+        .vscode-term-warn { color: #dcdcaa; }
+        .vscode-term-err { color: #f48771; font-weight: 600; }
         </style>
         """,
         unsafe_allow_html=True,
@@ -420,3 +472,87 @@ def render_explained_dataframe(df: Any) -> None:
         hide_index=True,
         column_config=build_table_column_config(columns),
     )
+
+
+_TERMINAL_LOG_KEY = "vscode_terminal_logs"
+_MAX_TERMINAL_LINES = 120
+
+
+def append_terminal_log(message: str) -> None:
+    """Adiciona uma ou mais linhas de log ao terminal em sessão (estilo VS Code)."""
+    logs: List[str] = list(st.session_state.get(_TERMINAL_LOG_KEY, []))
+    stamp = datetime.now().strftime("%H:%M:%S")
+    for raw_line in str(message).splitlines() or [""]:
+        logs.append(f"[{stamp}] {raw_line}")
+    if len(logs) > _MAX_TERMINAL_LINES:
+        logs = logs[-_MAX_TERMINAL_LINES:]
+    st.session_state[_TERMINAL_LOG_KEY] = logs
+
+
+def clear_terminal_logs() -> None:
+    """Limpa o buffer do terminal da barra lateral."""
+    st.session_state[_TERMINAL_LOG_KEY] = [
+        f"[{datetime.now().strftime('%H:%M:%S')}] [Terminal] Log limpo. Aguardando ações..."
+    ]
+
+
+def ensure_terminal_initialized(run_id: str, scenario: str) -> None:
+    """Inicializa o terminal na primeira carga da sessão com o status atual."""
+    if _TERMINAL_LOG_KEY not in st.session_state:
+        st.session_state[_TERMINAL_LOG_KEY] = [
+            (
+                f"[{datetime.now().strftime('%H:%M:%S')}] "
+                f"[System] Sessão iniciada · rodada={run_id or '-'} · cenário={scenario}"
+            )
+        ]
+
+
+def _style_terminal_line(line: str) -> str:
+    escaped = html.escape(line)
+    escaped = re.sub(
+        r"^(\[\d{2}:\d{2}:\d{2}\])",
+        r'<span class="vscode-term-ts">\1</span>',
+        escaped,
+    )
+    escaped = re.sub(
+        r"(\[(?:CycleManager|ZenodoPipeline|Cache|Treino|System|Terminal|UI)\])",
+        r'<span class="vscode-term-tag">\1</span>',
+        escaped,
+    )
+    if "[ERRO]" in escaped or "Traceback" in escaped or "Error:" in escaped:
+        return f'<div class="vscode-term-line vscode-term-err">{escaped}</div>'
+    if "✅" in escaped or "🏆" in escaped or "concluída" in escaped:
+        return f'<div class="vscode-term-line vscode-term-ok">{escaped}</div>'
+    if "-&gt;" in escaped or "⚠️" in escaped:
+        return f'<div class="vscode-term-line vscode-term-warn">{escaped}</div>'
+    return f'<div class="vscode-term-line">{escaped}</div>'
+
+
+def render_vscode_terminal() -> None:
+    """Renderiza painel de terminal estilo VS Code na barra lateral com logs ao vivo."""
+    logs: List[str] = list(st.session_state.get(_TERMINAL_LOG_KEY, []))
+    c_lbl, c_clr = st.columns([2.2, 1.0])
+    with c_lbl:
+        st.markdown("**🖥️ Terminal de Execução:**")
+    with c_clr:
+        st.button(
+            "🗑️ Limpar",
+            key="btn_clear_vscode_terminal",
+            width="stretch",
+            on_click=clear_terminal_logs,
+            help="Limpa o histórico visual deste terminal.",
+        )
+
+    lines_html = "".join(_style_terminal_line(line) for line in logs)
+    terminal_html = (
+        '<div class="vscode-terminal-box">'
+        '<div class="vscode-terminal-header">'
+        '<span class="vscode-terminal-tab">TERMINAL</span>'
+        '<span class="vscode-terminal-meta">python • CycleManager</span>'
+        "</div>"
+        '<div class="vscode-terminal-body">'
+        f"<div>{lines_html}</div>"
+        "</div>"
+        "</div>"
+    )
+    st.markdown(terminal_html, unsafe_allow_html=True)

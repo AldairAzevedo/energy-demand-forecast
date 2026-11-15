@@ -6,7 +6,7 @@ import os
 import time
 from collections import OrderedDict
 from copy import deepcopy
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
@@ -491,8 +491,10 @@ class ZenodoPipeline:
         self,
         model_configs: Optional[Dict[str, Dict[str, Any]]] = None,
         export_figure: bool = True,
+        callback: Optional[Callable[[str], None]] = None,
     ) -> Dict[str, Any]:
         """Executa o pipeline completo no cenário ativo com corte causal e previsão 1h."""
+        log = callback if callback is not None else (lambda _msg: None)
         raw_cfgs = model_configs if model_configs is not None else get_default_all_configs()
         resolved_cfgs = {key: sanitize_model_config(key, raw_cfgs.get(key)) for key in MODEL_KEYS}
 
@@ -507,11 +509,13 @@ class ZenodoPipeline:
 
         cached_forecast = self._load_cached_forecast(scenario, mem_key, disk_cache_path)
         if cached_forecast is not None:
+            log(f" -> [Cache] Previsão recuperada do snapshot ({cache_hash[:8]}) sem retreino.")
             save_json(cached_forecast, out_path)
             if export_figure:
                 self._export_figure(cached_forecast)
             return cached_forecast
 
+        log(f" -> [ZenodoPipeline] Carregando tabelas horárias ({scenario})...")
         tables = self._load_scenario_tables(scenario)
 
         benchmarking: Dict[str, Any] = {}
@@ -520,6 +524,7 @@ class ZenodoPipeline:
         arrays_cache: Dict[str, Dict[str, Any]] = {}
 
         for key in MODEL_KEYS:
+            log(f" -> [Treino] Ajustando {MODEL_DISPLAY_NAMES[key]}...")
             entry, preds, arrays = self._run_single_model(
                 key,
                 resolved_cfgs[key],
@@ -529,6 +534,11 @@ class ZenodoPipeline:
             )
             benchmarking[key] = entry
             predictions[key] = preds
+            m_entry = entry["metrics"]
+            log(
+                f"    • {key}: RMSE={m_entry['rmse']:.1f} W | "
+                f"Nota={m_entry['multi_criteria_score']:.1f} | {m_entry['runtime_ms']:.1f} ms"
+            )
             if ref_arrays is None:
                 ref_arrays = arrays
 

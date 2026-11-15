@@ -1,6 +1,6 @@
 {
   "schema_version": "1.2.0",
-  "updated_at": "2026-11-15T22:32:56+00:00",
+  "updated_at": "2026-11-15T23:36:16+00:00",
   "active_scenario": "v1_internal_split",
   "selection_criterion": "multi_criteria",
   "best_by_model": {
@@ -1694,6 +1694,1137 @@
           "num_features": 14,
           "run_id": "run_0001",
           "achieved_at": "2026-11-15T22:05:19+00:00"
+        }
+      }
+    },
+    "v1_to_v2": {
+      "multi_criteria": {
+        "Ridge_Linear": {
+          "model_key": "Ridge_Linear",
+          "display_name": "Ridge Linear (Baseline)",
+          "evaluation_scenario": "v1_to_v2",
+          "best_rmse": 810.2816,
+          "multi_criteria_score": 60.07,
+          "metrics": {
+            "mse": 656556.2964,
+            "rmse": 810.2816,
+            "mae": 462.4419,
+            "r2": 0.8381,
+            "train_time_ms": 13.63,
+            "inference_time_ms": 0.1,
+            "runtime_ms": 13.74,
+            "multi_criteria_score": 60.07
+          },
+          "train_metrics": {
+            "mse": 136741.6443,
+            "rmse": 369.7859,
+            "mae": 238.8008,
+            "r2": 0.8661,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Overfitting (Decorou Treino)",
+            "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+            "gap_r2_pct": 2.8,
+            "overfit_ratio": 2.19
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 28.8,
+            "hit_rate_200w_pct": 47.7,
+            "high_error_rate_300w_pct": 38.3,
+            "mean_bias_w": -11.53,
+            "p95_abs_error_w": 1811.89,
+            "max_abs_error_w": 5770.49,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 198,
+                "mae_w": 119.08,
+                "rmse_w": 160.23,
+                "hit_rate_200w_pct": 84.3
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 198,
+                "mae_w": 801.08,
+                "rmse_w": 1251.91,
+                "hit_rate_200w_pct": 13.1
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 198,
+                "mae_w": 612.09,
+                "rmse_w": 870.04,
+                "hit_rate_200w_pct": 30.3
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 198,
+                "mae_w": 317.51,
+                "rmse_w": 525.66,
+                "hit_rate_200w_pct": 63.1
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 347,
+                "hour_of_day": 10,
+                "real_w": 7656.8,
+                "pred_w": 1886.3,
+                "abs_error_w": 5770.5
+              },
+              {
+                "test_hour_index": 708,
+                "hour_of_day": 11,
+                "real_w": 5430.2,
+                "pred_w": 418.2,
+                "abs_error_w": 5012.0
+              },
+              {
+                "test_hour_index": 371,
+                "hour_of_day": 10,
+                "real_w": 6434.7,
+                "pred_w": 2163.5,
+                "abs_error_w": 4271.1
+              },
+              {
+                "test_hour_index": 395,
+                "hour_of_day": 10,
+                "real_w": 5960.8,
+                "pred_w": 2047.8,
+                "abs_error_w": 3913.0
+              },
+              {
+                "test_hour_index": 491,
+                "hour_of_day": 10,
+                "real_w": 7156.5,
+                "pred_w": 3474.2,
+                "abs_error_w": 3682.3
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 215,
+                "hour_of_day": 22,
+                "real_w": 764.2,
+                "pred_w": 764.3,
+                "abs_error_w": 0.1
+              },
+              {
+                "test_hour_index": 507,
+                "hour_of_day": 2,
+                "real_w": 900.7,
+                "pred_w": 900.6,
+                "abs_error_w": 0.1
+              },
+              {
+                "test_hour_index": 460,
+                "hour_of_day": 3,
+                "real_w": 854.2,
+                "pred_w": 854.4,
+                "abs_error_w": 0.3
+              },
+              {
+                "test_hour_index": 673,
+                "hour_of_day": 0,
+                "real_w": 840.8,
+                "pred_w": 840.6,
+                "abs_error_w": 0.3
+              },
+              {
+                "test_hour_index": 594,
+                "hour_of_day": 17,
+                "real_w": 1087.1,
+                "pred_w": 1087.5,
+                "abs_error_w": 0.4
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Ridge_Linear",
+            "display_name": "Ridge Linear (Baseline)",
+            "features": {
+              "power_lags": [],
+              "rolling_mean_windows": [],
+              "rolling_std_windows": [
+                24
+              ],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": true,
+              "use_generation": true,
+              "use_electrical_lags": true
+            },
+            "split": {
+              "evaluation_scenario": "v1_to_v2",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "alpha": 1.0
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos",
+            "temp_c",
+            "gen_w",
+            "voltage_lag_1",
+            "amperage_lag_1",
+            "power_roll_std_24"
+          ],
+          "num_features": 7,
+          "run_id": "run_0002",
+          "achieved_at": "2026-11-15T23:35:14+00:00"
+        },
+        "Random_Forest": {
+          "model_key": "Random_Forest",
+          "display_name": "Random Forest (Árvores)",
+          "evaluation_scenario": "v1_to_v2",
+          "best_rmse": 1657.9635,
+          "multi_criteria_score": 14.13,
+          "metrics": {
+            "mse": 2748843.0168,
+            "rmse": 1657.9635,
+            "mae": 1224.4739,
+            "r2": 0.3223,
+            "train_time_ms": 116.83,
+            "inference_time_ms": 23.06,
+            "runtime_ms": 139.89,
+            "multi_criteria_score": 14.13
+          },
+          "train_metrics": {
+            "mse": 599680.6487,
+            "rmse": 774.3905,
+            "mae": 524.8396,
+            "r2": 0.4128,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Underfitting (Aprendeu Pouco)",
+            "summary": "Erro alto tanto no treino quanto no teste; faltam atributos ou flexibilidade.",
+            "gap_r2_pct": 9.05,
+            "overfit_ratio": 2.14
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 3.7,
+            "hit_rate_200w_pct": 6.8,
+            "high_error_rate_300w_pct": 90.9,
+            "mean_bias_w": -194.84,
+            "p95_abs_error_w": 3627.87,
+            "max_abs_error_w": 6105.75,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 198,
+                "mae_w": 522.45,
+                "rmse_w": 579.41,
+                "hit_rate_200w_pct": 8.1
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 198,
+                "mae_w": 1588.73,
+                "rmse_w": 2110.18,
+                "hit_rate_200w_pct": 4.5
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 198,
+                "mae_w": 2187.74,
+                "rmse_w": 2382.24,
+                "hit_rate_200w_pct": 1.5
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 198,
+                "mae_w": 598.98,
+                "rmse_w": 729.19,
+                "hit_rate_200w_pct": 13.1
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 12,
+                "hour_of_day": 11,
+                "real_w": 8933.1,
+                "pred_w": 2827.3,
+                "abs_error_w": 6105.8
+              },
+              {
+                "test_hour_index": 324,
+                "hour_of_day": 11,
+                "real_w": 8574.1,
+                "pred_w": 2827.3,
+                "abs_error_w": 5746.8
+              },
+              {
+                "test_hour_index": 492,
+                "hour_of_day": 11,
+                "real_w": 8438.2,
+                "pred_w": 2827.3,
+                "abs_error_w": 5610.8
+              },
+              {
+                "test_hour_index": 137,
+                "hour_of_day": 16,
+                "real_w": 8550.2,
+                "pred_w": 2956.1,
+                "abs_error_w": 5594.0
+              },
+              {
+                "test_hour_index": 347,
+                "hour_of_day": 10,
+                "real_w": 7656.8,
+                "pred_w": 2378.1,
+                "abs_error_w": 5278.6
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 212,
+                "hour_of_day": 19,
+                "real_w": 1702.6,
+                "pred_w": 1702.2,
+                "abs_error_w": 0.4
+              },
+              {
+                "test_hour_index": 739,
+                "hour_of_day": 18,
+                "real_w": 2268.8,
+                "pred_w": 2266.4,
+                "abs_error_w": 2.3
+              },
+              {
+                "test_hour_index": 267,
+                "hour_of_day": 2,
+                "real_w": 1349.7,
+                "pred_w": 1344.7,
+                "abs_error_w": 5.0
+              },
+              {
+                "test_hour_index": 296,
+                "hour_of_day": 7,
+                "real_w": 1370.9,
+                "pred_w": 1365.1,
+                "abs_error_w": 5.8
+              },
+              {
+                "test_hour_index": 241,
+                "hour_of_day": 0,
+                "real_w": 1335.0,
+                "pred_w": 1345.9,
+                "abs_error_w": 10.9
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Random_Forest",
+            "display_name": "Random Forest (Árvores)",
+            "features": {
+              "power_lags": [],
+              "rolling_mean_windows": [],
+              "rolling_std_windows": [],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": false,
+              "use_generation": false,
+              "use_electrical_lags": false
+            },
+            "split": {
+              "evaluation_scenario": "v1_to_v2",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "n_estimators": 100,
+              "max_depth": 16,
+              "min_samples_leaf": 1
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos"
+          ],
+          "num_features": 2,
+          "run_id": "run_0002",
+          "achieved_at": "2026-11-15T23:35:14+00:00"
+        },
+        "Hist_Gradient_Boosting": {
+          "model_key": "Hist_Gradient_Boosting",
+          "display_name": "HistGradientBoosting (Tabular)",
+          "evaluation_scenario": "v1_to_v2",
+          "best_rmse": 734.7562,
+          "multi_criteria_score": 59.01,
+          "metrics": {
+            "mse": 539866.6334,
+            "rmse": 734.7562,
+            "mae": 408.1546,
+            "r2": 0.8669,
+            "train_time_ms": 385.68,
+            "inference_time_ms": 3.81,
+            "runtime_ms": 389.49,
+            "multi_criteria_score": 59.01
+          },
+          "train_metrics": {
+            "mse": 27957.1478,
+            "rmse": 167.2039,
+            "mae": 92.4134,
+            "r2": 0.9726,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Overfitting (Decorou Treino)",
+            "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+            "gap_r2_pct": 10.57,
+            "overfit_ratio": 4.39
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 39.8,
+            "hit_rate_200w_pct": 57.7,
+            "high_error_rate_300w_pct": 32.2,
+            "mean_bias_w": -130.01,
+            "p95_abs_error_w": 1672.68,
+            "max_abs_error_w": 4582.43,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 198,
+                "mae_w": 130.53,
+                "rmse_w": 215.53,
+                "hit_rate_200w_pct": 85.4
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 198,
+                "mae_w": 661.33,
+                "rmse_w": 1079.25,
+                "hit_rate_200w_pct": 46.0
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 198,
+                "mae_w": 614.86,
+                "rmse_w": 914.52,
+                "hit_rate_200w_pct": 37.9
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 198,
+                "mae_w": 225.9,
+                "rmse_w": 334.51,
+                "hit_rate_200w_pct": 61.6
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 347,
+                "hour_of_day": 10,
+                "real_w": 7656.8,
+                "pred_w": 3074.3,
+                "abs_error_w": 4582.4
+              },
+              {
+                "test_hour_index": 683,
+                "hour_of_day": 10,
+                "real_w": 0.0,
+                "pred_w": 3711.2,
+                "abs_error_w": 3711.2
+              },
+              {
+                "test_hour_index": 708,
+                "hour_of_day": 11,
+                "real_w": 5430.2,
+                "pred_w": 1907.1,
+                "abs_error_w": 3523.1
+              },
+              {
+                "test_hour_index": 137,
+                "hour_of_day": 16,
+                "real_w": 8550.2,
+                "pred_w": 5033.4,
+                "abs_error_w": 3516.8
+              },
+              {
+                "test_hour_index": 324,
+                "hour_of_day": 11,
+                "real_w": 8574.1,
+                "pred_w": 5113.8,
+                "abs_error_w": 3460.3
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 438,
+                "hour_of_day": 5,
+                "real_w": 852.0,
+                "pred_w": 851.8,
+                "abs_error_w": 0.2
+              },
+              {
+                "test_hour_index": 47,
+                "hour_of_day": 22,
+                "real_w": 993.2,
+                "pred_w": 992.7,
+                "abs_error_w": 0.6
+              },
+              {
+                "test_hour_index": 440,
+                "hour_of_day": 7,
+                "real_w": 849.8,
+                "pred_w": 849.2,
+                "abs_error_w": 0.6
+              },
+              {
+                "test_hour_index": 55,
+                "hour_of_day": 6,
+                "real_w": 979.8,
+                "pred_w": 979.0,
+                "abs_error_w": 0.8
+              },
+              {
+                "test_hour_index": 463,
+                "hour_of_day": 6,
+                "real_w": 850.3,
+                "pred_w": 849.5,
+                "abs_error_w": 0.8
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Hist_Gradient_Boosting",
+            "display_name": "HistGradientBoosting (Tabular)",
+            "features": {
+              "power_lags": [
+                1,
+                2,
+                3,
+                24,
+                48,
+                168
+              ],
+              "rolling_mean_windows": [
+                6,
+                24
+              ],
+              "rolling_std_windows": [
+                24
+              ],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": true,
+              "use_generation": false,
+              "use_electrical_lags": true
+            },
+            "split": {
+              "evaluation_scenario": "v1_to_v2",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "max_iter": 200,
+              "learning_rate": 0.05,
+              "max_depth": 0,
+              "l2_regularization": 0.0
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos",
+            "temp_c",
+            "voltage_lag_1",
+            "amperage_lag_1",
+            "power_lag_1",
+            "power_lag_2",
+            "power_lag_3",
+            "power_lag_24",
+            "power_lag_48",
+            "power_lag_168",
+            "power_roll_mean_6",
+            "power_roll_mean_24",
+            "power_roll_std_24"
+          ],
+          "num_features": 14,
+          "run_id": "run_0002",
+          "achieved_at": "2026-11-15T23:35:14+00:00"
+        }
+      }
+    },
+    "v1_v2_to_v4": {
+      "multi_criteria": {
+        "Ridge_Linear": {
+          "model_key": "Ridge_Linear",
+          "display_name": "Ridge Linear (Baseline)",
+          "evaluation_scenario": "v1_v2_to_v4",
+          "best_rmse": 817.6516,
+          "multi_criteria_score": 66.24,
+          "metrics": {
+            "mse": 668554.2154,
+            "rmse": 817.6516,
+            "mae": 511.1288,
+            "r2": 0.8345,
+            "train_time_ms": 1.22,
+            "inference_time_ms": 0.11,
+            "runtime_ms": 1.34,
+            "multi_criteria_score": 66.24
+          },
+          "train_metrics": {
+            "mse": 162281.0889,
+            "rmse": 402.8413,
+            "mae": 238.2353,
+            "r2": 0.876,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Overfitting (Decorou Treino)",
+            "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+            "gap_r2_pct": 4.15,
+            "overfit_ratio": 2.03
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 18.8,
+            "hit_rate_200w_pct": 41.7,
+            "high_error_rate_300w_pct": 43.8,
+            "mean_bias_w": 3.08,
+            "p95_abs_error_w": 1697.86,
+            "max_abs_error_w": 3199.76,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 12,
+                "mae_w": 147.17,
+                "rmse_w": 165.62,
+                "hit_rate_200w_pct": 75.0
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 12,
+                "mae_w": 592.1,
+                "rmse_w": 1037.62,
+                "hit_rate_200w_pct": 25.0
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 12,
+                "mae_w": 689.33,
+                "rmse_w": 928.9,
+                "hit_rate_200w_pct": 25.0
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 12,
+                "mae_w": 615.92,
+                "rmse_w": 840.99,
+                "hit_rate_200w_pct": 41.7
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 35,
+                "hour_of_day": 11,
+                "real_w": 5298.0,
+                "pred_w": 2098.2,
+                "abs_error_w": 3199.8
+              },
+              {
+                "test_hour_index": 15,
+                "hour_of_day": 15,
+                "real_w": 7541.0,
+                "pred_w": 5125.1,
+                "abs_error_w": 2415.9
+              },
+              {
+                "test_hour_index": 43,
+                "hour_of_day": 19,
+                "real_w": 2607.0,
+                "pred_w": 4426.6,
+                "abs_error_w": 1819.6
+              },
+              {
+                "test_hour_index": 21,
+                "hour_of_day": 21,
+                "real_w": 1733.0,
+                "pred_w": 3204.8,
+                "abs_error_w": 1471.8
+              },
+              {
+                "test_hour_index": 10,
+                "hour_of_day": 10,
+                "real_w": 2921.0,
+                "pred_w": 1594.8,
+                "abs_error_w": 1326.2
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 6,
+                "hour_of_day": 6,
+                "real_w": 1832.0,
+                "pred_w": 1802.9,
+                "abs_error_w": 29.1
+              },
+              {
+                "test_hour_index": 48,
+                "hour_of_day": 0,
+                "real_w": 560.0,
+                "pred_w": 529.4,
+                "abs_error_w": 30.6
+              },
+              {
+                "test_hour_index": 23,
+                "hour_of_day": 23,
+                "real_w": 594.0,
+                "pred_w": 558.0,
+                "abs_error_w": 36.0
+              },
+              {
+                "test_hour_index": 7,
+                "hour_of_day": 7,
+                "real_w": 1797.0,
+                "pred_w": 1848.1,
+                "abs_error_w": 51.1
+              },
+              {
+                "test_hour_index": 5,
+                "hour_of_day": 5,
+                "real_w": 1822.0,
+                "pred_w": 1764.1,
+                "abs_error_w": 57.9
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Ridge_Linear",
+            "display_name": "Ridge Linear (Baseline)",
+            "features": {
+              "power_lags": [],
+              "rolling_mean_windows": [],
+              "rolling_std_windows": [
+                24
+              ],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": true,
+              "use_generation": true,
+              "use_electrical_lags": true
+            },
+            "split": {
+              "evaluation_scenario": "v1_v2_to_v4",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "alpha": 1.0
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos",
+            "temp_c",
+            "power_lag_1",
+            "power_lag_2",
+            "power_lag_3",
+            "power_lag_24",
+            "power_roll_std_24"
+          ],
+          "num_features": 8,
+          "run_id": "run_0003",
+          "achieved_at": "2026-11-15T23:35:20+00:00"
+        },
+        "Random_Forest": {
+          "model_key": "Random_Forest",
+          "display_name": "Random Forest (Árvores)",
+          "evaluation_scenario": "v1_v2_to_v4",
+          "best_rmse": 817.9498,
+          "multi_criteria_score": 55.29,
+          "metrics": {
+            "mse": 669041.9279,
+            "rmse": 817.9498,
+            "mae": 511.0146,
+            "r2": 0.8344,
+            "train_time_ms": 1363.24,
+            "inference_time_ms": 23.82,
+            "runtime_ms": 1387.06,
+            "multi_criteria_score": 55.29
+          },
+          "train_metrics": {
+            "mse": 17803.3401,
+            "rmse": 133.4292,
+            "mae": 65.023,
+            "r2": 0.9864,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Overfitting (Decorou Treino)",
+            "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+            "gap_r2_pct": 15.2,
+            "overfit_ratio": 6.13
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 18.8,
+            "hit_rate_200w_pct": 41.7,
+            "high_error_rate_300w_pct": 39.6,
+            "mean_bias_w": -164.18,
+            "p95_abs_error_w": 1213.02,
+            "max_abs_error_w": 3535.23,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 12,
+                "mae_w": 121.94,
+                "rmse_w": 143.77,
+                "hit_rate_200w_pct": 75.0
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 12,
+                "mae_w": 565.62,
+                "rmse_w": 1100.54,
+                "hit_rate_200w_pct": 50.0
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 12,
+                "mae_w": 729.76,
+                "rmse_w": 946.95,
+                "hit_rate_200w_pct": 25.0
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 12,
+                "mae_w": 626.73,
+                "rmse_w": 739.99,
+                "hit_rate_200w_pct": 16.7
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 35,
+                "hour_of_day": 11,
+                "real_w": 5298.0,
+                "pred_w": 1762.8,
+                "abs_error_w": 3535.2
+              },
+              {
+                "test_hour_index": 15,
+                "hour_of_day": 15,
+                "real_w": 7541.0,
+                "pred_w": 5240.0,
+                "abs_error_w": 2301.0
+              },
+              {
+                "test_hour_index": 16,
+                "hour_of_day": 16,
+                "real_w": 7518.0,
+                "pred_w": 6275.9,
+                "abs_error_w": 1242.1
+              },
+              {
+                "test_hour_index": 42,
+                "hour_of_day": 18,
+                "real_w": 4683.0,
+                "pred_w": 3524.0,
+                "abs_error_w": 1159.0
+              },
+              {
+                "test_hour_index": 19,
+                "hour_of_day": 19,
+                "real_w": 3946.0,
+                "pred_w": 2803.8,
+                "abs_error_w": 1142.2
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 26,
+                "hour_of_day": 2,
+                "real_w": 597.0,
+                "pred_w": 576.4,
+                "abs_error_w": 20.6
+              },
+              {
+                "test_hour_index": 24,
+                "hour_of_day": 0,
+                "real_w": 592.0,
+                "pred_w": 623.1,
+                "abs_error_w": 31.1
+              },
+              {
+                "test_hour_index": 23,
+                "hour_of_day": 23,
+                "real_w": 594.0,
+                "pred_w": 553.4,
+                "abs_error_w": 40.6
+              },
+              {
+                "test_hour_index": 40,
+                "hour_of_day": 16,
+                "real_w": 5158.0,
+                "pred_w": 5206.1,
+                "abs_error_w": 48.1
+              },
+              {
+                "test_hour_index": 25,
+                "hour_of_day": 1,
+                "real_w": 588.0,
+                "pred_w": 646.4,
+                "abs_error_w": 58.4
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Random_Forest",
+            "display_name": "Random Forest (Árvores)",
+            "features": {
+              "power_lags": [],
+              "rolling_mean_windows": [],
+              "rolling_std_windows": [],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": false,
+              "use_generation": false,
+              "use_electrical_lags": false
+            },
+            "split": {
+              "evaluation_scenario": "v1_v2_to_v4",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "n_estimators": 100,
+              "max_depth": 16,
+              "min_samples_leaf": 1
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos",
+            "power_lag_1",
+            "power_lag_2",
+            "power_lag_3",
+            "power_lag_24"
+          ],
+          "num_features": 6,
+          "run_id": "run_0003",
+          "achieved_at": "2026-11-15T23:35:20+00:00"
+        },
+        "Hist_Gradient_Boosting": {
+          "model_key": "Hist_Gradient_Boosting",
+          "display_name": "HistGradientBoosting (Tabular)",
+          "evaluation_scenario": "v1_v2_to_v4",
+          "best_rmse": 998.4736,
+          "multi_criteria_score": 40.05,
+          "metrics": {
+            "mse": 996949.5295,
+            "rmse": 998.4736,
+            "mae": 757.484,
+            "r2": 0.7532,
+            "train_time_ms": 360.97,
+            "inference_time_ms": 2.07,
+            "runtime_ms": 363.03,
+            "multi_criteria_score": 40.05
+          },
+          "train_metrics": {
+            "mse": 44865.4349,
+            "rmse": 211.8146,
+            "mae": 115.0415,
+            "r2": 0.9657,
+            "train_time_ms": 0.0,
+            "inference_time_ms": 0.0,
+            "runtime_ms": 0.0
+          },
+          "learning_diagnosis": {
+            "status": "Overfitting (Decorou Treino)",
+            "summary": "Acertou muito no treino, mas perdeu precisão ao enfrentar dados novos no teste.",
+            "gap_r2_pct": 21.25,
+            "overfit_ratio": 4.71
+          },
+          "error_diagnostics": {
+            "hit_rate_100w_pct": 8.3,
+            "hit_rate_200w_pct": 27.1,
+            "high_error_rate_300w_pct": 66.7,
+            "mean_bias_w": 158.57,
+            "p95_abs_error_w": 1875.66,
+            "max_abs_error_w": 3269.39,
+            "period_breakdown": [
+              {
+                "period": "Madrugada (00h–05h)",
+                "samples": 12,
+                "mae_w": 483.9,
+                "rmse_w": 608.43,
+                "hit_rate_200w_pct": 33.3
+              },
+              {
+                "period": "Manhã (06h–11h)",
+                "samples": 12,
+                "mae_w": 1016.55,
+                "rmse_w": 1320.81,
+                "hit_rate_200w_pct": 25.0
+              },
+              {
+                "period": "Tarde (12h–17h)",
+                "samples": 12,
+                "mae_w": 909.55,
+                "rmse_w": 1132.06,
+                "hit_rate_200w_pct": 25.0
+              },
+              {
+                "period": "Noite (18h–23h)",
+                "samples": 12,
+                "mae_w": 619.94,
+                "rmse_w": 769.09,
+                "hit_rate_200w_pct": 25.0
+              }
+            ],
+            "top_worst_hours": [
+              {
+                "test_hour_index": 35,
+                "hour_of_day": 11,
+                "real_w": 5298.0,
+                "pred_w": 2028.6,
+                "abs_error_w": 3269.4
+              },
+              {
+                "test_hour_index": 15,
+                "hour_of_day": 15,
+                "real_w": 7541.0,
+                "pred_w": 5364.4,
+                "abs_error_w": 2176.6
+              },
+              {
+                "test_hour_index": 17,
+                "hour_of_day": 17,
+                "real_w": 6469.0,
+                "pred_w": 4456.5,
+                "abs_error_w": 2012.5
+              },
+              {
+                "test_hour_index": 32,
+                "hour_of_day": 8,
+                "real_w": 597.0,
+                "pred_w": 2218.6,
+                "abs_error_w": 1621.6
+              },
+              {
+                "test_hour_index": 33,
+                "hour_of_day": 9,
+                "real_w": 692.0,
+                "pred_w": 2255.0,
+                "abs_error_w": 1563.0
+              }
+            ],
+            "top_best_hours": [
+              {
+                "test_hour_index": 38,
+                "hour_of_day": 14,
+                "real_w": 4338.0,
+                "pred_w": 4294.4,
+                "abs_error_w": 43.6
+              },
+              {
+                "test_hour_index": 2,
+                "hour_of_day": 2,
+                "real_w": 1839.0,
+                "pred_w": 1901.1,
+                "abs_error_w": 62.1
+              },
+              {
+                "test_hour_index": 8,
+                "hour_of_day": 8,
+                "real_w": 1915.0,
+                "pred_w": 2003.4,
+                "abs_error_w": 88.4
+              },
+              {
+                "test_hour_index": 45,
+                "hour_of_day": 21,
+                "real_w": 1027.0,
+                "pred_w": 1124.5,
+                "abs_error_w": 97.5
+              },
+              {
+                "test_hour_index": 6,
+                "hour_of_day": 6,
+                "real_w": 1832.0,
+                "pred_w": 1940.5,
+                "abs_error_w": 108.5
+              }
+            ]
+          },
+          "config": {
+            "model_key": "Hist_Gradient_Boosting",
+            "display_name": "HistGradientBoosting (Tabular)",
+            "features": {
+              "power_lags": [
+                1,
+                2,
+                3,
+                24,
+                48,
+                168
+              ],
+              "rolling_mean_windows": [
+                6,
+                24
+              ],
+              "rolling_std_windows": [
+                24
+              ],
+              "use_cyclical_hour": true,
+              "use_raw_hour": false,
+              "use_temperature": true,
+              "use_generation": false,
+              "use_electrical_lags": true
+            },
+            "split": {
+              "evaluation_scenario": "v1_v2_to_v4",
+              "train_ratio": 0.7,
+              "random_state": 42,
+              "context_hours": 72,
+              "horizon_hours": 168
+            },
+            "hyperparameters": {
+              "max_iter": 200,
+              "learning_rate": 0.05,
+              "max_depth": 0,
+              "l2_regularization": 0.0
+            }
+          },
+          "features_used": [
+            "hour_sin",
+            "hour_cos",
+            "temp_c",
+            "power_lag_1",
+            "power_lag_2",
+            "power_lag_3",
+            "power_lag_24",
+            "power_roll_mean_6",
+            "power_roll_mean_24",
+            "power_roll_std_24"
+          ],
+          "num_features": 10,
+          "run_id": "run_0003",
+          "achieved_at": "2026-11-15T23:35:20+00:00"
         }
       }
     }
