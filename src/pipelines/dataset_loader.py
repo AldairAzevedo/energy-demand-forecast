@@ -54,7 +54,7 @@ def _read_disk_cache(
         meta = load_json(meta_path)
         if meta.get("sources") != expected_sources:
             return None
-        df = pd.read_csv(csv_path, float_precision="round_trip")
+        df = pd.read_csv(csv_path)
         if "timestamp_label" in df.columns:
             df["timestamp_label"] = df["timestamp_label"].astype(str)
         for col in df.columns:

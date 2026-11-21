@@ -60,6 +60,20 @@ Todos os resultados do último treino (`zenodo_forecast_results.json`), o estado
 
 ## 3. Instalação e Configuração
 
+### 3.1. Ambiente Recomendado: Dev Container (Docker)
+
+O repositório inclui [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json): imagem `mcr.microsoft.com/devcontainers/python:1-3.12-bookworm` (Debian 12 + **Python 3.12**), extensões Python/Pylance e instalação automática do `requirements.txt` na criação do contêiner. A porta **8501** (Streamlit) é encaminhada para o host.
+
+```bash
+# VS Code: Ctrl+Shift+P -> "Dev Containers: Reopen in Container"
+# ou pela CLI oficial (npm install -g @devcontainers/cli):
+devcontainer up --workspace-folder .
+```
+
+O Streamlit **não** sobe automaticamente; execute-o quando precisar (seção 4.1). Após alterar o `requirements.txt` ou o `devcontainer.json`, use **Dev Containers: Rebuild Container**.
+
+### 3.2. Instalação Manual
+
 ```bash
 pip install -r requirements.txt
 ```

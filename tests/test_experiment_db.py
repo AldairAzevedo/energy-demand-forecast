@@ -181,7 +181,7 @@ def test_read_bytes_resilient_permission_fallback(tmp_path, monkeypatch):
             raise PermissionError("Locked by Excel")
         return real_open(file, mode, *args, **kwargs)
 
-    monkeypatch.setattr("builtins.open", blocked_open)
+    monkeypatch.setattr("src.utils.file_resilience.open", blocked_open, raising=False)
     assert read_bytes_resilient(str(target)) == b"zenodo-payload"
 
 
