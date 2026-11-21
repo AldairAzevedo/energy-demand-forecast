@@ -20,6 +20,11 @@
 
 ## 🕒 2. Últimas Atividades Realizadas (Janela Deslizante: Últimas 3)
 
+### [Atividade -1] — Nome Fixo do Dev Container
+* **Data:** 21/11/2026
+* **O que foi feito:** `runArgs: ["--name", "energy-demand-forecast"]` no `.devcontainer/devcontainer.json` (contêiner com nome fixo em vez de aleatório; evita duplicatas silenciosas) e menção no `README.md` seção 3.1. Atividade 0 (Dev Container 3.12 + zero warnings) já commitada e enviada pelo usuário.
+* **Arquivos Chave:** `.devcontainer/devcontainer.json`, `README.md`.
+
 ### [Atividade 0] — Dev Container Enxuto (Python 3.12)
 * **Data:** 21/11/2026
 * **O que foi feito:**
@@ -39,17 +44,13 @@
   - Atualizados `src/utils/experiment_db.py` (Schema `1.2.0`, campeões isolados por cenário, `compact_history_to_champion`), `src/pipelines/cycle_manager.py` (`active_run_id`), `src/ui/components.py`, `src/ui/app.py` e `src/ui/param_lab.py` (`Hiperparâmetros de ML` vs. `Covariáveis`, *backdrop* unificado via `pending_lab_action`, indicador de `run_XXXX` no topo e botão `🧹 Limpar Histórico (Manter Só Campeão)`).
 * **Arquivos Chave:** `src/core/forecasting.py`, `src/core/parameter_schema.py`, `src/pipelines/dataset_loader.py`, `src/pipelines/zenodo_pipeline.py`, `src/utils/experiment_db.py`, `src/ui/*`, `tests/test_cross_dataset.py`.
 
-### [Atividade 2] — Evolução Multi-Critério, Bancada em 3 Abas e Remoção da Ingestão
-* **Data:** 13/11/2026
-* **O que foi feito:**
-  - Evoluído `src/core/diagnostics.py`, bancada em 3 abas (**Diagnóstico**, **Laboratório de Parâmetros** e **Histórico**), removida ingestão manual e diretório legado `data/cycles/`.
-* **Arquivos Chave:** `src/core/diagnostics.py`, `src/ui/param_lab.py`, `src/pipelines/cycle_manager.py`.
-
+* *(Compactada)* [Atividade 2] — 13/11/2026: Multi-Critério, bancada em 3 abas, remoção da ingestão (`src/core/diagnostics.py`, `src/ui/param_lab.py`).
 * *(Compactada)* [Atividade 3] — 13/11/2026: Zero Warnings + hooks pre-commit/pre-push (`scripts/*`, `.githooks/*`).
 
 ---
 
 ## 🎯 3. Próximos Passos & Onde Parou
 * **Onde parou:** Implementação cross-dataset (`v1`, `v2`, `v4`), gráfico Ponto de Corte + Covariáveis, padronização `Hiperparâmetros de ML vs. Covariáveis`, *backdrop* unificado, indicador `run_XXXX` no topo e compactação para o Campeão concluídos e aprovados no Quality Gate (18/18 testes) + `AppTest`.
-* **Dev Container (21/11/2026):** configuração enxuta em Python 3.12 validada: pytest 20/20 e flake8 sem erros dentro do contêiner; `Pandas4Warning` corrigido → 20 passed, 0 warnings. Alterações na *working tree*, aguardando commit do usuário.
+* **Dev Container (21/11/2026):** configuração enxuta em Python 3.12 validada: pytest 20/20 e flake8 sem erros dentro do contêiner; `Pandas4Warning` corrigido → 20 passed, 0 warnings. Commitado e enviado pelo usuário (21/11/2026).
+* **Nome fixo do contêiner (21/11/2026):** `runArgs --name energy-demand-forecast` aplicado na *working tree*; recriar com `devcontainer up --workspace-folder . --remove-existing-container`, validar e aguardar commit do usuário.
 * **Pronto para:** Testes ao vivo no Streamlit (`python -m streamlit run streamlit_app.py`), apresentação da disciplina PGENE585 ou `git commit` caso o usuário solicite.
